@@ -1,6 +1,8 @@
 #ifndef _GAME_HPP__
 #define _GAME_HPP__
 
+#include "AnimatedSprite.hpp"
+
 #include <SFML/Graphics.hpp>
 
 class Game : private sf::NonCopyable {
@@ -14,21 +16,31 @@ public:
 	void render();
 	void processEvents();
 
+	void setAnimation();
 	void updatePlayerVelocity(float& velocity);
+	void updateCurrentAnimation();
 	void handleInput(sf::Keyboard::Key key);
 
 private:
 
-	enum direction {
+	enum animationAction {
 
-		none,
-		left,
-		right
+		standRight,
+		standLeft,
+		walkRight,
+		walkLeft,
 	};
 
-	direction playerDirection;
-	sf::Texture playerTexture;
-	sf::Sprite playerSprite;
+	animationAction playerAction;
+	sf::Texture playerTextureWalk, playerTextureStand;
+
+	//Different animation declarations
+	Animation walkingRight, walkingLeft;
+	Animation standingRight, standingLeft;
+
+	Animation *currentAnimation;
+	AnimatedSprite playerSprite;
+
 	static const float playerVelocity;
 
 	static const sf::Time timePerFrame;

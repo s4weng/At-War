@@ -5,16 +5,57 @@ const float Game::playerVelocity = 100.f;
 const sf::Time Game::timePerFrame = sf::seconds(1.f/60.f);
 
 Game::Game():
-playerDirection(direction::none),
-playerTexture(),
+playerAction(animationAction::standRight),
+playerTextureWalk(),
+playerTextureStand(),
+walkingRight(),
+walkingLeft(),
+standingRight(),
+standingLeft(),
+currentAnimation(),
 playerSprite(),
 window(sf::VideoMode(640, 480), "At War"){
 
+	setAnimation();
 	//set up player's sprite
-	assert(playerTexture.loadFromFile("Images/Archer.png"));
+	/*assert(playerTexture.loadFromFile("Images/Archer.png"));
 
 	playerSprite.setTexture(playerTexture);
-	playerSprite.setPosition(50.f, 200.f);
+	playerSprite.setPosition(50.f, 200.f);*/
+}
+
+void Game::setAnimation(){
+
+    //load the spritesheets
+    assert(playerTextureWalk.loadFromFile("Images/ArcherWalk.png"));
+    assert(playerTextureStand.loadFromFile("Images/ArcherStand.png"));
+
+    //set up the animation frames
+    walkingRight.setSpriteSheet(playerTextureWalk);
+    walkingRight.addFrame(sf::IntRect(11, 11, 48, 70));
+    walkingRight.addFrame(sf::IntRect(91, 12, 48, 70));
+    walkingRight.addFrame(sf::IntRect(167, 8, 48, 70));
+    walkingRight.addFrame(sf::IntRect(248, 10, 48, 70));
+    walkingRight.addFrame(sf::IntRect(329, 10, 48, 70));
+
+    walkingLeft.setSpriteSheet(playerTextureWalk);
+    walkingLeft.addFrame(sf::IntRect(330, 97, 48, 70));
+    walkingLeft.addFrame(sf::IntRect(246, 97, 48, 70));
+    walkingLeft.addFrame(sf::IntRect(172, 97, 48, 70));
+    walkingLeft.addFrame(sf::IntRect(93, 97, 48, 70));
+    walkingLeft.addFrame(sf::IntRect(9, 95, 48, 70));
+
+    standingRight.setSpriteSheet(playerTextureStand);
+    standingRight.addFrame(sf::IntRect(9,9,48,70));
+
+    standingLeft.setSpriteSheet(playerTextureStand);
+    standingLeft.addFrame(sf::IntRect(10,98,48,70));
+
+    //set  animation
+    currentAnimation = &standingRight;
+
+    //set up AnimatedSprite
+    playerSprite.setPosition(50.f, 200.f);	
 }
 
 void Game::run(){
@@ -43,11 +84,26 @@ void Game::run(){
 //helper function
 void Game::updatePlayerVelocity(float& velocity){
 
-	if (playerDirection == direction::right)
+	if (playerAction == animationAction::walkRight)
 		velocity += playerVelocity;
 
-	if (playerDirection == direction::left)
+	if (playerAction == animationAction::walkLeft)
 		velocity -= playerVelocity;
+}
+
+void Game::updateCurrentAnimation(){
+
+	if (playerAction == animationAction::walkRight)
+		currentAnimation = &walkingRight;
+
+	else if (playerAction == animationAction::walkLeft)
+		currentAnimation = &walkingLeft;
+
+	else if (playerAction == animationAction::standRight)
+		currentAnimation = &standingRight;
+
+	else
+		currentAnimation = &standingLeft;
 }
 
 void Game::update(sf::Time elapsedTime){
@@ -55,7 +111,10 @@ void Game::update(sf::Time elapsedTime){
 	//move the player according to user input
 	sf::Vector2f playerMove(0.f, 0.f);
 	updatePlayerVelocity(playerMove.x);
+	updateCurrentAnimation();
+	playerSprite.play(*currentAnimation);
 	playerSprite.move(playerMove * elapsedTime.asSeconds());
+	playerSprite.update(elapsedTime);
 }
 
 void Game::render(){
@@ -75,14 +134,20 @@ void Game::processEvents(){
 		switch (event.type){
 
 			case sf::Event::KeyPressed:
+
 				handleInput(event.key.code);
 				break;
 
 			case sf::Event::KeyReleased:
-				playerDirection = direction::none;
+
+				if (playerAction == animationAction::walkLeft)
+					playerAction = animationAction::standLeft;
+				else
+					playerAction = animationAction::standRight;
 				break;
 
 			case sf::Event::Closed:
+
 				window.close();
 				break;
 		}
@@ -93,8 +158,8 @@ void Game::handleInput(sf::Keyboard::Key key){
 
 	//set up the direction the player's sprite will face/move
 	if (key == sf::Keyboard::Left)
-		playerDirection = direction::left;
+		playerAction = animationAction::walkLeft;
 
 	else if (key == sf::Keyboard::Right)
-		playerDirection = direction::right;
+		playerAction = animationAction::walkRight;
 }

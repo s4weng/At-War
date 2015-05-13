@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -MMD
-OBJECTS = Main.o Game.o
+OBJECTS = Main.o Game.o AnimatedSprite.o Animation.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = At-War
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system

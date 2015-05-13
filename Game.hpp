@@ -2,6 +2,7 @@
 #define _GAME_HPP__
 
 #include "AnimatedSprite.hpp"
+#include "ResourceContainer.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -17,13 +18,20 @@ public:
 	void processEvents();
 
 	void setAnimation();
-	void updatePlayerVelocity(float& velocity);
+	void updatePlayerVelocity(float &velocity);
 	void updateCurrentAnimation();
 	void handleInput(sf::Keyboard::Key key);
 
 private:
 
-	enum animationAction {
+	enum class textureSheet {
+
+		background,
+		standingArcher,
+		walkingArcher,
+	};
+
+	enum class animationAction {
 
 		standRight,
 		standLeft,
@@ -32,6 +40,8 @@ private:
 	};
 
 	animationAction playerAction;
+
+	ResourceContainer<sf::Texture, textureSheet> textureContainer;
 	sf::Texture playerTextureWalk, playerTextureStand;
 
 	//Different animation declarations

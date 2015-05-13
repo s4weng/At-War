@@ -1,11 +1,13 @@
 #include "Game.hpp"
 #include <cassert>
+#include <iostream>
 
 const float Game::playerVelocity = 100.f;
 const sf::Time Game::timePerFrame = sf::seconds(1.f/60.f);
 
 Game::Game():
 playerAction(animationAction::standRight),
+textureContainer(),
 playerTextureWalk(),
 playerTextureStand(),
 walkingRight(),
@@ -27,31 +29,45 @@ window(sf::VideoMode(640, 480), "At War"){
 void Game::setAnimation(){
 
     //load the spritesheets
+    try {
+
+    	textureContainer.load(textureSheet::walkingArcher, "Images/ArcherWalk.png");
+    	textureContainer.load(textureSheet::standingArcher, "Images/ArcherStand.png");
+    	textureContainer.load(textureSheet::background, "Images/Background.png");
+    }
+
+    catch (std::runtime_error &e){
+
+    	std::cout << "Exception occurred: " << e.what() << std::endl;
+    	return;
+    }
+
+    /*
     assert(playerTextureWalk.loadFromFile("Images/ArcherWalk.png"));
-    assert(playerTextureStand.loadFromFile("Images/ArcherStand.png"));
+    assert(playerTextureStand.loadFromFile("Images/ArcherStand.png"));*/
 
     //set up the animation frames
-    walkingRight.setSpriteSheet(playerTextureWalk);
+    walkingRight.setSpriteSheet(textureContainer.get(textureSheet::walkingArcher));
     walkingRight.addFrame(sf::IntRect(11, 11, 48, 70));
     walkingRight.addFrame(sf::IntRect(91, 12, 48, 70));
     walkingRight.addFrame(sf::IntRect(167, 8, 48, 70));
     walkingRight.addFrame(sf::IntRect(248, 10, 48, 70));
     walkingRight.addFrame(sf::IntRect(329, 10, 48, 70));
 
-    walkingLeft.setSpriteSheet(playerTextureWalk);
+    walkingLeft.setSpriteSheet(textureContainer.get(textureSheet::walkingArcher));;
     walkingLeft.addFrame(sf::IntRect(330, 97, 48, 70));
     walkingLeft.addFrame(sf::IntRect(246, 97, 48, 70));
     walkingLeft.addFrame(sf::IntRect(172, 97, 48, 70));
     walkingLeft.addFrame(sf::IntRect(93, 97, 48, 70));
     walkingLeft.addFrame(sf::IntRect(9, 95, 48, 70));
 
-    standingRight.setSpriteSheet(playerTextureStand);
+    standingRight.setSpriteSheet(textureContainer.get(textureSheet::standingArcher));
     standingRight.addFrame(sf::IntRect(9,9,48,70));
 
-    standingLeft.setSpriteSheet(playerTextureStand);
+    standingLeft.setSpriteSheet(textureContainer.get(textureSheet::standingArcher));
     standingLeft.addFrame(sf::IntRect(10,98,48,70));
 
-    //set  animation
+    //set animation
     currentAnimation = &standingRight;
 
     //set up AnimatedSprite
@@ -82,7 +98,7 @@ void Game::run(){
 }
 
 //helper function
-void Game::updatePlayerVelocity(float& velocity){
+void Game::updatePlayerVelocity(float &velocity){
 
 	if (playerAction == animationAction::walkRight)
 		velocity += playerVelocity;

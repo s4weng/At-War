@@ -2,32 +2,33 @@
 #include <iostream>
 
 //replace this with a map (nested) or 2d array
-textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::animationAction action){
+textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::Action action){
 
 	switch (classOfHero) {
 
 		case Hero::heroClass::Archer:
 
-			if (action == Hero::animationAction::standRight || action == Hero::animationAction::standLeft)
+			if (action == Hero::Action::standRight || action == Hero::Action::standLeft)
 				return textureSheet::standingArcher;
 
-			else if (action == Hero::animationAction::walkRight || action == Hero::animationAction::walkLeft)
+			else if (action == Hero::Action::walkRight || action == Hero::Action::walkLeft)
 				return textureSheet::walkingArcher;
 
 		case Hero::heroClass::Mage:
 		
-			if (action == Hero::animationAction::standRight || action == Hero::animationAction::standLeft)
-				return textureSheet::standingMage;
+			if (action == Hero::Action::standRight || action == Hero::Action::standLeft)
+				return textureSheet::standingArchmage;
 
-			else if (action == Hero::animationAction::walkRight || action == Hero::animationAction::walkLeft)
-				return textureSheet::walkingMage;
+			else if (action == Hero::Action::walkRight || action == Hero::Action::walkLeft)
+				return textureSheet::walkingArchmage;
 	}
 }
 
-Hero::Hero(heroClass classOfHero, TextureContainer& textureContainer):
+Hero::Hero(heroClass classOfHero, TextureContainer& textureContainer, heroFaction side):
+sideOfHero(side),
 classOfHero(classOfHero),
 heroSprite(),
-playerAction(animationAction::standRight),
+playerAction(Action::standRight),
 walkingRight(),
 walkingLeft(),
 standingRight(),
@@ -70,27 +71,27 @@ void Hero::setAnimation(TextureContainer& textureContainer){
     currentAnimation = &standingRight;
 }
 
-Hero::animationAction Hero::getPlayerAction(){
+Hero::Action Hero::getPlayerAction(){
 
 	return playerAction;
 }
 
 void Hero::updateCurrentAnimation(){
 
-	if (playerAction == animationAction::walkRight)
+	if (playerAction == Action::walkRight)
 		currentAnimation = &walkingRight;
 
-	else if (playerAction == animationAction::walkLeft)
+	else if (playerAction == Action::walkLeft)
 		currentAnimation = &walkingLeft;
 
-	else if (playerAction == animationAction::standRight)
+	else if (playerAction == Action::standRight)
 		currentAnimation = &standingRight;
 
 	else
 		currentAnimation = &standingLeft;
 }
 
-void Hero::setPlayerAction(animationAction action){
+void Hero::setPlayerAction(Action action){
 
 	playerAction = action;
 }
@@ -104,4 +105,19 @@ void Hero::updateCurrent(sf::Time deltaTime){
 
 	move(getVelocity() * deltaTime.asSeconds());
 	heroSprite.update(deltaTime);
+}
+
+int Hero::getReceiver() const {
+
+	switch (sideOfHero) {
+
+		case heroFaction::Player:
+			return Receiver::PlayerHero;
+
+		case heroFaction::Ally:
+			return Receiver::AlliedHero;
+
+		case heroFaction::Opposition:
+			return Receiver::EnemyHero;
+	}
 }

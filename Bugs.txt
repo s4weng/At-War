@@ -1,0 +1,8 @@
+File for keeping track of bugs
+
+Sun May 17 - Open (Command system bug)
+1. Walk in direction A press and holding Key A.key
+2. Press and hold opposite direction B.key
+--- Walk in place
+3. Let go of direction B.key
+--- Moonwalk backwards

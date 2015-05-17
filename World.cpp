@@ -9,7 +9,7 @@ view(window.getDefaultView()),
 worldBounds(0.f, 0.f, 1500.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
 playerHero(nullptr),
-scrollSpeed(-5.f) {
+scrollSpeed(-10.f) {
 
 loadTextures();
 initScene();
@@ -23,6 +23,8 @@ void World::loadTextures(){
 
     	textureContainer.load(textureSheet::walkingArcher, "Images/ArcherWalk.png");
     	textureContainer.load(textureSheet::standingArcher, "Images/ArcherStand.png");
+    	textureContainer.load(textureSheet::walkingArchmage, "Images/ArchmageWalk.png");
+    	textureContainer.load(textureSheet::standingArchmage, "Images/ArchmageStand.png");
     	textureContainer.load(textureSheet::background, "Images/Background.png");
     }
 
@@ -54,13 +56,13 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, textureContainer));
+	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, textureContainer, Hero::heroFaction::Player));
 	playerHero = mainHero.get();
 	playerHero->setPosition(playerSpawnPosition);
 	playerHero->setVelocity(50.f, 0.f);
 	sceneLayers[Ground]->attachNode(std::move(mainHero)); //attach hero to ground layer
 
-	/*std::unique_ptr<Hero> allyHero(new Hero(Hero::heroClass::Archer, textureContainer));
+	/*std::unique_ptr<Hero> allyHero(new Hero(Hero::heroClass::Archmage, textureContainer, heroFaction::Ally));
 	allyHero->setPosition(-80.f, 50.f);
 	playerHero->attachNode(std::move(allyHero));*/
 }
@@ -75,7 +77,11 @@ void World::update(sf::Time deltaTime){
 
 	view.move(-scrollSpeed * deltaTime.asSeconds(), 0.f);
 	playerHero->setVelocity(0.f, 0.f);
-	updatePlayerVelocity();
+
+	//forward any command in the queue to the scene graph
+	while (!commandQueue.isEmpty())
+		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
+
 	playerHero->updateCurrentAnimation();
 	playerHero->playCurrentAnimation();
 	sceneGraph.update(deltaTime);
@@ -95,31 +101,26 @@ void World::checkPlayerBounds(){
 	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
 	playerHero->setPosition(position);
 }
-
-void World::updatePlayerVelocity(){
-
-	if (playerHero->getPlayerAction() == Hero::animationAction::walkRight)
-		playerHero->setVelocity(heroVelocity + scrollSpeed, 0.f);
-
-	if (playerHero->getPlayerAction() == Hero::animationAction::walkLeft)
-		playerHero->setVelocity(-heroVelocity - scrollSpeed, 0.f);
-}
-
-void World::handleInput(sf::Keyboard::Key key){
+void World::setInputAnimation(sf::Keyboard::Key key){
 
 	//set up the direction the player's sprite will face/move
 	if (key == sf::Keyboard::Left)
-		playerHero->setPlayerAction(Hero::animationAction::walkLeft);
+		playerHero->setPlayerAction(Hero::Action::walkLeft);
 
 	else if (key == sf::Keyboard::Right)
-		playerHero->setPlayerAction(Hero::animationAction::walkRight);
+		playerHero->setPlayerAction(Hero::Action::walkRight);
 }
 
-void World::handleReleasedKey(){
+void World::setReleasedKeyAnimation(){
 
-	if (playerHero->getPlayerAction() == Hero::animationAction::walkLeft)
-		playerHero->setPlayerAction(Hero::animationAction::standLeft);
+	if (playerHero->getPlayerAction() == Hero::Action::walkLeft)
+		playerHero->setPlayerAction(Hero::Action::standLeft);
 	else
-		playerHero->setPlayerAction(Hero::animationAction::standRight);
+		playerHero->setPlayerAction(Hero::Action::standRight);
 
+}
+
+CommandQueue& World::getCommandQueue(){
+
+	return commandQueue;
 }

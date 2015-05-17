@@ -1,8 +1,12 @@
 #ifndef _SCENENODE_HPP__
 #define _SCENENODE_HPP__
 
+#include "Receiver.hpp"
+#include "Command.hpp"
+
 #include <memory> //std::unique_ptr
 #include <vector>
+
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -20,6 +24,9 @@ public:
 	sceneNodePtr detachNode(SceneNode& node);
 
 	void update(sf::Time deltaTime);
+
+	virtual int getReceiver() const;
+	void onCommand(const Command& command, sf::Time deltaTime);
 
 private:
 

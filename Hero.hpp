@@ -11,34 +11,48 @@ public:
 	enum class heroClass {
 
 		Archer,
-		Mage,
+		Mage
 	};
 
-	enum class animationAction {
+	//change to two enum classes later on; left and right
+	enum Action {
 
 		standRight,
 		standLeft,
 		walkRight,
 		walkLeft,
+		ActionCount
 	};
 
-	animationAction getPlayerAction();
-	void setPlayerAction(animationAction action);
+	enum heroFaction {
+
+		Player,
+		Ally,
+		Opposition
+	};
+
+	Action getPlayerAction();
+	void setPlayerAction(Action action);
 	void setAnimation(TextureContainer& textureContainer);
 	void updateCurrentAnimation();
 
 	void playCurrentAnimation();
 	void updateCurrent(sf::Time deltaTime);
 
-	Hero(heroClass classOfHero, TextureContainer& textureContainer);
+	Hero(heroClass classOfHero, TextureContainer& textureContainer, heroFaction side);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+
+	virtual int getReceiver() const;
 
 private:
 
+	heroFaction sideOfHero;
+
 	heroClass classOfHero;
+
 	AnimatedSprite heroSprite;
 
-	animationAction playerAction;
+	Action playerAction;
 
 	//Declarations of animations
 	Animation walkingRight, walkingLeft, standingRight, standingLeft;

@@ -62,3 +62,19 @@ void SceneNode::updateChildren(sf::Time deltaTime){
 	for (auto& nodePtr: children)
 		nodePtr->update(deltaTime);
 }
+
+int SceneNode::getReceiver() const {
+
+	return Receiver::Scene;
+}
+
+void SceneNode::onCommand(const Command& command, sf::Time deltaTime){
+
+	//bitwise & to check if current scenenode is receiver of command
+	if (command.receiver & getReceiver())
+		command.action(*this, deltaTime);
+
+	//forward command to child nodes
+	for (auto& nodePtr : children)
+		nodePtr->onCommand(command, deltaTime);
+}

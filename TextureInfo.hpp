@@ -8,8 +8,8 @@ enum class textureSheet {
 	background,
 	standingArcher,
 	walkingArcher,
-	standingMage,
-	walkingMage,
+	standingArchmage,
+	walkingArchmage,
 };
 
 namespace sf {

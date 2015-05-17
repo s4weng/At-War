@@ -4,6 +4,7 @@
 #include "Hero.hpp" //Entity.hpp, SceneNode.hpp, ResourceContainer.hpp, TextureInfo.hpp
 #include "SpriteNode.hpp"
 #include "AnimatedSprite.hpp"
+#include "CommandQueue.hpp" //Command.hpp
 
 #include <array>
 #include <SFML/Window.hpp>
@@ -16,9 +17,10 @@ public:
 	explicit World(sf::RenderWindow& window);
 	void update(sf::Time);
 	void draw();
-	void updatePlayerVelocity();
-	void handleInput(sf::Keyboard::Key key);
-	void handleReleasedKey();
+	void setInputAnimation(sf::Keyboard::Key key);
+	void setReleasedKeyAnimation();
+
+	CommandQueue& getCommandQueue();
 
 private:
 
@@ -39,6 +41,7 @@ private:
 	SceneNode sceneGraph;
 	std::array<SceneNode*, LayerCount> sceneLayers;
 	float scrollSpeed;
+	CommandQueue commandQueue;
 
 	static const float heroVelocity;
 

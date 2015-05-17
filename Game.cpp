@@ -42,27 +42,24 @@ void Game::render(){
 
 void Game::processEvents(){
 
+	CommandQueue& commandQueue = world.getCommandQueue();
+
 	sf::Event event;
 
-	//poll input events
 	while (window.pollEvent(event)){
 
-		switch (event.type){
+		if (event.type == sf::Event::KeyReleased)
+			world.setReleasedKeyAnimation();
 
-			case sf::Event::KeyPressed:
+		else {
 
-				world.handleInput(event.key.code);
-				break;
-
-			case sf::Event::KeyReleased:
-
-				world.handleReleasedKey();
-				break;
-
-			case sf::Event::Closed:
-
-				window.close();
-				break;
+			playerInput.handleEvent(event, commandQueue);
+			world.setInputAnimation(event.key.code);
 		}
+
+		if (event.type == sf::Event::Closed)
+			window.close();
 	}
+
+	playerInput.handleRealtimeInput(commandQueue);
 }

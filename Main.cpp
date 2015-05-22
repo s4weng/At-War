@@ -1,7 +1,7 @@
-#include "Game.hpp"
+#include "GameController.hpp"
 
 int main() {
 
-	Game game;
+	GameController game;
 	game.run();
 }

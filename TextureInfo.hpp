@@ -10,13 +10,22 @@ enum class textureSheet {
 	walkingArcher,
 	standingArchmage,
 	walkingArchmage,
+	titleBackground,
+	menuBackground
+};
+
+enum class Fonts {
+
+	main
 };
 
 namespace sf {
 
 	class Texture;
+	class Font;
 }
 
 typedef ResourceContainer <sf::Texture, textureSheet> TextureContainer;
+typedef ResourceContainer <sf::Font, Fonts> FontContainer;
 
 #endif

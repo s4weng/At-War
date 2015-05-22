@@ -11,7 +11,7 @@ public:
 	enum class heroClass {
 
 		Archer,
-		Mage
+		Archmage
 	};
 
 	//change to two enum classes later on; left and right

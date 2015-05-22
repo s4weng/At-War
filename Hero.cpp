@@ -14,7 +14,7 @@ textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::Action action
 			else if (action == Hero::Action::walkRight || action == Hero::Action::walkLeft)
 				return textureSheet::walkingArcher;
 
-		case Hero::heroClass::Mage:
+		case Hero::heroClass::Archmage:
 		
 			if (action == Hero::Action::standRight || action == Hero::Action::standLeft)
 				return textureSheet::standingArchmage;

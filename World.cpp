@@ -62,7 +62,8 @@ void World::initScene(){
 	playerHero->setVelocity(50.f, 0.f);
 	sceneLayers[Ground]->attachNode(std::move(mainHero)); //attach hero to ground layer
 
-	/*std::unique_ptr<Hero> allyHero(new Hero(Hero::heroClass::Archmage, textureContainer, heroFaction::Ally));
+	//currently cannot be shown as AI input has not been implemented
+	/*std::unique_ptr<Hero> allyHero(new Hero(Hero::heroClass::Archer, textureContainer, Hero::heroFaction::Ally));
 	allyHero->setPosition(-80.f, 50.f);
 	playerHero->attachNode(std::move(allyHero));*/
 }
@@ -101,6 +102,7 @@ void World::checkPlayerBounds(){
 	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
 	playerHero->setPosition(position);
 }
+
 void World::setInputAnimation(sf::Keyboard::Key key){
 
 	//set up the direction the player's sprite will face/move

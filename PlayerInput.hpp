@@ -12,16 +12,8 @@ public:
 
 	PlayerInput();
 
-	/*enum Action {
-
-		MoveLeft,
-		MoveRight,
-		ActionCount
-	};
-*/
 	void handleEvent(const sf::Event& event, CommandQueue& commandQueue);
 	void handleRealtimeInput(CommandQueue& commandQueue);
-	//void handleReleasedKey();
 
 	void assignKey(Hero::Action action, sf::Keyboard::Key key);
 	sf::Keyboard::Key getAssignedKey(Hero::Action action) const;

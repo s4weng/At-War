@@ -3,6 +3,7 @@
 #include "MenuState.hpp"
 #include "GameState.hpp"
 #include "PauseState.hpp"
+#include "SettingsState.hpp"
 
 const sf::Time GameController::timePerFrame = sf::seconds(1.f/60.f);
 
@@ -16,6 +17,10 @@ stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput
 	fontContainer.load(Fonts::main, "Fonts/lobsterTwo.otf");
 	textureContainer.load(textureSheet::titleBackground, "Images/titleBackground.png");
 	textureContainer.load(textureSheet::menuBackground, "Images/menuBackground.png");
+	textureContainer.load(textureSheet::settingsBackground, "Images/settingsBackground.png");
+	textureContainer.load(textureSheet::normalButton, "Images/normalButton.png");
+	textureContainer.load(textureSheet::pressedButton, "Images/pressedButton.png");
+	textureContainer.load(textureSheet::selectedButton, "Images/selectedButton.png");
 
 	registerStates();
 	stateStack.pushState(StateID::Title);
@@ -78,4 +83,5 @@ void GameController::registerStates(){
 	stateStack.registerState<MenuState>(StateID::Menu);
 	stateStack.registerState<GameState>(StateID::Game);
 	stateStack.registerState<PauseState>(StateID::Pause);
+	stateStack.registerState<SettingsState>(StateID::Settings);
 }

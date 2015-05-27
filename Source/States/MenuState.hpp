@@ -2,6 +2,7 @@
 #define _MENUSTATE_HPP__
 
 #include "State.hpp"
+#include "Container.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -17,9 +18,6 @@ public:
 
 private:
 
-	void setText(sf::Font& font, sf::Vector2f viewSize);
-	void updateOption();
-
 	enum Options {
 
 		Play,
@@ -28,9 +26,7 @@ private:
 	};
 
 	sf::Sprite background;
-	std::vector<sf::Text> options;
-	unsigned int optionIndex;
-
+	Container container;
 };
 
 #endif

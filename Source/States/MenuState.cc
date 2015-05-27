@@ -1,49 +1,41 @@
 #include "MenuState.hpp"
 #include "TextureInfo.hpp"
+#include "Button.hpp"
 
 MenuState::MenuState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView),
-options(),
-optionIndex(0){
+container() {
 
-	sf::Texture& texture = shareView.textureContainer->get(textureSheet::menuBackground);
-	sf::Font& font = shareView.fontContainer->get(Fonts::main);
-	sf::Vector2f viewSize = shareView.window->getView().getSize();
+	background.setTexture(shareView.textureContainer->get(textureSheet::menuBackground));
 
-	background.setTexture(texture);
+	auto playButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	playButton->setPosition(450.f, 150.f);
+	playButton->setText("Play");
+	playButton->setCallback([this] () {
 
-	setText(font, viewSize);
-	updateOption();
-}
+		requestStackPop();
+		requestStackPush(StateID::Game);
+	});
 
-void MenuState::setText(sf::Font& font, sf::Vector2f viewSize){
+	auto settingsButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	settingsButton->setPosition(450.f, 200.f);
+	settingsButton->setText("Settings");
+	settingsButton->setCallback([this] () {
 
-	sf::Text playOption;
-	playOption.setFont(font);
-	playOption.setString("Play");
-	playOption.setCharacterSize(50);
-	sf::FloatRect bounds = playOption.getLocalBounds();
-	playOption.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-	playOption.setPosition(viewSize.x / 1.3f, viewSize.y / 3.f);
-	options.push_back(playOption);
+		requestStackPush(StateID::Settings);
+	});
 
-	sf::Text settingOption;
-	settingOption.setFont(font);
-	settingOption.setString("Settings");
-	settingOption.setCharacterSize(50);
-	bounds = settingOption.getLocalBounds();
-	settingOption.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-	settingOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 70.f));
-	options.push_back(settingOption);
+	auto quitButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	quitButton->setPosition(450.f, 250.f);
+	quitButton->setText("Quit");
+	quitButton->setCallback([this] () {
 
-	sf::Text quitOption;
-	quitOption.setFont(font);
-	quitOption.setString("Quit");
-	quitOption.setCharacterSize(50);
-	bounds = quitOption.getLocalBounds();
-	quitOption.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-	quitOption.setPosition(settingOption.getPosition() + sf::Vector2f(0.f, 70.f));
-	options.push_back(quitOption);	
+		requestStackPop();
+	});	
+
+	container.pack(playButton);
+	container.pack(settingsButton);
+	container.pack(quitButton);
 }
 
 void MenuState::draw(){
@@ -52,9 +44,7 @@ void MenuState::draw(){
 
 	window.setView(window.getDefaultView());
 	window.draw(background);
-
-	for (const sf::Text& text : options)
-		window.draw(text);
+	window.draw(container);
 }
 
 bool MenuState::update(sf::Time deltaTime){
@@ -64,53 +54,6 @@ bool MenuState::update(sf::Time deltaTime){
 
 bool MenuState::handleEvent(const sf::Event& event){
 
-	if (event.type != sf::Event::KeyPressed)
-		return false;
-
-	if (event.key.code == sf::Keyboard::Return){
-
-		if (optionIndex == Options::Play){
-
-			requestStackPop();
-			requestStackPush(StateID::Game);
-		}
-
-		else if (optionIndex == Options::Quit)
-			requestStackPop();
-	}
-
-	else if (event.key.code == sf::Keyboard::Up){
-
-		if (optionIndex > 0)
-			--optionIndex;
-
-		else
-			optionIndex = options.size()-1;
-
-		updateOption();
-	}
-
-	else if (event.key.code == sf::Keyboard::Down){
-
-		if (optionIndex < options.size() - 1)
-			++optionIndex;
-
-		else
-			optionIndex = 0;
-
-		updateOption();
-	}
-
-	return true;
-}
-
-void MenuState::updateOption(){
-
-	if (options.empty())
-		return;
-
-	for (sf::Text& text : options)
-		text.setColor(sf::Color::Black);
-
-	options[optionIndex].setColor(sf::Color::Blue);
+	container.handleEvent(event);
+	return false;
 }

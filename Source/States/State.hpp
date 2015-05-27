@@ -13,7 +13,8 @@ enum class StateID {
 	Title,
 	Menu,
 	Game,
-	Pause
+	Pause,
+	Settings
 };
 
 namespace sf {

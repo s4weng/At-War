@@ -1,3 +1,3 @@
-- Change text font for paused screen
+- Switch global returnTextureSheet method in Hero.cc with nested map or 2d array
 - AI input in order to spawn allies (animation related issue)
 - Settings tab in main menu and paused screen

@@ -14,14 +14,13 @@ public:
 		Archmage
 	};
 
-	//change to two enum classes later on; left and right
 	enum Action {
 
 		standRight,
 		standLeft,
 		walkRight,
 		walkLeft,
-		ActionCount
+		actionCount
 	};
 
 	enum heroFaction {

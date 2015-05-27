@@ -11,7 +11,11 @@ enum class textureSheet {
 	standingArchmage,
 	walkingArchmage,
 	titleBackground,
-	menuBackground
+	menuBackground,
+	settingsBackground,
+	normalButton,
+	selectedButton,
+	pressedButton
 };
 
 enum class Fonts {

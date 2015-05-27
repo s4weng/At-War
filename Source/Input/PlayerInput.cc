@@ -1,6 +1,9 @@
 #include "PlayerInput.hpp"
 #include "CommandQueue.hpp"
 #include "Hero.hpp"
+#include "KeyToString.hpp"
+
+#include <iostream>
 
 #include <algorithm>
 
@@ -55,22 +58,37 @@ void PlayerInput::handleRealtimeInput(CommandQueue& commandQueue){
 
 void PlayerInput::assignKey(Hero::Action action, sf::Keyboard::Key key){
 
-	//remove keys that already map to given action
-	for (auto pair : keyActionMap){
+	//remove key that already map to given action
+	/*for (auto pair : keyActionMap){
 
 		if (pair.second == action)
 			keyActionMap.erase(pair.first);
+	}*/
+
+	for (auto itr = keyActionMap.begin(); itr != keyActionMap.end(); )
+	{
+		if (itr->second == action)
+			keyActionMap.erase(itr++);
+		else
+			++itr;
 	}
+
+	//then assign the new key
+	std::cout << "assigning key: " << keyToString(key) << std::endl;
+	keyActionMap[key] = action;
 }
 
 sf::Keyboard::Key PlayerInput::getAssignedKey(Hero::Action action) const {
 
 	for (auto pair : keyActionMap){
 
-		if (pair.second == action)
+		if (pair.second == action){
+			std::cout << "found key: " << keyToString(pair.first) << std::endl;
 			return pair.first;
+		}
 	}
 
+	std::cout << "nothing found!" << std::endl;
 	return sf::Keyboard::Unknown;
 }
 

@@ -19,9 +19,10 @@ State::statePtr StateStack::createState(StateID stateID){
 
 void StateStack::handleEvent(const sf::Event& event){
 
-	//iterate from highest state down, stop as soon as you reach inactive state
+	//iterate from highest state down
 	for (auto itr = stateStack.rbegin(); itr != stateStack.rend(); ++itr){
 
+		//if any state returns false, don't late any state below it handle same event
 		if (!(*itr)->handleEvent(event))
 			break;
 	}
@@ -31,7 +32,7 @@ void StateStack::handleEvent(const sf::Event& event){
 
 void StateStack::update(sf::Time deltaTime){
 
-	//iterate from highest state down, stop when reach inactive state
+	//same logic as handle event
 	for (auto itr = stateStack.rbegin(); itr != stateStack.rend(); ++itr){
 
 		if (!(*itr)->update(deltaTime))

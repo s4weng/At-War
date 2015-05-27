@@ -75,7 +75,6 @@ bool PauseState::handleEvent(const sf::Event& event){
 	if (event.type != sf::Event::KeyPressed)
 		return false;
 
-	//game state underneath, escape will open up another pause state, so pop it if so
 	if (event.key.code == sf::Keyboard::Escape)
 		requestStackPop();
 
@@ -119,7 +118,7 @@ bool PauseState::handleEvent(const sf::Event& event){
 		updateOption();
 	}
 
-	return true;
+	return false;
 }
 
 void PauseState::updateOption(){

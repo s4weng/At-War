@@ -23,6 +23,8 @@
 
 #include "AnimatedSprite.hpp"
 
+#include <iostream>
+
 AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) :
     m_animation(NULL), m_frameTime(frameTime), m_currentFrame(0), m_isPaused(paused), m_isLooped(looped), m_texture(NULL)
 {
@@ -157,8 +159,11 @@ void AnimatedSprite::update(sf::Time deltaTime)
             m_currentTime = sf::microseconds(m_currentTime.asMicroseconds() % m_frameTime.asMicroseconds());
 
             // get next Frame index
-            if (m_currentFrame + 1 < m_animation->getSize())
+            if (m_currentFrame + 1 < m_animation->getSize()){
+                std::cout << "size of animation is: " << m_animation->getSize() << std::endl;
+                std::cout << "current frame is: " << m_currentFrame << std::endl;
                 m_currentFrame++;
+            }
             else
             {
                 // animation has ended
@@ -166,6 +171,7 @@ void AnimatedSprite::update(sf::Time deltaTime)
 
                 if (!m_isLooped)
                 {
+                    std::cout << "pause" << std::endl;
                     m_isPaused = true;
                 }
 

@@ -37,7 +37,7 @@ void Container::handleEvent(const sf::Event& event){
 		
 		else if (event.key.code == sf::Keyboard::Return){
 
-			std::cout << "activating child!" << std::endl;
+			//std::cout << "activating child!" << std::endl;
 			if (hasSelection())
 				children[selectedChild]->activate();
 		}

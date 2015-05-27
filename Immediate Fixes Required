@@ -1,0 +1,2 @@
+- return key gets passed as key binding (instead of just activating button)
+- standLeft/walkRight keys and animations overlap; animation still associated with standLeft key but key associated with walkLeft

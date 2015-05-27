@@ -1,5 +1,4 @@
 #include "Button.hpp"
-#include <iostream>
 
 #include <SFML/Window.hpp>
 
@@ -41,10 +40,8 @@ void Button::activate(){
 
 	Component::activate();
 
-	if (toggle){
-		//std::cout << "pressedStateNow" << std::endl;
+	if (toggle)
 		sprite.setTexture(pressedTexture);
-	}
 
 	if (callback)
 		callback();
@@ -60,10 +57,8 @@ void Button::deactivate(){
 
 	if (toggle){
 
-		if (isSelected()){
-			//std::cout << "selectedStateNow " << std::endl;
+		if (isSelected())
 			sprite.setTexture(selectedTexture);
-		}
 
 		else
 			sprite.setTexture(texture);

@@ -72,7 +72,7 @@ bool PauseState::update(sf::Time deltaTime){
 
 bool PauseState::handleEvent(const sf::Event& event){
 
-	if (event.type != sf::Event::KeyPressed)
+	if (event.type != sf::Event::KeyReleased)
 		return false;
 
 	if (event.key.code == sf::Keyboard::Escape)

@@ -1,7 +1,6 @@
 #include "Container.hpp"
 
 #include <SFML/Window.hpp>
-#include <iostream>
 
 Container::Container() : children(), selectedChild(-1){
 }
@@ -23,11 +22,10 @@ void Container::handleEvent(const sf::Event& event){
 
 	if (hasSelection() && children[selectedChild]->isActive()){
 
-		std::cout << "letting child handle event" << std::endl;
 		children[selectedChild]->handleEvent(event);
 	}
 
-	else if (event.type == sf::Event::KeyPressed){
+	else if (event.type == sf::Event::KeyReleased){
 
 		if (event.key.code == sf::Keyboard::Up)
 			selectPrevious();
@@ -37,7 +35,6 @@ void Container::handleEvent(const sf::Event& event){
 		
 		else if (event.key.code == sf::Keyboard::Return){
 
-			//std::cout << "activating child!" << std::endl;
 			if (hasSelection())
 				children[selectedChild]->activate();
 		}

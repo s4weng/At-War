@@ -27,7 +27,7 @@ bool GameState::handleEvent(const sf::Event& event){
 	playerInput.handleEvent(event, commandQueue);
 
 	//pause if requested
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(StateID::Pause);
 
 	else if (event.type == sf::Event::KeyReleased)

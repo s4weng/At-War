@@ -6,3 +6,13 @@ Sun May 17 - Open (Command system bug)
 --- Walk in place
 3. Let go of direction B.key
 --- Moonwalk backwards
+
+Wed May 27 - Open (Passing key event)
+1.  In SettingState.cc, std::cout event.key.code before container.handlevent
+2.  Press A, B, or C; it will pass three times: A, F13, A
+Associated as (the ones discovered):
+- A F13 (index 0, index 97 enum)
+- B->F14 (1, 98)
+- C->F15 (2, 99)
+- D->"Pause" key (3, 100)
+- Return -> N (58, 13)

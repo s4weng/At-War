@@ -56,37 +56,31 @@ bool SettingsState::handleEvent(const sf::Event& event){
 
 	//assign new keys from player
 	if (walkLeftButton->isActive()){
-		std::cout << "activated left key " << std::endl;
-		if (event.type == sf::Event::KeyReleased){
 
-		std::cout << "released key is " << keyToString(event.key.code) << std::endl;
-		//std::cout << "key2 is " << keyToString(event.key.code) << std::endl;
+		if (event.type == sf::Event::KeyReleased){
 
 			changeKeys = true;
 			getSharedView().playerInput->assignKey(Hero::Action::walkLeft, event.key.code);
 			//getSharedView().playerInput->assignKey(Hero::Action::standLeft, event.key.code);
-			//actionStringMap[Hero::Action::walkLeft] = keyToString(playerInput.getAssignedKey(Hero::Action::walkLeft));
-			//std::cout << actionStringMap[Hero::Action::walkLeft] << std::endl;
 			
 			walkLeftButton->deactivate();
 		}
 	}
 
-	/*if (walkRightButton->isActive()){
-		std::cout << "shouldn't be here" << std::endl;
+	if (walkRightButton->isActive()){
+
 		if (event.type == sf::Event::KeyReleased){
 
 			changeKeys = true;
 			getSharedView().playerInput->assignKey(Hero::Action::walkRight, event.key.code);
-			getSharedView().playerInput->assignKey(Hero::Action::standRight, event.key.code);
+			//getSharedView().playerInput->assignKey(Hero::Action::standRight, event.key.code);
 			walkRightButton->deactivate();		
 		}
 	}
-*/
-	if (changeKeys){
-		std::cout << "left control changed: " << std::endl;
+
+	if (changeKeys)
 		updateControl();
-	}
+	
 	else {
 
 		std::cout << "no controls changed, passing key: " << keyToString(event.key.code) << std::endl;
@@ -101,10 +95,8 @@ void SettingsState::updateControl(){
 	PlayerInput& playerInput = *getSharedView().playerInput;
 
 	actionStringMap[Hero::Action::walkLeft] = keyToString(playerInput.getAssignedKey(Hero::Action::walkLeft));
-	//actionStringMap[Hero::Action::walkRight] = keyToString(playerInput.getAssignedKey(Hero::Action::walkRight));
+	actionStringMap[Hero::Action::walkRight] = keyToString(playerInput.getAssignedKey(Hero::Action::walkRight));
 	
-	std::cout << "left updated to: " << actionStringMap[Hero::Action::walkLeft] << std::endl;
-
 	walkLeftButton->setText(actionStringMap[Hero::Action::walkLeft]);
 	walkRightButton->setText(actionStringMap[Hero::Action::walkRight]);
 }

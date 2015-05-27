@@ -1,6 +1,7 @@
 #include "StateStack.hpp"
 
 #include <cassert>
+#include <iostream>
 
 StateStack::StateStack(State::ShareView shareView):
 requestList(),
@@ -22,11 +23,13 @@ void StateStack::handleEvent(const sf::Event& event){
 	//iterate from highest state down
 	for (auto itr = stateStack.rbegin(); itr != stateStack.rend(); ++itr){
 
+		std::cout << "iterating stacks" << std::endl;
 		//if any state returns false, don't late any state below it handle same event
 		if (!(*itr)->handleEvent(event))
 			break;
 	}
 
+	std::cout << "executing stack requests" << std::endl;
 	executeRequests();
 }
 

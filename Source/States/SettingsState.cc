@@ -2,8 +2,6 @@
 #include "TextureInfo.hpp"
 #include "KeyToString.hpp"
 
-#include <iostream>
-
 #include <SFML/Graphics.hpp>
 
 SettingsState::SettingsState(StateStack& stateStack, ShareView shareView):
@@ -14,11 +12,9 @@ container(){
 
 	walkLeftButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
 	walkLeftButton->setPosition(80.f, 250.f);
-//	walkLeftButton->setText("Move Left");
 
 	walkRightButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
 	walkRightButton->setPosition(80.f, 350.f);
-//	walkRightButton->setText("Move Right");
 
 	updateControl();
 	walkLeftButton->setToggle(true);
@@ -52,7 +48,6 @@ bool SettingsState::handleEvent(const sf::Event& event){
 	PlayerInput& playerInput = *getSharedView().playerInput;
 
 	bool changeKeys = false;
-		//std::cout << "key0 is " << keyToString(event.key.code) << std::endl;
 
 	//assign new keys from player
 	if (walkLeftButton->isActive()){
@@ -81,11 +76,8 @@ bool SettingsState::handleEvent(const sf::Event& event){
 	if (changeKeys)
 		updateControl();
 	
-	else {
-
-		std::cout << "no controls changed, passing key: " << keyToString(event.key.code) << std::endl;
+	else 
 		container.handleEvent(event);
-	}
 
 	return false;
 }

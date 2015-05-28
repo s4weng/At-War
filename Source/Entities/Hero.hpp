@@ -8,10 +8,12 @@ class Hero : public Entity {
 
 public:
 
-	enum class heroClass {
+	enum heroClass {
 
 		Archer,
-		Archmage
+		Archmage,
+		Druid,
+		typeCount,
 	};
 
 	enum Action {
@@ -38,6 +40,11 @@ public:
 	void playCurrentAnimation();
 	void updateCurrent(sf::Time deltaTime);
 
+	int getHitpoints() const;
+	void heal(int hp);
+	void damage(int hp);
+	bool isAlive() const;
+
 	Hero(heroClass classOfHero, TextureContainer& textureContainer, heroFaction side);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -46,17 +53,16 @@ public:
 private:
 
 	heroFaction sideOfHero;
-
 	heroClass classOfHero;
 
 	AnimatedSprite heroSprite;
-
 	Action playerAction;
 
 	//Declarations of animations
 	Animation walkingRight, walkingLeft, standingRight, standingLeft;
-
 	Animation* currentAnimation;
+
+	int hitpoints;
 };
 
 #endif

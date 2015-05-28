@@ -10,6 +10,8 @@ enum class textureSheet {
 	walkingArcher,
 	standingArchmage,
 	walkingArchmage,
+	standingDruid,
+	walkingDruid,
 	titleBackground,
 	menuBackground,
 	settingsBackground,

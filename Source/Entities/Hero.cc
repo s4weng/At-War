@@ -33,7 +33,7 @@ walkingRight(),
 walkingLeft(),
 standingRight(),
 standingLeft(),
-currentAnimation() {
+currentAnimation(){
 
 	setAnimation(textureContainer);
 }
@@ -120,4 +120,24 @@ int Hero::getReceiver() const {
 		case heroFaction::Opposition:
 			return Receiver::EnemyHero;
 	}
+}
+
+int Hero::getHitpoints() const {
+
+	return hitpoints;
+}
+
+void Hero::heal(int hp){
+
+	hitpoints += hp;
+}
+
+void Hero::damage(int hp){
+
+	hitpoints -= damage;
+}
+
+bool Hero::isAlive() const {
+
+	return (hitpoints > 0) ? true : false;
 }

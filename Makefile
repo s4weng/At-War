@@ -1,5 +1,5 @@
 SRCDIR = Source
-INCLUDE = -I${SRCDIR} -I${SRCDIR}/Animation -I${SRCDIR}/Characters -I${SRCDIR}/GUI -I${SRCDIR}/Input -I${SRCDIR}/Resources -I${SRCDIR}/SceneGraph -I${SRCDIR}/States
+INCLUDE = -I${SRCDIR} -I${SRCDIR}/Animation -I${SRCDIR}/Entities -I${SRCDIR}/GUI -I${SRCDIR}/Input -I${SRCDIR}/Resources -I${SRCDIR}/SceneGraph -I${SRCDIR}/States
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -MMD
 EXEC = At-War
@@ -14,7 +14,7 @@ ${SRCDIR}/%.o: Source/%.cc
 ${SRCDIR}/%.o: Source/Animation/%.cc
 	${CXX} ${CXXFLAGS} ${INCLUDE} -c $< -o $@
 
-${SRCDIR}/%.o: Source/Characters/%.cc
+${SRCDIR}/%.o: Source/Entities/%.cc
 	${CXX} ${CXXFLAGS} ${INCLUDE} -c $< -o $@
 
 ${SRCDIR}/%.o: Source/GUI/%.cc

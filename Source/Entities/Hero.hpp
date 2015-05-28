@@ -45,7 +45,8 @@ public:
 	void damage(int hp);
 	bool isAlive() const;
 
-	Hero(heroClass classOfHero, TextureContainer& textureContainer, heroFaction side);
+	//Hero(heroClass classOfHero, TextureContainer& textureContainer, heroFaction side);
+	Hero(heroClass classOfHero, TextureContainer& textureContainer);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	virtual int getReceiver() const;

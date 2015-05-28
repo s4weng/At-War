@@ -3,6 +3,7 @@ High Priority -
 
 
 Medium Priority -
+- rename textureInfo to resourceInfo...in all files involving "TextureInfo.hpp"
 
 
 
@@ -10,6 +11,7 @@ Low Priority/Functionality -
 - Switch global returnTextureSheet method in Hero.cc with nested map or 2d array
 - AI input in order to spawn allies (animation related issue)
 - Proper classification of player/ally/enemy
+- *Maybe* switch data class for XML
 
 
 

@@ -25,6 +25,8 @@ void World::loadTextures(){
     	textureContainer.load(textureSheet::standingArcher, "Images/ArcherStand.png");
     	textureContainer.load(textureSheet::walkingArchmage, "Images/ArchmageWalk.png");
     	textureContainer.load(textureSheet::standingArchmage, "Images/ArchmageStand.png");
+    	textureContainer.load(textureSheet::walkingArchmage, "Images/DruidWalk.png");
+    	textureContainer.load(textureSheet::standingArchmage, "Images/DruidStand.png");
     	textureContainer.load(textureSheet::background, "Images/Background.png");
     }
 

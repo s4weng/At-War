@@ -1,8 +1,9 @@
 #include "Hero.hpp"
+#include "Data.hpp"
 #include <iostream>
 
 //replace this with a map (nested) or 2d array
-textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::Action action){
+/*textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::Action action){
 
 	switch (classOfHero) {
 
@@ -22,10 +23,9 @@ textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::Action action
 			else if (action == Hero::Action::walkRight || action == Hero::Action::walkLeft)
 				return textureSheet::walkingArchmage;
 	}
-}
+}*/
 
-Hero::Hero(heroClass classOfHero, TextureContainer& textureContainer, heroFaction side):
-sideOfHero(side),
+Hero::Hero(heroClass classOfHero, TextureContainer& textureContainer):
 classOfHero(classOfHero),
 heroSprite(),
 playerAction(Action::standRight),

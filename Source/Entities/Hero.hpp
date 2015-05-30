@@ -22,6 +22,8 @@ public:
 		standLeft,
 		walkRight,
 		walkLeft,
+		walkUp,
+		walkDown,
 		actionCount
 	};
 

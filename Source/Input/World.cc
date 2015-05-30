@@ -61,7 +61,7 @@ void World::initScene(){
 	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setPosition(playerSpawnPosition);
-	playerHero->setVelocity(50.f, 0.f);
+	//playerHero->setVelocity(50.f, 0.f);
 	sceneLayers[Ground]->attachNode(std::move(mainHero)); //attach hero to ground layer
 
 	//currently cannot be shown as AI input has not been implemented

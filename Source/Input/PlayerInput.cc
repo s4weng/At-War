@@ -3,19 +3,17 @@
 #include "Hero.hpp"
 #include "KeyToString.hpp"
 
-#include <iostream>
-
 #include <algorithm>
 
 struct HeroMover {
 
-	HeroMover(float x, float y = 0.f) : velocity(x, y){
+	HeroMover(float x, float y) : velocity(x, y){
 	}
 
 	void operator() (SceneNode& node, sf::Time) const { //remove sf::Time?
 
 		Hero &hero = static_cast<Hero&>(node); //command is performed on SceneNode
-		hero.setVelocity(hero.getVelocity().x + velocity.x, velocity.y);
+		hero.setVelocity(hero.getVelocity() + velocity);
 	}
 
 	sf::Vector2f velocity;
@@ -25,6 +23,9 @@ PlayerInput::PlayerInput(){
 
 	keyActionMap[sf::Keyboard::Left] = Hero::Action::walkLeft;
 	keyActionMap[sf::Keyboard::Right] = Hero::Action::walkRight;
+	keyActionMap[sf::Keyboard::Up] = Hero::Action::walkUp;
+	keyActionMap[sf::Keyboard::Down] = Hero::Action::walkDown;
+
 
 	//map initialize key to action bindings
 	initializeActions();
@@ -74,7 +75,6 @@ void PlayerInput::assignKey(Hero::Action action, sf::Keyboard::Key key){
 	}
 
 	//then assign the new key
-	std::cout << "assigning key: " << keyToString(key) << std::endl;
 	keyActionMap[key] = action;
 }
 
@@ -82,13 +82,10 @@ sf::Keyboard::Key PlayerInput::getAssignedKey(Hero::Action action) const {
 
 	for (auto pair : keyActionMap){
 
-		if (pair.second == action){
-			std::cout << "found key: " << keyToString(pair.first) << std::endl;
+		if (pair.second == action)
 			return pair.first;
-		}
 	}
 
-	std::cout << "nothing found!" << std::endl;
 	return sf::Keyboard::Unknown;
 }
 
@@ -96,7 +93,7 @@ bool PlayerInput::isRealtimeAction(Hero::Action action){
 
 	switch (action){
 
-		case Hero::Action::walkLeft: case Hero::Action::walkRight:
+		case Hero::Action::walkLeft: case Hero::Action::walkRight: case Hero::Action::walkUp: case Hero::Action::walkDown:
 			return true;
 
 		default:
@@ -108,6 +105,8 @@ void PlayerInput::initializeActions(){
 
 	const float playerSpeed = 100.f;
 
-	actionCommandMap[Hero::Action::walkLeft].action = HeroMover(-playerSpeed);
-	actionCommandMap[Hero::Action::walkRight].action = HeroMover(playerSpeed);
+	actionCommandMap[Hero::Action::walkLeft].action = HeroMover(-playerSpeed, 0.f);
+	actionCommandMap[Hero::Action::walkRight].action = HeroMover(playerSpeed, 0.f);
+	actionCommandMap[Hero::Action::walkUp].action = HeroMover(0.f, -playerSpeed);
+	actionCommandMap[Hero::Action::walkDown].action = HeroMover(0.f, playerSpeed);
 }

@@ -22,11 +22,11 @@ void World::loadTextures(){
     try {
 
     	textureContainer.load(textureSheet::walkingArcher, "Images/ArcherWalk.png");
-    	textureContainer.load(textureSheet::standingArcher, "Images/ArcherStand.png");
+    	textureContainer.load(textureSheet::standingArcher, "Images/Archer.png");
     	textureContainer.load(textureSheet::walkingArchmage, "Images/ArchmageWalk.png");
     	textureContainer.load(textureSheet::standingArchmage, "Images/ArchmageStand.png");
-    	textureContainer.load(textureSheet::walkingArchmage, "Images/DruidWalk.png");
-    	textureContainer.load(textureSheet::standingArchmage, "Images/DruidStand.png");
+    	//textureContainer.load(textureSheet::walkingArchmage, "Images/DruidWalk.png");
+    	//textureContainer.load(textureSheet::standingArchmage, "Images/DruidStand.png");
     	textureContainer.load(textureSheet::background, "Images/Background.png");
     }
 
@@ -58,7 +58,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, textureContainer, Hero::heroFaction::Player));
+	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setPosition(playerSpawnPosition);
 	playerHero->setVelocity(50.f, 0.f);
@@ -85,8 +85,8 @@ void World::update(sf::Time deltaTime){
 	while (!commandQueue.isEmpty())
 		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
 
-	playerHero->updateCurrentAnimation();
-	playerHero->playCurrentAnimation();
+	//playerHero->updateCurrentAnimation();
+	//playerHero->playCurrentAnimation();
 	sceneGraph.update(deltaTime);
 	checkPlayerBounds();
 }
@@ -105,7 +105,7 @@ void World::checkPlayerBounds(){
 	playerHero->setPosition(position);
 }
 
-void World::setInputAnimation(sf::Keyboard::Key key){
+/*void World::setInputAnimation(sf::Keyboard::Key key){
 
 	//set up the direction the player's sprite will face/move
 	if (key == sf::Keyboard::Left)
@@ -113,16 +113,16 @@ void World::setInputAnimation(sf::Keyboard::Key key){
 
 	else if (key == sf::Keyboard::Right)
 		playerHero->setPlayerAction(Hero::Action::walkRight);
-}
+}*/
 
-void World::setReleasedKeyAnimation(){
+/*void World::setReleasedKeyAnimation(){
 
 	if (playerHero->getPlayerAction() == Hero::Action::walkLeft)
 		playerHero->setPlayerAction(Hero::Action::standLeft);
 	else
 		playerHero->setPlayerAction(Hero::Action::standRight);
 
-}
+}*/
 
 CommandQueue& World::getCommandQueue(){
 

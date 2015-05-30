@@ -28,14 +28,16 @@
 Hero::Hero(heroClass classOfHero, TextureContainer& textureContainer):
 classOfHero(classOfHero),
 heroSprite(),
-playerAction(Action::standRight),
-walkingRight(),
-walkingLeft(),
-standingRight(),
-standingLeft(),
-currentAnimation(){
+playerAction(Action::standRight)
+//walkingRight(),
+//walkingLeft(),
+//standingRight(),
+//standingLeft(),
+//currentAnimation()
+{
 
-	setAnimation(textureContainer);
+	heroSprite.setTexture(textureContainer.get(textureSheet::standingArcher));
+	//setAnimation(textureContainer);
 }
 
 void Hero::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -44,7 +46,7 @@ void Hero::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const 
 }
 
 
-void Hero::setAnimation(TextureContainer& textureContainer){
+/*void Hero::setAnimation(TextureContainer& textureContainer){
 
     //set up the animation frames
     walkingRight.setSpriteSheet(textureContainer.get(textureSheet::walkingArcher));
@@ -69,14 +71,14 @@ void Hero::setAnimation(TextureContainer& textureContainer){
 
     //set animation
     currentAnimation = &standingRight;
-}
+}*/
 
 Hero::Action Hero::getPlayerAction(){
 
 	return playerAction;
 }
 
-void Hero::updateCurrentAnimation(){
+/*void Hero::updateCurrentAnimation(){
 
 	if (playerAction == Action::walkRight)
 		currentAnimation = &walkingRight;
@@ -89,22 +91,22 @@ void Hero::updateCurrentAnimation(){
 
 	else
 		currentAnimation = &standingLeft;
-}
+}*/
 
 void Hero::setPlayerAction(Action action){
 
 	playerAction = action;
 }
 
-void Hero::playCurrentAnimation(){
+/*void Hero::playCurrentAnimation(){
 
 	heroSprite.play(*currentAnimation);
-}
+}*/
 
 void Hero::updateCurrent(sf::Time deltaTime){
 
 	move(getVelocity() * deltaTime.asSeconds());
-	heroSprite.update(deltaTime);
+	//heroSprite.update(deltaTime);
 }
 
 int Hero::getReceiver() const {
@@ -134,7 +136,7 @@ void Hero::heal(int hp){
 
 void Hero::damage(int hp){
 
-	hitpoints -= damage;
+	hitpoints -= hp;
 }
 
 bool Hero::isAlive() const {

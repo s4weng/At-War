@@ -30,13 +30,13 @@ bool GameState::handleEvent(const sf::Event& event){
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(StateID::Pause);
 
-	else if (event.type == sf::Event::KeyReleased)
-		world.setReleasedKeyAnimation();
+	/*else if (event.type == sf::Event::KeyReleased)
+		world.setReleasedKeyAnimation();*/
 
 	else {
 
 		playerInput.handleEvent(event, commandQueue);
-		world.setInputAnimation(event.key.code);
+		//world.setInputAnimation(event.key.code);
 	}
 
 	return true;

@@ -17,8 +17,8 @@ public:
 	explicit World(sf::RenderWindow& window);
 	void update(sf::Time);
 	void draw();
-	void setInputAnimation(sf::Keyboard::Key key);
-	void setReleasedKeyAnimation();
+	//void setInputAnimation(sf::Keyboard::Key key);
+	//void setReleasedKeyAnimation();
 
 	CommandQueue& getCommandQueue();
 

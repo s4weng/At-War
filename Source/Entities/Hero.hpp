@@ -34,10 +34,10 @@ public:
 
 	Action getPlayerAction();
 	void setPlayerAction(Action action);
-	void setAnimation(TextureContainer& textureContainer);
-	void updateCurrentAnimation();
+	//void setAnimation(TextureContainer& textureContainer);
+	//void updateCurrentAnimation();
 
-	void playCurrentAnimation();
+	//void playCurrentAnimation();
 	void updateCurrent(sf::Time deltaTime);
 
 	int getHitpoints() const;
@@ -56,12 +56,13 @@ private:
 	heroFaction sideOfHero;
 	heroClass classOfHero;
 
-	AnimatedSprite heroSprite;
+	sf::Sprite heroSprite;
+	//AnimatedSprite heroSprite;
 	Action playerAction;
 
 	//Declarations of animations
-	Animation walkingRight, walkingLeft, standingRight, standingLeft;
-	Animation* currentAnimation;
+	//Animation walkingRight, walkingLeft, standingRight, standingLeft;
+	//Animation* currentAnimation;
 
 	int hitpoints;
 };

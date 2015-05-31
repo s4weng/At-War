@@ -75,6 +75,8 @@ private:
 	Command attackCommand;
 	bool isAttack;
 	int hitpoints;
+	sf::Time attackTimer;
+	int attackRateLevel;
 };
 
 #endif

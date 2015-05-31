@@ -29,7 +29,9 @@ classOfHero(classOfHero),
 heroSprite(textureContainer.get(data[classOfHero].texture)),
 playerAction(Action::standRight),
 attackCommand(),
-isAttack(false)
+isAttack(false),
+attackTimer(sf::Time::Zero),
+attackRateLevel(1)
 //walkingRight(),
 //walkingLeft(),
 //standingRight(),
@@ -75,9 +77,16 @@ void Hero::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 
 void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 
-	if (isAttack){
+	if (isAttack && attackTimer <= sf::Time::Zero){
 
 		commandQueue.push(attackCommand);
+		attackTimer += data[classOfHero].attackInterval / (attackRateLevel + 1.f);
+		isAttack = false;
+	}
+
+	else if (attackTimer > sf::Time::Zero){
+
+		attackTimer -= deltaTime;
 		isAttack = false;
 	}
 }

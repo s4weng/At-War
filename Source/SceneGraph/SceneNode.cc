@@ -1,4 +1,5 @@
 #include "SceneNode.hpp"
+#include <iostream>
 
 #include <algorithm> //std::find_if
 #include <cassert>

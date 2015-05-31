@@ -108,6 +108,11 @@ void World::checkPlayerBounds(){
 	playerHero->setPosition(position);
 }
 
+CommandQueue& World::getCommandQueue(){
+
+	return commandQueue;
+}
+
 /*void World::setInputAnimation(sf::Keyboard::Key key){
 
 	//set up the direction the player's sprite will face/move
@@ -126,8 +131,3 @@ void World::checkPlayerBounds(){
 		playerHero->setPlayerAction(Hero::Action::standRight);
 
 }*/
-
-CommandQueue& World::getCommandQueue(){
-
-	return commandQueue;
-}

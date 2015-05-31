@@ -1,8 +1,6 @@
 #include "PlayerInput.hpp"
 #include "KeyToString.hpp"
 
-#include <iostream>
-
 #include <algorithm>
 
 struct HeroMover {
@@ -43,8 +41,6 @@ PlayerInput::PlayerInput(){
 	//set commands for only player to receive
 	for (auto& pair : actionCommandMap)
 		pair.second.receiver = Receiver::PlayerHero;
-
-	std::cout << "keys are set" << std::endl;
 }
 
 void PlayerInput::handleEvent(const sf::Event& event, CommandQueue& commandQueue){
@@ -54,11 +50,8 @@ void PlayerInput::handleEvent(const sf::Event& event, CommandQueue& commandQueue
 		//check if pressed key is in keyActionMap, push to CommandQueue with corresponding command
 		auto found = keyActionMap.find(event.key.code);
 
-		if (found != keyActionMap.end() && !isRealtimeAction(found->second)){
-
-			std::cout << "found key: " << keyToString(event.key.code) << std::endl;
+		if (found != keyActionMap.end() && !isRealtimeAction(found->second))
 			commandQueue.push(actionCommandMap[found->second]);
-		}
 	}
 }
 
@@ -68,11 +61,8 @@ void PlayerInput::handleRealtimeInput(CommandQueue& commandQueue){
 	for (auto pair : keyActionMap){
 
 		//push corresponding command to CommandQueue if so
-		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second)){
-
-			std::cout << "found rtkey: " << keyToString(pair.first) << std::endl;	
+		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
 			commandQueue.push(actionCommandMap[pair.second]);
-		}
 	}
 }
 
@@ -112,7 +102,7 @@ bool PlayerInput::isRealtimeAction(Hero::Action action){
 
 	switch (action){
 
-		case Hero::Action::walkLeft: case Hero::Action::walkRight: case Hero::Action::walkUp: case Hero::Action::walkDown:
+		case Hero::Action::walkLeft: case Hero::Action::walkRight: case Hero::Action::walkUp: case Hero::Action::walkDown: case Hero::Action::attack:
 			return true;
 
 		default:

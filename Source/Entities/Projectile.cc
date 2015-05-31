@@ -62,5 +62,6 @@ void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 
 void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states){
 
+	std::cout << "draw projectile" << std::endl;
 	target.draw(projectileSprite, states);
 }

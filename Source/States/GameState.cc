@@ -39,8 +39,7 @@ bool GameState::handleEvent(const sf::Event& event){
 		world.setReleasedKeyAnimation();*/
 
 	else {
-
-		std::cout << "passing key: " << keyToString(event.key.code) << std::endl;
+		
 		playerInput.handleEvent(event, commandQueue);
 		//world.setInputAnimation(event.key.code);
 	}

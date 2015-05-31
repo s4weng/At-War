@@ -20,10 +20,8 @@ bool Container::isSelectable() const{
 
 void Container::handleEvent(const sf::Event& event){
 
-	if (hasSelection() && children[selectedChild]->isActive()){
-
+	if (hasSelection() && children[selectedChild]->isActive())
 		children[selectedChild]->handleEvent(event);
-	}
 
 	else if (event.type == sf::Event::KeyReleased){
 

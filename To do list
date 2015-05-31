@@ -18,6 +18,7 @@ Low Priority/Functionality -
 In progress:
 
 1.
-- Modify hero class to reflect introduction of data class (i.e. data class is now in charge of hitpoints, faction)
+- Fix lack of arrow texture upon attack
+- Why is spacebar not read as realtime input?
 - Modify animations to generalize standLeft/walkLeft
 - Add texturesheet for druid (testing AI enemy)

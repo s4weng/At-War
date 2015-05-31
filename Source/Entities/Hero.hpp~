@@ -2,9 +2,8 @@
 #define _HERO_HPP__
 
 //#include "Entity.hpp"
-//#include "AnimatedSprite.hpp"
+#include "AnimatedSprite.hpp"
 #include "CommandQueue.hpp"
-#include "Data.hpp"
 #include "Projectile.hpp" //Entity.hpp
 
 class Hero : public Entity {
@@ -44,9 +43,9 @@ public:
 	//void updateCurrentAnimation();
 
 	//void playCurrentAnimation();
-	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	void updateCurrent(sf::Time deltaTime);
 	void checkAttack(sf::Time deltaTime, CommandQueue& commandQueue);
-	void createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer);
+	void createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, const TextureContainer& textureContainer) const;
 	void launchAttack();
 	int getHitpoints() const;
 	void heal(int hp);

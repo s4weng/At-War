@@ -1,4 +1,7 @@
 #include "GameState.hpp"
+#include "KeyToString.hpp"
+
+#include <iostream>
 
 GameState::GameState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView), //GameState is a new state
@@ -16,6 +19,7 @@ bool GameState::update(sf::Time deltaTime){
 	world.update(deltaTime);
 
 	CommandQueue& commandQueue = world.getCommandQueue();
+
 	playerInput.handleRealtimeInput(commandQueue);
 
 	return true;
@@ -24,6 +28,7 @@ bool GameState::update(sf::Time deltaTime){
 bool GameState::handleEvent(const sf::Event& event){
 
 	CommandQueue& commandQueue = world.getCommandQueue();
+
 	playerInput.handleEvent(event, commandQueue);
 
 	//pause if requested
@@ -35,6 +40,7 @@ bool GameState::handleEvent(const sf::Event& event){
 
 	else {
 
+		std::cout << "passing key: " << keyToString(event.key.code) << std::endl;
 		playerInput.handleEvent(event, commandQueue);
 		//world.setInputAnimation(event.key.code);
 	}

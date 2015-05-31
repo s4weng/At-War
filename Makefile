@@ -4,7 +4,7 @@ CXX = g++
 CXXFLAGS = -std=c++11 -Wall -MMD
 EXEC = At-War
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
-OBJ = AtWar.o GameController.o AnimatedSprite.o Animation.o Entity.o Hero.o SceneNode.o SpriteNode.o World.o Component.o Container.o Button.o Command.o CommandQueue.o PlayerInput.o StateStack.o State.o TitleState.o MenuState.o SettingsState.o GameState.o PauseState.o KeyToString.o
+OBJ = AtWar.o World.o Projectile.o Hero.o GameController.o AnimatedSprite.o Animation.o Data.o Entity.o SceneNode.o SpriteNode.o Component.o Container.o Button.o Command.o CommandQueue.o PlayerInput.o StateStack.o State.o TitleState.o MenuState.o SettingsState.o GameState.o PauseState.o KeyToString.o
 OBJECTS = $(addprefix ${SRCDIR}/,${OBJ})
 DEPENDS = ${OBJECTS:.o=.d}
 

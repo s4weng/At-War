@@ -48,19 +48,34 @@ void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates	states) 
 		nodePtr->draw(target, states);
 }
 
-void SceneNode::update(sf::Time deltaTime){
+sf::Vector2f SceneNode::getWorldPosition() const {
 
-	updateCurrent(deltaTime);
-	updateChildren(deltaTime);
+	return getWorldTransform() * sf::Vector2f();
 }
 
-void SceneNode::updateCurrent(sf::Time deltaTime){
+sf::Transform SceneNode::getWorldTransform() const {
+
+	sf::Transform transform = sf::Transform::Identity;
+
+	for (const SceneNode* sceneNode = this; sceneNode != nullptr; sceneNode = sceneNode->parent)
+		transform = sceneNode->getTransform() * transform;
+
+	return transform;
 }
 
-void SceneNode::updateChildren(sf::Time deltaTime){
+void SceneNode::update(sf::Time deltaTime, CommandQueue& commandQueue){
+
+	updateCurrent(deltaTime, commandQueue);
+	updateChildren(deltaTime, commandQueue);
+}
+
+void SceneNode::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
+}
+
+void SceneNode::updateChildren(sf::Time deltaTime, CommandQueue& commandQueue){
 
 	for (auto& nodePtr: children)
-		nodePtr->update(deltaTime);
+		nodePtr->update(deltaTime, commandQueue);
 }
 
 int SceneNode::getReceiver() const {

@@ -2,19 +2,25 @@
 #define _DATA_HPP__
 
 #include "TextureInfo.hpp"
-#include "Hero.hpp"
 
 #include <vector>
-
-class Hero;
+#include <SFML/System.hpp>
 
 struct HeroData {
 
 	int hitpoints;
+	sf::Time attackInterval;
 	textureSheet texture;
-	Hero::heroFaction faction;
+};
+
+struct ProjectileData {
+
+	int damage;
+	float speed;
+	textureSheet texture;
 };
 
 std::vector<HeroData> initializeHeroes();
+std::vector<ProjectileData> initializeProjectiles();
 
 #endif

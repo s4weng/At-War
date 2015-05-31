@@ -1,5 +1,5 @@
 #include "Hero.hpp"
-#include "Data.hpp"
+
 #include <iostream>
 
 //replace this with a map (nested) or 2d array
@@ -24,11 +24,14 @@
 				return textureSheet::walkingArchmage;
 	}
 }*/
+const std::vector<HeroData> data = initializeHeroes();
 
 Hero::Hero(heroClass classOfHero, TextureContainer& textureContainer):
 classOfHero(classOfHero),
-heroSprite(),
-playerAction(Action::standRight)
+heroSprite(textureContainer.get(data[classOfHero].texture)),
+playerAction(Action::standRight),
+attackCommand(),
+isAttack(false)
 //walkingRight(),
 //walkingLeft(),
 //standingRight(),
@@ -37,6 +40,14 @@ playerAction(Action::standRight)
 {
 
 	heroSprite.setTexture(textureContainer.get(textureSheet::standingArcher));
+	sf::FloatRect bounds = heroSprite.getLocalBounds();
+	heroSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
+
+	attackCommand.receiver = Receiver::Scene;
+	attackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
+
+		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Player, 0.f, 0.5f,textureContainer);
+	};
 	//setAnimation(textureContainer);
 }
 
@@ -103,10 +114,37 @@ void Hero::setPlayerAction(Action action){
 	heroSprite.play(*currentAnimation);
 }*/
 
-void Hero::updateCurrent(sf::Time deltaTime){
+void Hero::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 
-	move(getVelocity() * deltaTime.asSeconds());
+	checkAttack(deltaTime, commandQueue);
+	Entity::updateCurrent(deltaTime, commandQueue);
+
+	//move(getVelocity() * deltaTime.asSeconds());
 	//heroSprite.update(deltaTime);
+}
+
+void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
+
+	if (isAttack){
+
+		commandQueue.push(attackCommand);
+		isAttack = false;
+	}
+}
+
+void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer){
+
+	std::cout << "creating arrow" << std::endl;
+
+	std::unique_ptr<Projectile> arrow(new Projectile(type, side, textureContainer));
+
+	std::cout << "created arrow" << std::endl;
+	sf::Vector2f offset(x*heroSprite.getGlobalBounds().width, y*heroSprite.getGlobalBounds().height);
+	sf::Vector2f velocity(arrow->getMaxSpeed(), 0);
+
+	arrow->setPosition(getWorldPosition() + offset);
+	arrow->setVelocity(velocity);
+	sceneNode.attachNode(std::move(arrow));
 }
 
 int Hero::getReceiver() const {
@@ -122,6 +160,12 @@ int Hero::getReceiver() const {
 		case heroFaction::Opposition:
 			return Receiver::EnemyHero;
 	}
+}
+
+void Hero::launchAttack(){
+
+	if (data[classOfHero].attackInterval != sf::Time::Zero)
+		isAttack = true;
 }
 
 int Hero::getHitpoints() const {
@@ -141,5 +185,5 @@ void Hero::damage(int hp){
 
 bool Hero::isAlive() const {
 
-	return (hitpoints > 0) ? true : false;
+	return (hitpoints > 0);
 }

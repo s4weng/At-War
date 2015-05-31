@@ -26,8 +26,6 @@ textFlash(sf::Time::Zero){
 	bounds = continueText.getLocalBounds();
 	continueText.setOrigin(bounds.width/2.f, bounds.height/2.f);
 	continueText.setPosition(shareView.window->getView().getSize().x / 2.f, 475.f);
-
-
 }
 
 void TitleState::draw(){
@@ -58,9 +56,9 @@ bool TitleState::handleEvent(const sf::Event& event){
 
 	if (event.type == sf::Event::KeyReleased){
 
-		requestStateClear(); //we don't return here anyway
+		requestStackPop();
 		requestStackPush(StateID::Menu);
 	}
 
-	return false;
+	return true;
 }

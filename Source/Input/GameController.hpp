@@ -1,7 +1,7 @@
 #ifndef _GAMECONTROLLER_HPP__
 #define _GAMECONTROLLER_HPP__
 
-#include "TextureInfo.hpp" //ResourceContainer.hpp
+//#include "TextureInfo.hpp" //ResourceContainer.hpp
 #include "PlayerInput.hpp"
 #include "StateStack.hpp" //Stack.hpp
 

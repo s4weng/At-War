@@ -11,11 +11,10 @@ public:
 	void setVelocity(float velocityX, float velocityY);
 	void setVelocity(sf::Vector2f velocity);
 	sf::Vector2f getVelocity() const;
+	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 
 private:
-
-	void updateCurrent(sf::Time deltaTime);
-
+	
 	sf::Vector2f entityVelocity;
 };
 

@@ -18,4 +18,4 @@ Associated as (the ones discovered):
 - Return -> N (58, 13)
 
 Sun May 31st - Open (Can't move sprite)
-Unable to reproduced - Sometimes upon starting game player sprite can't move; no consistent sequence or timing of key presses/releases to reach this bug.
+Unable to reproduced - Sometimes upon starting game player sprite can't move; no consistent sequence of keys to reach this bug.

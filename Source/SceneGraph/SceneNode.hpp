@@ -2,7 +2,7 @@
 #define _SCENENODE_HPP__
 
 #include "Receiver.hpp"
-#include "Command.hpp"
+#include "CommandQueue.hpp"
 
 #include <memory> //std::unique_ptr
 #include <vector>
@@ -23,7 +23,10 @@ public:
 	void attachNode(sceneNodePtr node);
 	sceneNodePtr detachNode(SceneNode& node);
 
-	void update(sf::Time deltaTime);
+	sf::Vector2f getWorldPosition() const;
+	sf::Transform getWorldTransform() const;
+
+	void update(sf::Time deltaTime, CommandQueue& commandQueue);
 
 	virtual int getReceiver() const;
 	void onCommand(const Command& command, sf::Time deltaTime);
@@ -37,8 +40,8 @@ private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	void drawChildren(sf::RenderTarget& target, sf::RenderStates) const;
 
-	virtual void updateCurrent(sf::Time deltaTime);
-	void updateChildren(sf::Time deltaTime);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	void updateChildren(sf::Time deltaTime, CommandQueue& commandQueue);
 };
 
 #endif

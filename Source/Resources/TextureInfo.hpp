@@ -12,6 +12,8 @@ enum class textureSheet {
 	walkingArchmage,
 	standingDruid,
 	walkingDruid,
+	Arrow,
+	Spell,
 	titleBackground,
 	menuBackground,
 	settingsBackground,

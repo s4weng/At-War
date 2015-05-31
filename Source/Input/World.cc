@@ -1,4 +1,5 @@
 #include "World.hpp"
+
 #include <iostream>
 
 const float World::heroVelocity = 100.f;
@@ -27,6 +28,7 @@ void World::loadTextures(){
     	textureContainer.load(textureSheet::standingArchmage, "Images/ArchmageStand.png");
     	//textureContainer.load(textureSheet::walkingArchmage, "Images/DruidWalk.png");
     	//textureContainer.load(textureSheet::standingArchmage, "Images/DruidStand.png");
+    	textureContainer.load(textureSheet::Arrow, "Images/Arrow.png");
     	textureContainer.load(textureSheet::background, "Images/Background.png");
     }
 
@@ -87,7 +89,8 @@ void World::update(sf::Time deltaTime){
 
 	//playerHero->updateCurrentAnimation();
 	//playerHero->playCurrentAnimation();
-	sceneGraph.update(deltaTime);
+	sceneGraph.update(deltaTime, commandQueue);
+
 	checkPlayerBounds();
 }
 

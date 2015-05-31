@@ -1,7 +1,7 @@
 #include "PlayerInput.hpp"
-#include "CommandQueue.hpp"
-#include "Hero.hpp"
 #include "KeyToString.hpp"
+
+#include <iostream>
 
 #include <algorithm>
 
@@ -10,13 +10,22 @@ struct HeroMover {
 	HeroMover(float x, float y) : velocity(x, y){
 	}
 
-	void operator() (SceneNode& node, sf::Time) const { //remove sf::Time?
+	void operator() (SceneNode& sceneNode, sf::Time) const {
 
-		Hero &hero = static_cast<Hero&>(node); //command is performed on SceneNode
+		Hero &hero = static_cast<Hero&>(sceneNode); //command is performed on SceneNode
 		hero.setVelocity(hero.getVelocity() + velocity);
 	}
 
 	sf::Vector2f velocity;
+};
+
+struct HeroAttacker {
+
+	void operator() (SceneNode& sceneNode, sf::Time) const {
+
+		Hero &hero = static_cast<Hero&>(sceneNode);
+		hero.launchAttack();
+	}
 };
 
 PlayerInput::PlayerInput(){
@@ -25,6 +34,7 @@ PlayerInput::PlayerInput(){
 	keyActionMap[sf::Keyboard::Right] = Hero::Action::walkRight;
 	keyActionMap[sf::Keyboard::Up] = Hero::Action::walkUp;
 	keyActionMap[sf::Keyboard::Down] = Hero::Action::walkDown;
+	keyActionMap[sf::Keyboard::Space] = Hero::Action::attack;
 
 
 	//map initialize key to action bindings
@@ -33,6 +43,8 @@ PlayerInput::PlayerInput(){
 	//set commands for only player to receive
 	for (auto& pair : actionCommandMap)
 		pair.second.receiver = Receiver::PlayerHero;
+
+	std::cout << "keys are set" << std::endl;
 }
 
 void PlayerInput::handleEvent(const sf::Event& event, CommandQueue& commandQueue){
@@ -41,8 +53,12 @@ void PlayerInput::handleEvent(const sf::Event& event, CommandQueue& commandQueue
 
 		//check if pressed key is in keyActionMap, push to CommandQueue with corresponding command
 		auto found = keyActionMap.find(event.key.code);
-		if (found != keyActionMap.end() && !isRealtimeAction(found->second))
+
+		if (found != keyActionMap.end() && !isRealtimeAction(found->second)){
+
+			std::cout << "found key: " << keyToString(event.key.code) << std::endl;
 			commandQueue.push(actionCommandMap[found->second]);
+		}
 	}
 }
 
@@ -52,8 +68,11 @@ void PlayerInput::handleRealtimeInput(CommandQueue& commandQueue){
 	for (auto pair : keyActionMap){
 
 		//push corresponding command to CommandQueue if so
-		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
+		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second)){
+
+			std::cout << "found rtkey: " << keyToString(pair.first) << std::endl;	
 			commandQueue.push(actionCommandMap[pair.second]);
+		}
 	}
 }
 
@@ -109,4 +128,5 @@ void PlayerInput::initializeActions(){
 	actionCommandMap[Hero::Action::walkRight].action = HeroMover(playerSpeed, 0.f);
 	actionCommandMap[Hero::Action::walkUp].action = HeroMover(0.f, -playerSpeed);
 	actionCommandMap[Hero::Action::walkDown].action = HeroMover(0.f, playerSpeed);
+	actionCommandMap[Hero::Action::attack].action = HeroAttacker();
 }

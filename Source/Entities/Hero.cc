@@ -1,7 +1,5 @@
 #include "Hero.hpp"
 
-#include <iostream>
-
 //replace this with a map (nested) or 2d array
 /*textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::Action action){
 
@@ -47,7 +45,7 @@ attackRateLevel(1)
 	attackCommand.receiver = Receiver::Scene;
 	attackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
 
-		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Player, 0.f, 0.5f,textureContainer);
+		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Player, 0.5f, -0.1f,textureContainer);
 	};
 	//setAnimation(textureContainer);
 }
@@ -99,8 +97,7 @@ void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::
 	sf::Vector2f offset(x*heroSprite.getGlobalBounds().width, y*heroSprite.getGlobalBounds().height);
 	sf::Vector2f velocity(arrow->getMaxSpeed(), 0);
 
-	arrow->setPosition(300.f, 300.f);
-	//arrow->setPosition(getWorldPosition() + offset);
+	arrow->setPosition(getWorldPosition() + offset);
 	arrow->setVelocity(velocity);
 	sceneNode.attachNode(std::move(arrow));
 }

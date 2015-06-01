@@ -18,7 +18,6 @@ Low Priority/Functionality -
 In progress:
 
 1.
-- Fix lack of arrow texture upon attack
-- Four arrows are created per attack command (space)
 - Modify animations to generalize standLeft/walkLeft
 - Add texturesheet for druid (testing AI enemy)
+- Still unsure of bug where sometimes no controls work (keys are read in though)

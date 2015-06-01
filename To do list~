@@ -19,6 +19,6 @@ In progress:
 
 1.
 - Fix lack of arrow texture upon attack
-- Why is spacebar not read as realtime input?
+- Four arrows are created per attack command (space)
 - Modify animations to generalize standLeft/walkLeft
 - Add texturesheet for druid (testing AI enemy)

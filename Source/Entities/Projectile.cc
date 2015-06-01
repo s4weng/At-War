@@ -14,9 +14,9 @@ side(side),
 projectileSprite(textureContainer.get(data[type].texture)),
 direction(){
 
-	std::cout << "creating projectile arrow" << std::endl;
 	sf::FloatRect bounds = projectileSprite.getLocalBounds();
 	projectileSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
+	std::cout << "created projectile arrow" << std::endl;
 }
 
 /*void Projectile::guideTowards(sf::Vector2f position){
@@ -60,8 +60,7 @@ void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 	Entity::updateCurrent(deltaTime, commandQueue);
 }
 
-void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states){
+void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
 
-	std::cout << "draw projectile" << std::endl;
 	target.draw(projectileSprite, states);
 }

@@ -1,5 +1,7 @@
 #include "Hero.hpp"
 
+#include <iostream>
+
 //replace this with a map (nested) or 2d array
 /*textureSheet returnTextureSheet(Hero::heroClass classOfHero, Hero::Action action){
 
@@ -39,7 +41,6 @@ attackRateLevel(1)
 //currentAnimation()
 {
 
-	heroSprite.setTexture(textureContainer.get(textureSheet::standingArcher));
 	sf::FloatRect bounds = heroSprite.getLocalBounds();
 	heroSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
 

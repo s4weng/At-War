@@ -1,10 +1,8 @@
 #include "GameState.hpp"
 #include "KeyToString.hpp"
 
-#include <iostream>
-
 GameState::GameState(StateStack& stateStack, ShareView shareView):
-State(stateStack, shareView), //GameState is a new state
+State(stateStack, shareView),
 world(*shareView.window),
 playerInput(*shareView.playerInput){
 }
@@ -35,14 +33,8 @@ bool GameState::handleEvent(const sf::Event& event){
 	if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(StateID::Pause);
 
-	/*else if (event.type == sf::Event::KeyReleased)
-		world.setReleasedKeyAnimation();*/
-
-	else {
-		
+	else
 		playerInput.handleEvent(event, commandQueue);
-		//world.setInputAnimation(event.key.code);
-	}
 
 	return true;
 }

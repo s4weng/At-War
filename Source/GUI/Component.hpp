@@ -18,11 +18,11 @@ public:
 	virtual bool isActive() const;
 	virtual void activate();
 	virtual void deactivate();
+	
 	virtual bool isSelectable() const = 0;
 	bool isSelected() const;
 	virtual void select();
 	virtual void deselect();
-
 
 	virtual void handleEvent(const sf::Event& event) = 0;
 

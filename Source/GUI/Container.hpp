@@ -16,6 +16,7 @@ public:
 
 	void pack(componentPtr component);
 	virtual bool isSelectable() const;
+	
 	virtual void handleEvent(const sf::Event& event);
 
 private:

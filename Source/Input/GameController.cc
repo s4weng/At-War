@@ -15,6 +15,7 @@ playerInput(),
 stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput)){
 
 	fontContainer.load(Fonts::main, "Fonts/lobsterTwo.otf");
+	
 	textureContainer.load(textureSheet::titleBackground, "Images/titleBackground.png");
 	textureContainer.load(textureSheet::menuBackground, "Images/menuBackground.png");
 	textureContainer.load(textureSheet::settingsBackground, "Images/settingsBackground.png");

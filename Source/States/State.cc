@@ -1,4 +1,4 @@
-#include "StateStack.hpp" //State.hpp
+#include "StateStack.hpp"
 
 State::ShareView::ShareView(sf::RenderWindow& window, TextureContainer& textureContainer, FontContainer& fontContainer, PlayerInput& playerInput):
 window(&window),

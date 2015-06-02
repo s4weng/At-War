@@ -4,7 +4,7 @@
 #include "Receiver.hpp"
 #include "CommandQueue.hpp"
 
-#include <memory> //std::unique_ptr
+#include <memory>
 #include <vector>
 
 
@@ -15,7 +15,6 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 
 public:
 
-	//scene node pointers will be used frequently
 	typedef std::unique_ptr<SceneNode> sceneNodePtr;
 
 	SceneNode();

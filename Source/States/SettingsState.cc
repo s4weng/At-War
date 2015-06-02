@@ -14,7 +14,7 @@ container(){
 	walkLeftButton->setPosition(80.f, 250.f);
 
 	walkRightButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
-	walkRightButton->setPosition(80.f, 350.f);
+	walkRightButton->setPosition(80.f, 300.f);
 
 	updateControl();
 	walkLeftButton->setToggle(true);
@@ -55,9 +55,7 @@ bool SettingsState::handleEvent(const sf::Event& event){
 		if (event.type == sf::Event::KeyReleased){
 
 			changeKeys = true;
-			getSharedView().playerInput->assignKey(Hero::Action::walkLeft, event.key.code);
-			//getSharedView().playerInput->assignKey(Hero::Action::standLeft, event.key.code);
-			
+			getSharedView().playerInput->assignKey(Hero::Action::walkLeft, event.key.code);			
 			walkLeftButton->deactivate();
 		}
 	}
@@ -68,7 +66,6 @@ bool SettingsState::handleEvent(const sf::Event& event){
 
 			changeKeys = true;
 			getSharedView().playerInput->assignKey(Hero::Action::walkRight, event.key.code);
-			//getSharedView().playerInput->assignKey(Hero::Action::standRight, event.key.code);
 			walkRightButton->deactivate();		
 		}
 	}

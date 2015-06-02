@@ -1,5 +1,4 @@
 #include "PlayerInput.hpp"
-#include "KeyToString.hpp"
 
 #include <algorithm>
 
@@ -33,7 +32,6 @@ PlayerInput::PlayerInput(){
 	keyActionMap[sf::Keyboard::Up] = Hero::Action::walkUp;
 	keyActionMap[sf::Keyboard::Down] = Hero::Action::walkDown;
 	keyActionMap[sf::Keyboard::Space] = Hero::Action::attack;
-
 
 	//map initialize key to action bindings
 	initializeActions();
@@ -69,18 +67,10 @@ void PlayerInput::handleRealtimeInput(CommandQueue& commandQueue){
 void PlayerInput::assignKey(Hero::Action action, sf::Keyboard::Key key){
 
 	//remove key that already map to given action
-	/*for (auto pair : keyActionMap){
+	for (auto pair : keyActionMap){
 
 		if (pair.second == action)
 			keyActionMap.erase(pair.first);
-	}*/
-
-	for (auto itr = keyActionMap.begin(); itr != keyActionMap.end(); )
-	{
-		if (itr->second == action)
-			keyActionMap.erase(itr++);
-		else
-			++itr;
 	}
 
 	//then assign the new key

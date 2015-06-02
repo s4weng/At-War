@@ -10,13 +10,6 @@ std::vector<HeroData> initializeHeroes(){
 	data[Hero::heroClass::Archer].attackInterval = sf::seconds(1);
 	data[Hero::heroClass::Archer].texture = textureSheet::standingArcher;
 
-	/*data[Hero::heroClass::Archmage].hitpoints = 80;
-	data[Hero::heroClass::Archmage].attackInterval = sf::seconds(1);
-	data[Hero::heroClass::Archmage].texture = textureSheet::standingArchmage;*/
-
-	/*data[Hero::heroClass::Druid].hitpoints = 30;
-	data[Hero::heroClass::Druid].texture = textureSheet::standingDruid;*/
-
 	return data;
 }
 
@@ -29,5 +22,4 @@ std::vector<ProjectileData> initializeProjectiles(){
 	data[Projectile::Type::Arrow].texture = textureSheet::Arrow;
 
 	return data;
-	//data[Projectile::Type::Spell].
 }

@@ -24,9 +24,6 @@ public:
 
 	Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer);
 
-	//void guideTowards(sf::Vector2f position);
-	//bool isGuided() const;
-
 	virtual int getReceiver() const;
 	virtual sf::FloatRect getBoundingRect() const;
 	float getMaxSpeed() const;

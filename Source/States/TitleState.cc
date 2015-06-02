@@ -15,6 +15,7 @@ textFlash(sf::Time::Zero){
 	titleText.setFont(shareView.fontContainer->get(Fonts::main));
 	titleText.setString("At War");
 	titleText.setCharacterSize(50);
+	
 	//move the string according to its center
 	sf::FloatRect bounds = titleText.getLocalBounds();
 	titleText.setOrigin(bounds.width/2.f, bounds.height/2.f);

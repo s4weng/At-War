@@ -15,7 +15,6 @@ public:
 	Command();
 
 	std::function<void(SceneNode&, sf::Time)> action;
-
 	int receiver;
 };
 

@@ -1,7 +1,6 @@
 #include "SceneNode.hpp"
-#include <iostream>
 
-#include <algorithm> //std::find_if
+#include <algorithm>
 #include <cassert>
 
 SceneNode::SceneNode(): children(), parent(nullptr) {

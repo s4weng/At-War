@@ -2,9 +2,7 @@
 #define _WORLD_HPP__
 
 #include "Hero.hpp" //Entity.hpp, SceneNode.hpp, ResourceContainer.hpp, TextureInfo.hpp
-//#include "Entity.hpp"
 #include "SpriteNode.hpp"
-//#include "AnimatedSprite.hpp"
 #include "CommandQueue.hpp" //Command.hpp
 
 #include <array>
@@ -17,9 +15,6 @@ public:
 	explicit World(sf::RenderWindow& window);
 	void update(sf::Time);
 	void draw();
-	//void setInputAnimation(sf::Keyboard::Key key);
-	//void setReleasedKeyAnimation();
-
 	CommandQueue& getCommandQueue();
 
 private:

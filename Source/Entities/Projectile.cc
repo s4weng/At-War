@@ -16,15 +16,6 @@ direction(){
 	projectileSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
 }
 
-/*void Projectile::guideTowards(sf::Vector2f position){
-
-	assert(isGuided());
-
-	position-= getWorldPosition();
-	assert(position != sf::Vector2f(0.f, 0.f));
-	direction = position / std::sqrt(position.x * position.x + position.y * position.y);
-}*/
-
 int Projectile::getReceiver() const {
 
 	if (side == Side::Enemy)

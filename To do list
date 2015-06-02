@@ -17,7 +17,8 @@ Low Priority/Functionality -
 
 In progress:
 
-1.
+1. Create enemies
+2. Create collision system
+3. Create AI controls
 - Modify animations to generalize standLeft/walkLeft
 - Add texturesheet for druid (testing AI enemy)
-- Still unsure of bug where sometimes no controls work (keys are read in though)

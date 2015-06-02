@@ -2,7 +2,8 @@
 
 const std::vector<HeroData> data = initializeHeroes();
 
-Hero::Hero(heroClass classOfHero, TextureContainer& textureContainer):
+Hero::Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):
+sideOfHero(sideOfHero), 
 classOfHero(classOfHero),
 heroSprite(textureContainer.get(data[classOfHero].texture)),
 playerAction(Action::standRight),
@@ -71,17 +72,17 @@ void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::
 	sceneNode.attachNode(std::move(arrow));
 }
 
-int Hero::getReceiver() const {
+unsigned int Hero::getReceiver() const {
 
 	switch (sideOfHero) {
 
-		case heroFaction::Player:
+		case Hero::heroFaction::Player:
 			return Receiver::PlayerHero;
 
-		case heroFaction::Ally:
+		case Hero::heroFaction::Ally:
 			return Receiver::AlliedHero;
 
-		case heroFaction::Opposition:
+		case Hero::heroFaction::Opposition:
 			return Receiver::EnemyHero;
 	}
 }

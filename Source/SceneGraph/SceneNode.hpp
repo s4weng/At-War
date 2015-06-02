@@ -27,7 +27,7 @@ public:
 
 	void update(sf::Time deltaTime, CommandQueue& commandQueue);
 
-	virtual int getReceiver() const;
+	virtual unsigned int getReceiver() const;
 	void onCommand(const Command& command, sf::Time deltaTime);
 
 private:

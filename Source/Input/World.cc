@@ -55,7 +55,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, textureContainer));
+	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setPosition(playerSpawnPosition);
 	sceneLayers[Ground]->attachNode(std::move(mainHero)); //attach hero to ground layer

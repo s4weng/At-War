@@ -16,7 +16,7 @@ direction(){
 	projectileSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
 }
 
-int Projectile::getReceiver() const {
+unsigned int Projectile::getReceiver() const {
 
 	if (side == Side::Enemy)
 		return Receiver::EnemyProjectile;

@@ -24,7 +24,7 @@ public:
 
 	Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer);
 
-	virtual int getReceiver() const;
+	virtual unsigned int getReceiver() const;
 	virtual sf::FloatRect getBoundingRect() const;
 	float getMaxSpeed() const;
 	int getDamage() const;

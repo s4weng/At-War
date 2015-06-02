@@ -1,11 +1,13 @@
 File for keeping track of bugs
 
+
 Sun May 17 - Not Applicable (Temporarily removed animations) (Command system bug)
 1. Walk in direction A press and holding Key A.key
 2. Press and hold opposite direction B.key
 --- Walk in place
 3. Let go of direction B.key
 --- Moonwalk backwards
+
 
 Wed May 27 - Open (Passing key event)
 1.  In SettingState.cc, std::cout event.key.code before container.handlevent
@@ -17,5 +19,27 @@ Associated as (the ones discovered):
 - D->"Pause" key (3, 100)
 - Return -> N (58, 13)
 
-Sun May 31st - Open (Can't move sprite)
+
+Sun May 31st - Fixed (Can't move sprite)
 Unable to reproduced - Sometimes upon starting game player sprite can't move; no consistent sequence or timing of key presses/releases to reach this bug.
+Update: This seems to be due to some inconsistency among the receiver value.  Details or solution to come.
+
+FIXED
+- sideOfHero was uninitialized
+- In function Hero::getReceiver(), the unsigned int being returned was inconsistent; this return value depended on sideOfHero
+- Still unsure why sometimes values inside the switch statement for getReceiver was considered:
+
+unsigned int Hero::getReceiver() const {
+
+	switch (sideOfHero) {
+
+		case Hero::heroFaction::Player:
+			return Receiver::PlayerHero;
+
+		case Hero::heroFaction::Ally:
+			return Receiver::AlliedHero;
+
+		case Hero::heroFaction::Opposition:
+			return Receiver::EnemyHero;
+	}
+}

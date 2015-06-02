@@ -78,13 +78,13 @@ void SceneNode::updateChildren(sf::Time deltaTime, CommandQueue& commandQueue){
 		nodePtr->update(deltaTime, commandQueue);
 }
 
-int SceneNode::getReceiver() const {
+unsigned int SceneNode::getReceiver() const {
 
 	return Receiver::Scene;
 }
 
 void SceneNode::onCommand(const Command& command, sf::Time deltaTime){
-
+	
 	//bitwise & to check if current scenenode is receiver of command
 	if (command.receiver & getReceiver())
 		command.action(*this, deltaTime);

@@ -1,8 +1,9 @@
 #include "PlayerInput.hpp"
+#include "HeroOptions.hpp"
 
 #include <algorithm>
 
-struct HeroMover {
+/*struct HeroMover {
 
 	HeroMover(float x, float y) : velocity(x, y){
 	}
@@ -23,7 +24,7 @@ struct HeroAttacker {
 		Hero &hero = static_cast<Hero&>(sceneNode);
 		hero.launchAttack();
 	}
-};
+};*/
 
 PlayerInput::PlayerInput(){
 

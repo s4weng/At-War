@@ -63,7 +63,7 @@ void World::initScene(){
 	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setPosition(playerSpawnPosition);
-	sceneLayers[Ground]->attachNode(std::move(mainHero)); //attach hero to ground layer
+	sceneLayers[Ground]->attachNode(std::move(mainHero));
 }
 
 void World::draw(){
@@ -74,11 +74,12 @@ void World::draw(){
 
 void World::update(sf::Time deltaTime){
 
-
 	view.move(-scrollSpeed * deltaTime.asSeconds(), 0.f);
 	playerHero->setVelocity(0.f, 0.f);
 	enemyHero->setVelocity(0.f, 0.f);
-	moveTowards();
+	
+	if (moveTowards())
+		enemyHero->launchAttack();
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
@@ -107,7 +108,7 @@ CommandQueue& World::getCommandQueue(){
 	return commandQueue;
 }
 
-void World::moveTowards(){
+bool World::moveTowards(){
 
 	float x, y = 0;
 	float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
@@ -128,4 +129,6 @@ void World::moveTowards(){
 		y = -enemySpeed;
 
 	enemyHero->setVelocity(x,y);
+
+	return (x == 0 && y == 0);
 }

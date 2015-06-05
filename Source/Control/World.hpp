@@ -43,7 +43,7 @@ private:
 	void loadTextures();
 	void initScene();
 	void checkPlayerBounds();
-	void moveTowards();
+	bool moveTowards();
 };
 
 #endif

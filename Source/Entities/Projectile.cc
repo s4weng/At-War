@@ -2,7 +2,7 @@
 #include "Data.hpp"
 
 #include <cassert>
-#include <cmath>
+#include <math.h>
 
 const std::vector<ProjectileData> data = initializeProjectiles();
 

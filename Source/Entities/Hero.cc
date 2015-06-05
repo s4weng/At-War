@@ -1,5 +1,7 @@
 #include "Hero.hpp"
 
+#include <iostream>
+
 const std::vector<HeroData> dataTable = initializeHeroes();
 
 Hero::Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):
@@ -68,7 +70,7 @@ void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::
 	sf::Vector2f velocity(arrow->getMaxSpeed(), 0);
 
 	arrow->setPosition(getWorldPosition() + offset);
-	arrow->setVelocity(velocity);
+	arrow->setVelocity(-velocity);
 	sceneNode.attachNode(std::move(arrow));
 }
 
@@ -89,7 +91,6 @@ unsigned int Hero::getReceiver() const {
 
 void Hero::launchAttack(){
 
-	if (dataTable[classOfHero].attackInterval != sf::Time::Zero)
 		isAttack = true;
 }
 

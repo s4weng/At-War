@@ -44,6 +44,7 @@ private:
 	void initScene();
 	void checkPlayerBounds();
 	bool moveTowards();
+	void updateEntities();
 };
 
 #endif

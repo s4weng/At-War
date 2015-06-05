@@ -55,13 +55,15 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::unique_ptr<Hero> oppositionHero(new Hero(Entity::Direction::Left, Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
+	std::unique_ptr<Hero> oppositionHero(new Hero(Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
 	enemyHero = oppositionHero.get();
+	enemyHero->setDirection(Entity::Direction::Left);
 	enemyHero->setPosition(800.f, 300.f);
 	sceneLayers[Ground]->attachNode(std::move(oppositionHero)); //attach hero to ground layer
 
-	std::unique_ptr<Hero> mainHero(new Hero(Entity::Direction::Right, Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
+	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
+	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
 	sceneLayers[Ground]->attachNode(std::move(mainHero));
 }
@@ -75,12 +77,9 @@ void World::draw(){
 void World::update(sf::Time deltaTime){
 
 	view.move(-scrollSpeed * deltaTime.asSeconds(), 0.f);
-	playerHero->setVelocity(0.f, 0.f);
-	enemyHero->setVelocity(0.f, 0.f);
-	
-	if (moveTowards())
-		enemyHero->launchAttack();
 
+	updateEntities();
+	
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
 		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
@@ -88,6 +87,18 @@ void World::update(sf::Time deltaTime){
 	sceneGraph.update(deltaTime, commandQueue);
 	checkPlayerBounds();
 }
+
+void World::updateEntities(){
+
+	playerHero->updateDirection();
+	enemyHero->updateDirection();
+	playerHero->setVelocity(0.f, 0.f);
+	enemyHero->setVelocity(0.f, 0.f);
+	
+	if (moveTowards())
+		enemyHero->launchAttack();	
+}
+
 
 void World::checkPlayerBounds(){
 

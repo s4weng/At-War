@@ -6,11 +6,10 @@
 
 const std::vector<ProjectileData> data = initializeProjectiles();
 
-Projectile::Projectile(Entity::Direction direction, Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer):
+Projectile::Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer):
 type(type),
 side(side),
-projectileSprite(textureContainer.get(data[type].texture)),
-projectileDirection(direction){
+projectileSprite(textureContainer.get(data[type].texture)){
 
 	sf::FloatRect bounds = projectileSprite.getLocalBounds();
 	projectileSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);

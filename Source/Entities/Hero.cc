@@ -4,7 +4,7 @@
 
 const std::vector<HeroData> dataTable = initializeHeroes();
 
-Hero::Hero(Entity::Direction direction, heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):
+Hero::Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):
 sideOfHero(sideOfHero), 
 classOfHero(classOfHero),
 heroSprite(textureContainer.get(dataTable[classOfHero].texture)),
@@ -12,9 +12,7 @@ playerAction(Action::standRight),
 attackCommand(),
 isAttack(false),
 attackTimer(sf::Time::Zero),
-attackRateLevel(1),
-heroDirection(direction)
-{
+attackRateLevel(1){
 
 	sf::FloatRect bounds = heroSprite.getLocalBounds();
 	heroSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
@@ -65,13 +63,19 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 
 void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer){
 
-	std::unique_ptr<Projectile> arrow(new Projectile(heroDirection, type, side, textureContainer));
+	std::unique_ptr<Projectile> arrow(new Projectile(type, side, textureContainer));
 
 	sf::Vector2f offset(x*heroSprite.getGlobalBounds().width, y*heroSprite.getGlobalBounds().height);
 	sf::Vector2f velocity(arrow->getMaxSpeed(), 0);
 
 	arrow->setPosition(getWorldPosition() + offset);
-	(heroDirection == Entity::Direction::Left) ? arrow->setVelocity(-velocity) : arrow->setVelocity(velocity);
+
+	(getDirection() == Entity::Direction::Left) ? 
+	arrow->setVelocity(-velocity),
+	arrow->setDirection(Direction::Left) :
+	arrow->setVelocity(velocity),
+	arrow->setDirection(Direction::Right);
+
 	sceneNode.attachNode(std::move(arrow));
 }
 

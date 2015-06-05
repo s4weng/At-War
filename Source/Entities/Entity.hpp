@@ -18,11 +18,14 @@ public:
 	void setVelocity(sf::Vector2f velocity);
 	sf::Vector2f getVelocity() const;
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	void updateDirection();
+	void setDirection(Direction direction);
+	Direction getDirection() const;
 
 private:
-	
-	sf::Vector2f entityVelocity;
 
+	Direction entityDirection;	
+	sf::Vector2f entityVelocity;
 };
 
 #endif

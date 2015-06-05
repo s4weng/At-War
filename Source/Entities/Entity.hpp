@@ -8,6 +8,12 @@ class Entity : public SceneNode {
 
 public:
 
+	enum class Direction {
+
+		Left,
+		Right
+	};
+
 	void setVelocity(float velocityX, float velocityY);
 	void setVelocity(sf::Vector2f velocity);
 	sf::Vector2f getVelocity() const;
@@ -16,6 +22,7 @@ public:
 private:
 	
 	sf::Vector2f entityVelocity;
+
 };
 
 #endif

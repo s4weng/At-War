@@ -22,7 +22,7 @@ public:
 		Enemy
 	};
 
-	Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer);
+	Projectile(Entity::Direction direction, Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer);
 
 	virtual unsigned int getReceiver() const;
 	virtual sf::FloatRect getBoundingRect() const;
@@ -36,7 +36,14 @@ private:
 	Projectile::Type type;
 	Projectile::Side side;
 	sf::Sprite projectileSprite;
-	sf::Vector2f direction;
+
+	enum class Direction {
+
+		Left,
+		Right
+	};
+
+	Entity::Direction projectileDirection;
 };
 
 #endif

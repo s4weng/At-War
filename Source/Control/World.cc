@@ -55,12 +55,12 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::unique_ptr<Hero> oppositionHero(new Hero(Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
+	std::unique_ptr<Hero> oppositionHero(new Hero(Entity::Direction::Left, Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
 	enemyHero = oppositionHero.get();
 	enemyHero->setPosition(800.f, 300.f);
 	sceneLayers[Ground]->attachNode(std::move(oppositionHero)); //attach hero to ground layer
 
-	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
+	std::unique_ptr<Hero> mainHero(new Hero(Entity::Direction::Right, Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setPosition(playerSpawnPosition);
 	sceneLayers[Ground]->attachNode(std::move(mainHero));

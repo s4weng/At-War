@@ -51,7 +51,7 @@ public:
 	void damage(int hp);
 	bool isAlive() const;
 
-	Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer);
+	Hero(Entity::Direction direction, heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	virtual unsigned int getReceiver() const;
@@ -69,6 +69,8 @@ private:
 	int hitpoints;
 	sf::Time attackTimer;
 	int attackRateLevel;
+
+	Entity::Direction heroDirection;
 };
 
 #endif

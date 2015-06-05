@@ -16,7 +16,7 @@ std::vector<HeroData> initializeHeroes(){
 	data[Hero::heroClass::Archmage].attackInterval = sf::seconds(3);
 	data[Hero::heroClass::Archmage].texture = textureSheet::standingArchmage;
 	data[Hero::heroClass::Archmage].attackDistance = 300.f;
-	data[Hero::heroClass::Archmage].speed = 100.f;
+	data[Hero::heroClass::Archmage].speed = 70.f;
 
 	return data;
 }

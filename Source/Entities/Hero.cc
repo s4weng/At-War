@@ -1,11 +1,11 @@
 #include "Hero.hpp"
 
-const std::vector<HeroData> data = initializeHeroes();
+const std::vector<HeroData> dataTable = initializeHeroes();
 
 Hero::Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):
 sideOfHero(sideOfHero), 
 classOfHero(classOfHero),
-heroSprite(textureContainer.get(data[classOfHero].texture)),
+heroSprite(textureContainer.get(dataTable[classOfHero].texture)),
 playerAction(Action::standRight),
 attackCommand(),
 isAttack(false),
@@ -49,7 +49,7 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 	if (isAttack && attackTimer <= sf::Time::Zero){
 
 		commandQueue.push(attackCommand);
-		attackTimer += data[classOfHero].attackInterval / (attackRateLevel + 1.f);
+		attackTimer += dataTable[classOfHero].attackInterval / (attackRateLevel + 1.f);
 		isAttack = false;
 	}
 
@@ -89,7 +89,7 @@ unsigned int Hero::getReceiver() const {
 
 void Hero::launchAttack(){
 
-	if (data[classOfHero].attackInterval != sf::Time::Zero)
+	if (dataTable[classOfHero].attackInterval != sf::Time::Zero)
 		isAttack = true;
 }
 
@@ -111,4 +111,9 @@ void Hero::damage(int hp){
 bool Hero::isAlive() const {
 
 	return (hitpoints > 0);
+}
+
+Hero::heroClass Hero::getHeroClass() const {
+
+	return classOfHero;
 }

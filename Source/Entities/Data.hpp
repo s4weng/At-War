@@ -10,6 +10,8 @@ struct HeroData {
 
 	int hitpoints;
 	sf::Time attackInterval;
+	float attackDistance;
+	float speed;
 	textureSheet texture;
 };
 

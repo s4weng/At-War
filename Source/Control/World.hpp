@@ -1,7 +1,7 @@
 #ifndef _WORLD_HPP__
 #define _WORLD_HPP__
 
-#include "Hero.hpp" //Entity.hpp, SceneNode.hpp, ResourceContainer.hpp, TextureInfo.hpp
+#include "Hero.hpp" //Entity.hpp, SceneNode.hpp, ResourceContainer.hpp, TextureInfo.hpp, Data.hpp
 #include "SpriteNode.hpp"
 #include "CommandQueue.hpp" //Command.hpp
 
@@ -33,17 +33,17 @@ private:
 	sf::Vector2f playerSpawnPosition;
 
 	Hero* playerHero;
+	Hero* enemyHero;
 	TextureContainer textureContainer;
 	SceneNode sceneGraph;
 	std::array<SceneNode*, LayerCount> sceneLayers;
 	float scrollSpeed;
 	CommandQueue commandQueue;
 
-	static const float heroVelocity;
-
 	void loadTextures();
 	void initScene();
 	void checkPlayerBounds();
+	void moveTowards();
 };
 
 #endif

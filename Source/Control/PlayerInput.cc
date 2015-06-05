@@ -3,29 +3,6 @@
 
 #include <algorithm>
 
-/*struct HeroMover {
-
-	HeroMover(float x, float y) : velocity(x, y){
-	}
-
-	void operator() (SceneNode& sceneNode, sf::Time) const {
-
-		Hero &hero = static_cast<Hero&>(sceneNode); //command is performed on SceneNode
-		hero.setVelocity(hero.getVelocity() + velocity);
-	}
-
-	sf::Vector2f velocity;
-};
-
-struct HeroAttacker {
-
-	void operator() (SceneNode& sceneNode, sf::Time) const {
-		
-		Hero &hero = static_cast<Hero&>(sceneNode);
-		hero.launchAttack();
-	}
-};*/
-
 PlayerInput::PlayerInput(){
 
 	keyActionMap[sf::Keyboard::Left] = Hero::Action::walkLeft;

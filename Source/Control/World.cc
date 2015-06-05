@@ -121,8 +121,7 @@ CommandQueue& World::getCommandQueue(){
 
 bool World::moveTowards(){
 
-	float x = 0;
-	float y = 0;
+	float x = 0, y = 0;
 	float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
 	float enemySpeed = dataTable[enemyHero->getHeroClass()].speed;
 	float distanceDiffX = playerHero->getPosition().x - enemyHero->getPosition().x;

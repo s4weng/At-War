@@ -1,7 +1,5 @@
 #include "Entity.hpp"
 
-#include <iostream>
-
 void Entity::setVelocity(float velocityX, float velocityY){
 
 	entityVelocity.x = velocityX;

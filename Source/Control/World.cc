@@ -79,7 +79,7 @@ void World::update(sf::Time deltaTime){
 	view.move(-scrollSpeed * deltaTime.asSeconds(), 0.f);
 
 	updateEntities();
-	
+
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
 		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
@@ -95,7 +95,7 @@ void World::updateEntities(){
 	playerHero->setVelocity(0.f, 0.f);
 	enemyHero->setVelocity(0.f, 0.f);
 	
-	if (moveTowards())
+	if (!moveTowards())
 		enemyHero->launchAttack();	
 }
 
@@ -121,25 +121,33 @@ CommandQueue& World::getCommandQueue(){
 
 bool World::moveTowards(){
 
-	float x, y = 0;
+	float x = 0;
+	float y = 0;
 	float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
 	float enemySpeed = dataTable[enemyHero->getHeroClass()].speed;
-	sf::Vector2f playerPosition = playerHero->getPosition();
-	sf::Vector2f enemyPosition = enemyHero->getPosition();
+	float distanceDiffX = playerHero->getPosition().x - enemyHero->getPosition().x;
+	float distanceDiffY = playerHero->getPosition().y - enemyHero->getPosition().y;
 
-	if (playerPosition.x - enemyPosition.x > enemyAttackDistance)
+	if (distanceDiffX > 0)
+		enemyHero->setDirection(Entity::Direction::Right);
+
+	if (distanceDiffX < 0)
+		enemyHero->setDirection(Entity::Direction::Left);
+
+	if (distanceDiffX > enemyAttackDistance)
 		x = enemySpeed;
 
-	else if (playerPosition.x - enemyPosition.x < -enemyAttackDistance)
+	else if (distanceDiffX < -enemyAttackDistance)
 		x = -enemySpeed;
 
-	if (playerPosition.y - enemyPosition.y > 10.f)
+	if (distanceDiffY > 10.f)
 		y = enemySpeed;
 
-	else if (playerPosition.y - enemyPosition.y < -10.f)
+	else if (distanceDiffY < -10.f)
 		y = -enemySpeed;
 
 	enemyHero->setVelocity(x,y);
 
-	return (x == 0 && y == 0);
+	//if the enemy doesn't have to move anymore (i.e. is in attacking distance)
+	return (x != 0 || y != 0);
 }

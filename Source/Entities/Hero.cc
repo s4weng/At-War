@@ -1,7 +1,5 @@
 #include "Hero.hpp"
 
-#include <iostream>
-
 const std::vector<HeroData> dataTable = initializeHeroes();
 
 Hero::Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):

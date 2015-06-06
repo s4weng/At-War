@@ -93,7 +93,6 @@ void World::updateEntities(){
 	playerHero->updateDirection();
 	enemyHero->updateDirection();
 	playerHero->setVelocity(0.f, 0.f);
-	enemyHero->setVelocity(0.f, 0.f);
 	
 	if (!moveTowards())
 		enemyHero->launchAttack();	

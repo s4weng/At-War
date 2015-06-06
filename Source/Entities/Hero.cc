@@ -8,9 +8,10 @@ classOfHero(classOfHero),
 heroSprite(textureContainer.get(dataTable[classOfHero].texture)),
 playerAction(Action::standRight),
 attackCommand(),
-isAttack(false),
 attackTimer(sf::Time::Zero),
 attackRateLevel(1){
+
+	setIsAttack(false);
 
 	sf::FloatRect bounds = heroSprite.getLocalBounds();
 	heroSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
@@ -42,6 +43,12 @@ void Hero::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 	checkAttack(deltaTime, commandQueue);
 	Entity::updateCurrent(deltaTime, commandQueue);
 }
+
+sf::FloatRect Hero::getBoundingRect() const {
+
+	return getWorldTransform().transformRect(heroSprite.getGlobalBounds());
+}
+
 
 void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 

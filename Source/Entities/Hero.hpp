@@ -56,6 +56,8 @@ public:
 
 	virtual unsigned int getReceiver() const;
 
+	virtual sf::FloatRect getBoundingRect() const;
+
 private:
 
 	heroFaction sideOfHero;
@@ -65,7 +67,6 @@ private:
 	Action playerAction;
 
 	Command attackCommand;
-	bool isAttack;
 	int hitpoints;
 	sf::Time attackTimer;
 	int attackRateLevel;

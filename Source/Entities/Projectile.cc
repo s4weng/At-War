@@ -27,11 +27,6 @@ unsigned int Projectile::getReceiver() const {
 		return Receiver::PlayerProjectile;
 }
 
-sf::FloatRect Projectile::getBoundingRect() const {
-
-	return getWorldTransform().transformRect(projectileSprite.getGlobalBounds());
-}
-
 float Projectile::getMaxSpeed() const {
 
 	return data[type].speed;
@@ -50,4 +45,9 @@ void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
 
 	target.draw(projectileSprite, states);
+}
+
+sf::FloatRect Projectile::getBoundingRect() const {
+
+	return getWorldTransform().transformRect(projectileSprite.getGlobalBounds());
 }

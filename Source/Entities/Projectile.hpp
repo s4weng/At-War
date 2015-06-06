@@ -25,11 +25,11 @@ public:
 	Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer);
 
 	virtual unsigned int getReceiver() const;
-	virtual sf::FloatRect getBoundingRect() const;
 	float getMaxSpeed() const;
 	int getDamage() const;
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual sf::FloatRect getBoundingRect() const;	
 
 private:
 

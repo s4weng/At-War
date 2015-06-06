@@ -63,6 +63,21 @@ sf::Transform SceneNode::getWorldTransform() const {
 	return transform;
 }
 
+sf::FloatRect SceneNode::getBoundingRect() const {
+
+	return sf::FloatRect();
+}
+
+void SceneNode::setIsAttack(bool attack){
+
+	isAttack = attack;
+}
+
+bool SceneNode::getIsAttack(){
+
+	return isAttack;
+}
+
 void SceneNode::update(sf::Time deltaTime, CommandQueue& commandQueue){
 
 	updateCurrent(deltaTime, commandQueue);
@@ -92,4 +107,9 @@ void SceneNode::onCommand(const Command& command, sf::Time deltaTime){
 	//forward command to child nodes
 	for (auto& nodePtr : children)
 		nodePtr->onCommand(command, deltaTime);
+}
+
+bool collision(const SceneNode& node1, const SceneNode& node2){
+
+	return node1.getBoundingRect().intersects(node2.getBoundingRect());
 }

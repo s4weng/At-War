@@ -24,11 +24,19 @@ public:
 
 	sf::Vector2f getWorldPosition() const;
 	sf::Transform getWorldTransform() const;
+	virtual sf::FloatRect getBoundingRect() const; //set to empty rectangle for non-collideable entities
 
 	void update(sf::Time deltaTime, CommandQueue& commandQueue);
 
 	virtual unsigned int getReceiver() const;
 	void onCommand(const Command& command, sf::Time deltaTime);
+
+protected:
+
+	void setIsAttack(bool attack);
+	bool getIsAttack();
+
+	bool isAttack; //required for collision checks, set to false for non-collideable entities
 
 private:
 
@@ -42,5 +50,7 @@ private:
 	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	void updateChildren(sf::Time deltaTime, CommandQueue& commandQueue);
 };
+
+bool collision(const SceneNode& node1, const SceneNode& node2);
 
 #endif

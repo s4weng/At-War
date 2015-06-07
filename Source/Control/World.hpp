@@ -29,6 +29,7 @@ private:
 
 	sf::RenderWindow& window;
 	sf::View view;
+	sf::View battlefield;
 	sf::FloatRect worldBounds;
 	sf::Vector2f playerSpawnPosition;
 
@@ -44,6 +45,7 @@ private:
 	void handleCollisions();
 	void loadTextures();
 	void initScene();
+	void adjustView(sf::Time deltaTime);
 	void checkPlayerBounds();
 	bool moveTowards();
 	void updateEntities();

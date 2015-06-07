@@ -6,11 +6,12 @@
 World::World(sf::RenderWindow& window):
 window(window),
 view(window.getDefaultView()),
-worldBounds(0.f, 0.f, 1500.f, view.getSize().y),
+battlefield(sf::FloatRect(0.f, 0.f, 1500.f, view.getSize().y)),
+worldBounds(0.f, 0.f, 3000.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
 playerHero(nullptr),
 enemyHero(nullptr),
-scrollSpeed(-10.f) {
+scrollSpeed(0.f){
 
 loadTextures();
 initScene();
@@ -81,7 +82,7 @@ void World::draw(){
 
 void World::update(sf::Time deltaTime){
 
-	view.move(-scrollSpeed * deltaTime.asSeconds(), 0.f);
+	adjustView(deltaTime);
 
 	updateEntities();
 
@@ -93,6 +94,7 @@ void World::update(sf::Time deltaTime){
 	sceneGraph.removeDead();
 
 	sceneGraph.update(deltaTime, commandQueue);
+
 	checkPlayerBounds();
 }
 
@@ -108,17 +110,41 @@ void World::updateEntities(){
 }
 
 
+void World::adjustView(sf::Time deltaTime){
+
+	float deltaMovement = playerHero->getPosition().x - view.getCenter().x;
+
+	if (deltaMovement > 0){
+		float viewBound = view.getCenter().x + view.getSize().x / 2.f;
+		float battlefieldBound = battlefield.getCenter().x + battlefield.getSize().x / 2.f;
+
+		if (deltaMovement + viewBound < battlefieldBound)
+			view.move(playerHero->getVelocity().x * deltaTime.asSeconds(), 0.f);
+	}
+
+	else if (deltaMovement < 0){
+
+		float viewBound = view.getCenter().x - view.getSize().x / 2.f;
+		float battlefieldBound = battlefield.getCenter().x - battlefield.getSize().x / 2.f;
+
+		if (deltaMovement + viewBound > battlefieldBound)
+			view.move(playerHero->getVelocity().x * deltaTime.asSeconds(), 0.f);
+	}
+}
+
+
 void World::checkPlayerBounds(){
 
 	//ensure player doesn't leave visible area of our world
-	sf::FloatRect viewBounds(view.getCenter() - view.getSize()/2.f, view.getSize());
+	//viewBounds calculates the current top-left corner of battlefield view
+	sf::FloatRect viewBounds(battlefield.getCenter() - battlefield.getSize()/2.f, battlefield.getSize());
 	const float borderDistance = 18.f;
 
 	sf::Vector2f playerPosition = playerHero->getPosition();
 	playerPosition.x = std::max(playerPosition.x, viewBounds.left + borderDistance);
 	playerPosition.x = std::min(playerPosition.x, viewBounds.left + viewBounds.width - borderDistance);
-	playerPosition.y = std::max(playerPosition.y, viewBounds.top + borderDistance);
-	playerPosition.y = std::min(playerPosition.y, viewBounds.top + viewBounds.height - borderDistance);
+	playerPosition.y = std::max(playerPosition.y, viewBounds.top + borderDistance + 20.f);
+	playerPosition.y = std::min(playerPosition.y, viewBounds.top + viewBounds.height - borderDistance - 20.f);
 	playerHero->setPosition(playerPosition);
 }
 

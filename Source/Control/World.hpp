@@ -40,6 +40,8 @@ private:
 	float scrollSpeed;
 	CommandQueue commandQueue;
 
+	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);
+	void handleCollisions();
 	void loadTextures();
 	void initScene();
 	void checkPlayerBounds();

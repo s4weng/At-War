@@ -67,6 +67,7 @@ private:
 	Action playerAction;
 
 	Command attackCommand;
+	Command enemyAttackCommand;
 	int hitpoints;
 	sf::Time attackTimer;
 	int attackRateLevel;

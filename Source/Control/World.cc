@@ -1,5 +1,6 @@
 #include "World.hpp"
 
+#include "Receiver.hpp"
 #include <iostream>
 
 World::World(sf::RenderWindow& window):
@@ -15,6 +16,7 @@ loadTextures();
 initScene();
 view.setCenter(playerSpawnPosition);
 }
+
 
 void World::loadTextures(){
 
@@ -33,6 +35,7 @@ void World::loadTextures(){
     	return;
     }
 }
+
 
 void World::initScene(){
 
@@ -68,11 +71,13 @@ void World::initScene(){
 	sceneLayers[Ground]->attachNode(std::move(mainHero));
 }
 
+
 void World::draw(){
 
 	window.setView(view);
 	window.draw(sceneGraph);
 }
+
 
 void World::update(sf::Time deltaTime){
 
@@ -84,9 +89,12 @@ void World::update(sf::Time deltaTime){
 	while (!commandQueue.isEmpty())
 		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
 
+	handleCollisions();
+
 	sceneGraph.update(deltaTime, commandQueue);
 	checkPlayerBounds();
 }
+
 
 void World::updateEntities(){
 
@@ -113,10 +121,70 @@ void World::checkPlayerBounds(){
 	playerHero->setPosition(playerPosition);
 }
 
+
 CommandQueue& World::getCommandQueue(){
 
 	return commandQueue;
 }
+
+
+bool World::checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second){
+
+	unsigned int firstReceiver = colliders.first->getReceiver();
+	unsigned int secondReceiver = colliders.second->getReceiver();
+
+	if (first & firstReceiver && second & secondReceiver)
+		return true;
+
+	//swap to follow proper ordering
+	else if (first & secondReceiver && second & firstReceiver){
+
+		std::swap(colliders.first, colliders.second);
+		return true;
+	}
+
+	else
+		return false;
+}
+
+
+void World::handleCollisions(){
+
+	//use a set as pairs are unique and we don't need a value
+	std::set<SceneNode::Pair> collisionPairs;
+	sceneGraph.checkSceneCollision(sceneGraph, collisionPairs);
+
+	for (SceneNode::Pair pair : collisionPairs){
+
+		/*//player collides with an enemy, if either are (melee) attacking the other
+		if (checkReceivers(pair, Receiver::PlayerHero, Receiver::EnemyHero){
+
+			if (playerHero->getIsAttack())
+
+			if (enemyHero->getIsAttack())
+
+		}	
+
+		else*/
+		//two projectiles collide
+	    if (checkReceivers(pair, Receiver::PlayerProjectile, Receiver::EnemyProjectile)){
+
+	    	std::cout << "projectile hit projectile" << std::endl;
+	    }
+
+		//player or enemy collides with range attack
+		else if (checkReceivers(pair, Receiver::PlayerHero, Receiver::EnemyProjectile)){
+
+			std::cout << "player with enemyproject" << std::endl;
+		}
+		else if (checkReceivers(pair, Receiver::EnemyHero, Receiver::PlayerProjectile)){
+
+			std::cout << "hero hit enemyhero!" << std::endl;
+		}
+
+	}
+}
+
 
 bool World::moveTowards(){
 
@@ -126,12 +194,14 @@ bool World::moveTowards(){
 	float distanceDiffX = playerHero->getPosition().x - enemyHero->getPosition().x;
 	float distanceDiffY = playerHero->getPosition().y - enemyHero->getPosition().y;
 
+	//make sure enemy faces correct direction if player moves to other side
 	if (distanceDiffX > 0)
 		enemyHero->setDirection(Entity::Direction::Right);
 
 	if (distanceDiffX < 0)
 		enemyHero->setDirection(Entity::Direction::Left);
 
+	//enemy moves to within attacking distance of player
 	if (distanceDiffX > enemyAttackDistance)
 		x = enemySpeed;
 

@@ -21,6 +21,12 @@ attackRateLevel(1){
 
 		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Player, 0.5f, -0.1f,textureContainer);
 	};
+
+	enemyAttackCommand.receiver = Receiver::Scene;
+	enemyAttackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
+
+		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Enemy, 0.5f, -0.1f,textureContainer);
+	};
 }
 
 void Hero::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -54,7 +60,11 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 
 	if (isAttack && attackTimer <= sf::Time::Zero){
 
-		commandQueue.push(attackCommand);
+		if (sideOfHero == heroFaction::Player)
+			commandQueue.push(attackCommand);
+		else if (sideOfHero == heroFaction::Opposition)
+			commandQueue.push(enemyAttackCommand);
+		
 		attackTimer += dataTable[classOfHero].attackInterval / (attackRateLevel + 1.f);
 		isAttack = false;
 	}

@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <vector>
+#include <set>
 
 
 #include <SFML/Graphics.hpp>
@@ -16,12 +17,15 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 public:
 
 	typedef std::unique_ptr<SceneNode> sceneNodePtr;
+	typedef std::pair<SceneNode*, SceneNode*> Pair;
 
 	SceneNode();
 
 	void attachNode(sceneNodePtr node);
 	sceneNodePtr detachNode(SceneNode& node);
 
+	void checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs);
+	void checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs);
 	sf::Vector2f getWorldPosition() const;
 	sf::Transform getWorldTransform() const;
 	virtual sf::FloatRect getBoundingRect() const; //set to empty rectangle for non-collideable entities

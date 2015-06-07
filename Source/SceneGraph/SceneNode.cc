@@ -48,6 +48,26 @@ void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates	states) 
 		nodePtr->draw(target, states);
 }
 
+//pass every node in scenegraph to checkNodeCollision (so every node comparse to every other node)
+void SceneNode::checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs){
+
+	checkNodeCollision(sceneGraph, collisionPairs);
+
+	for (sceneNodePtr& child : sceneGraph.children)
+		checkSceneCollision(*child, collisionPairs);
+}
+
+//check every node in scenegraph against the given node
+void SceneNode::checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs){
+
+	if (this != &node && collision(*this, node))
+		collisionPairs.insert(std::minmax(this, &node));
+
+	for (sceneNodePtr& child : children)
+		child->checkNodeCollision(node, collisionPairs);
+}
+
+
 sf::Vector2f SceneNode::getWorldPosition() const {
 
 	return getWorldTransform() * sf::Vector2f();

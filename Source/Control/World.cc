@@ -90,6 +90,7 @@ void World::update(sf::Time deltaTime){
 		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
 
 	handleCollisions();
+	sceneGraph.removeDead();
 
 	sceneGraph.update(deltaTime, commandQueue);
 	checkPlayerBounds();
@@ -150,7 +151,7 @@ bool World::checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first,
 
 void World::handleCollisions(){
 
-	//use a set as pairs are unique and we don't need a value
+	//keep pairs unique; will use minmax to insert them
 	std::set<SceneNode::Pair> collisionPairs;
 	sceneGraph.checkSceneCollision(sceneGraph, collisionPairs);
 
@@ -163,23 +164,31 @@ void World::handleCollisions(){
 
 			if (enemyHero->getIsAttack())
 
-		}	
+		}*/
 
-		else*/
 		//two projectiles collide
 	    if (checkReceivers(pair, Receiver::PlayerProjectile, Receiver::EnemyProjectile)){
 
-	    	std::cout << "projectile hit projectile" << std::endl;
+	    	auto& firstProjectile = static_cast<Projectile&>(*pair.first);
+	    	auto& secondProjectile = static_cast<Projectile&>(*pair.second);
+
+	    	firstProjectile.damage(10);
+	    	secondProjectile.damage(10);
 	    }
 
 		//player or enemy collides with range attack
 		else if (checkReceivers(pair, Receiver::PlayerHero, Receiver::EnemyProjectile)){
-
-			std::cout << "player with enemyproject" << std::endl;
+	    
+	    	auto& projectile = static_cast<Projectile&>(*pair.second);
+			playerHero->damage(projectile.getDamage());
+			projectile.damage(10);
 		}
+
 		else if (checkReceivers(pair, Receiver::EnemyHero, Receiver::PlayerProjectile)){
 
-			std::cout << "hero hit enemyhero!" << std::endl;
+	    	auto& projectile = static_cast<Projectile&>(*pair.second);
+			projectile.damage(10);
+			enemyHero->damage(50);
 		}
 
 	}

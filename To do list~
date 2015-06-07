@@ -1,5 +1,8 @@
 High Priority -
-- (In progress #1) standLeft/walkRight keys and animations overlap; animation still associated with standLeft key but key associated with walkLeft -> - Modify animation classes so frame 0 is not looped during animation; but is default (i.e. standLeft and walkLeft will be from same texturesheet) -> Implement with gameplay
+In progress:
+- Set different damages for different attacks + system to control that
+- Modify animations to generalize standLeft/walkLeft + similar situations
+
 
 
 Medium Priority -
@@ -8,17 +11,5 @@ Medium Priority -
 
 
 Low Priority/Functionality -
-- Switch global returnTextureSheet method in Hero.cc with nested map or 2d array
-- AI input in order to spawn allies (animation related issue)
-- Proper classification of player/ally/enemy
+- Implement ally AI
 - *Maybe* switch data class for XML
-
-
-
-In progress:
-
-1.
-- Fix lack of arrow texture upon attack
-- Four arrows are created per attack command (space)
-- Modify animations to generalize standLeft/walkLeft
-- Add texturesheet for druid (testing AI enemy)

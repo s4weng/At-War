@@ -30,6 +30,9 @@ public:
 	sf::Transform getWorldTransform() const;
 	virtual sf::FloatRect getBoundingRect() const; //set to empty rectangle for non-collideable entities
 
+	void removeDead();
+	virtual bool isDead() const;
+
 	void update(sf::Time deltaTime, CommandQueue& commandQueue);
 
 	virtual unsigned int getReceiver() const;

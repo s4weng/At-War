@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 SceneNode::SceneNode(): children(), parent(nullptr) {
 }
@@ -88,6 +89,21 @@ sf::FloatRect SceneNode::getBoundingRect() const {
 	return sf::FloatRect();
 }
 
+void SceneNode::removeDead(){
+
+	auto removeBegin = std::remove_if(children.begin(), children.end(), std::mem_fn(&SceneNode::isDead));
+	children.erase(removeBegin, children.end());
+
+	std::for_each(children.begin(), children.end(), std::mem_fn(&SceneNode::removeDead));
+}
+
+
+bool SceneNode::isDead() const {
+
+	return false;
+}
+
+
 void SceneNode::setIsAttack(bool attack){
 
 	isAttack = attack;
@@ -124,9 +140,11 @@ void SceneNode::onCommand(const Command& command, sf::Time deltaTime){
 	if (command.receiver & getReceiver())
 		command.action(*this, deltaTime);
 
+	else {
 	//forward command to child nodes
 	for (auto& nodePtr : children)
 		nodePtr->onCommand(command, deltaTime);
+	}
 }
 
 bool collision(const SceneNode& node1, const SceneNode& node2){

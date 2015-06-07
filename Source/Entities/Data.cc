@@ -25,7 +25,7 @@ std::vector<ProjectileData> initializeProjectiles(){
 
 	std::vector<ProjectileData> data(Projectile::Type::typeCount);
 
-	data[Projectile::Type::Arrow].damage = 5;
+	data[Projectile::Type::Arrow].damage = 10;
 	data[Projectile::Type::Arrow].speed = 350.f;
 	data[Projectile::Type::Arrow].texture = textureSheet::Arrow;
 

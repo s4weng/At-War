@@ -49,7 +49,7 @@ public:
 	Hero::heroClass getHeroClass() const;
 	void heal(int hp);
 	void damage(int hp);
-	bool isAlive() const;
+	bool isDead() const;
 
 	Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -68,9 +68,9 @@ private:
 
 	Command attackCommand;
 	Command enemyAttackCommand;
-	int hitpoints;
 	sf::Time attackTimer;
 	int attackRateLevel;
+	int hitpoints;
 };
 
 #endif

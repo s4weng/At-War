@@ -1,5 +1,7 @@
 #include "Hero.hpp"
 
+#include <iostream>
+
 const std::vector<HeroData> dataTable = initializeHeroes();
 
 Hero::Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):
@@ -9,7 +11,8 @@ heroSprite(textureContainer.get(dataTable[classOfHero].texture)),
 playerAction(Action::standRight),
 attackCommand(),
 attackTimer(sf::Time::Zero),
-attackRateLevel(1){
+attackRateLevel(1),
+hitpoints(100){
 
 	setIsAttack(false);
 
@@ -64,7 +67,7 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 			commandQueue.push(attackCommand);
 		else if (sideOfHero == heroFaction::Opposition)
 			commandQueue.push(enemyAttackCommand);
-		
+
 		attackTimer += dataTable[classOfHero].attackInterval / (attackRateLevel + 1.f);
 		isAttack = false;
 	}
@@ -129,9 +132,9 @@ void Hero::damage(int hp){
 	hitpoints -= hp;
 }
 
-bool Hero::isAlive() const {
+bool Hero::isDead() const {
 
-	return (hitpoints > 0);
+	return (hitpoints <= 0);
 }
 
 Hero::heroClass Hero::getHeroClass() const {

@@ -29,13 +29,16 @@ public:
 	int getDamage() const;
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-	virtual sf::FloatRect getBoundingRect() const;	
+	virtual sf::FloatRect getBoundingRect() const;
+	void damage(int hp);
+	virtual bool isDead() const;
 
 private:
 
 	Projectile::Type type;
 	Projectile::Side side;
 	sf::Sprite projectileSprite;
+	int hitpoints;
 };
 
 #endif

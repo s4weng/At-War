@@ -147,6 +147,17 @@ void SceneNode::onCommand(const Command& command, sf::Time deltaTime){
 	}
 }
 
+
+void SceneNode::sortChildren(){
+
+	std::sort(children.begin(), children.end(),
+		[] (const sceneNodePtr& a, const sceneNodePtr& b) -> bool {
+
+			return a->getPosition().y < b->getPosition().y;
+		});
+}
+
+
 bool collision(const SceneNode& node1, const SceneNode& node2){
 
 	return node1.getBoundingRect().intersects(node2.getBoundingRect());

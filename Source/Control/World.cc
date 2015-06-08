@@ -76,7 +76,9 @@ void World::initScene(){
 void World::draw(){
 
 	window.setView(view);
-	window.draw(sceneGraph);
+	window.draw(*sceneLayers[Background]);
+	sceneLayers[Ground]->sortChildren();
+	window.draw(*sceneLayers[Ground]);
 }
 
 
@@ -88,7 +90,7 @@ void World::update(sf::Time deltaTime){
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
-		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
+		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
 	handleCollisions();
 	sceneGraph.removeDead();
@@ -105,8 +107,8 @@ void World::updateEntities(){
 	enemyHero->updateDirection();
 	playerHero->setVelocity(0.f, 0.f);
 	
-	if (!moveTowards())
-		enemyHero->launchAttack();	
+	//if (!moveTowards())
+	//	enemyHero->launchAttack();	
 }
 
 

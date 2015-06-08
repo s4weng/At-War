@@ -38,6 +38,8 @@ public:
 	virtual unsigned int getReceiver() const;
 	void onCommand(const Command& command, sf::Time deltaTime);
 
+	void sortChildren();
+
 protected:
 
 	void setIsAttack(bool attack);

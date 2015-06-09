@@ -10,12 +10,12 @@ battlefield(sf::FloatRect(0.f, 0.f, 1500.f, view.getSize().y)),
 worldBounds(0.f, 0.f, 3000.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
 playerHero(nullptr),
-enemyHero(nullptr),
 scrollSpeed(0.f){
 
 loadTextures();
 initScene();
 view.setCenter(playerSpawnPosition);
+addEnemySpawns();
 }
 
 
@@ -59,17 +59,19 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::unique_ptr<Hero> oppositionHero(new Hero(Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
+	/*std::unique_ptr<Hero> oppositionHero(new Hero(Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
 	enemyHero = oppositionHero.get();
 	enemyHero->setDirection(Entity::Direction::Left);
 	enemyHero->setPosition(800.f, 300.f);
-	sceneLayers[Ground]->attachNode(std::move(oppositionHero)); //attach hero to ground layer
+	sceneLayers[Ground]->attachNode(std::move(oppositionHero)); //attach hero to ground layer*/
 
 	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
 	sceneLayers[Ground]->attachNode(std::move(mainHero));
+
+	addEnemySpawns();
 }
 
 
@@ -84,6 +86,7 @@ void World::draw(){
 
 void World::update(sf::Time deltaTime){
 
+
 	adjustView(deltaTime);
 
 	updateEntities();
@@ -94,6 +97,7 @@ void World::update(sf::Time deltaTime){
 
 	handleCollisions();
 	sceneGraph.removeDead();
+	spawnEnemies();
 
 	sceneGraph.update(deltaTime, commandQueue);
 
@@ -104,7 +108,7 @@ void World::update(sf::Time deltaTime){
 void World::updateEntities(){
 
 	playerHero->updateDirection();
-	enemyHero->updateDirection();
+	//enemyHero->updateDirection();
 	playerHero->setVelocity(0.f, 0.f);
 	
 	//if (!moveTowards())
@@ -216,14 +220,14 @@ void World::handleCollisions(){
 
 	    	auto& projectile = static_cast<Projectile&>(*pair.second);
 			projectile.damage(10);
-			enemyHero->damage(50);
+			//enemyHero->damage(50);
 		}
 
 	}
 }
 
 
-bool World::moveTowards(){
+/*bool World::moveTowards(){
 
 	float x = 0, y = 0;
 	float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
@@ -255,4 +259,44 @@ bool World::moveTowards(){
 
 	//if the enemy doesn't have to move anymore (i.e. is in attacking distance)
 	return (x != 0 || y != 0);
+}*/
+
+
+void World::spawnEnemies(){
+
+	//if the closest spawn point is within the current battlefield
+	while (!enemySpawns.empty() && (enemySpawns.back().x < (battlefield.getCenter().x + battlefield.getSize().x / 2.f))){
+
+		SpawnPoint newEnemy = enemySpawns.back();
+		std::unique_ptr<Hero> enemyHero(new Hero(newEnemy.classOfHero, Hero::heroFaction::Opposition, textureContainer));
+		enemyHero->setPosition(newEnemy.x, newEnemy.y);
+
+		sceneLayers[Ground]->attachNode(std::move(enemyHero));
+		enemySpawns.pop_back();
+	}
+}
+
+
+void World::addEnemySpawns(){
+
+	addEnemySpawn(Hero::heroClass::Archmage, 500.f, 300.f);
+	addEnemySpawn(Hero::heroClass::Archmage, 700.f, 350.f);
+
+	std::sort(enemySpawns.begin(), enemySpawns.end(),
+		[](SpawnPoint a, SpawnPoint b){
+
+			return a.x < b.x;
+		});
+}
+
+void World::addEnemySpawn(Hero::heroClass classOfHero, float x, float y){
+
+	SpawnPoint enemy(classOfHero, x, y);
+	enemySpawns.push_back(enemy);
+}
+
+World::SpawnPoint::SpawnPoint(Hero::heroClass classOfHero, float x, float y):
+classOfHero(classOfHero),
+x(x),
+y(y){
 }

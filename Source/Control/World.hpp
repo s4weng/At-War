@@ -27,6 +27,15 @@ private:
 		LayerCount
 	};
 
+	struct SpawnPoint {
+
+		SpawnPoint(Hero::heroClass classOfHero, float x, float y);
+
+		Hero::heroClass classOfHero;
+		float x;
+		float y;
+	};
+
 	sf::RenderWindow& window;
 	sf::View view;
 	sf::View battlefield;
@@ -34,12 +43,13 @@ private:
 	sf::Vector2f playerSpawnPosition;
 
 	Hero* playerHero;
-	Hero* enemyHero;
+	//Hero* enemyHero;
 	TextureContainer textureContainer;
 	SceneNode sceneGraph;
 	std::array<SceneNode*, LayerCount> sceneLayers;
 	float scrollSpeed;
 	CommandQueue commandQueue;
+	std::vector<SpawnPoint> enemySpawns;
 
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);
 	void handleCollisions();
@@ -49,6 +59,9 @@ private:
 	void checkPlayerBounds();
 	bool moveTowards();
 	void updateEntities();
+	void spawnEnemies();
+	void addEnemySpawns();
+	void addEnemySpawn(Hero::heroClass classOfHero, float x, float y);
 };
 
 #endif

@@ -97,6 +97,7 @@ void World::update(sf::Time deltaTime){
 
 	handleCollisions();
 	sceneGraph.removeDead();
+	removeDead();
 	spawnEnemies();
 
 	sceneGraph.update(deltaTime, commandQueue);
@@ -221,11 +222,19 @@ void World::handleCollisions(){
 		else if (checkReceivers(pair, Receiver::EnemyHero, Receiver::PlayerProjectile)){
 
 	    	auto& projectile = static_cast<Projectile&>(*pair.second);
+	    	auto& enemyHero = static_cast<Hero&>(*pair.first);
 			projectile.damage(10);
-			//enemyHero->damage(50);
+			enemyHero.damage(50);
 		}
 
 	}
+}
+
+
+void World::removeDead(){
+
+	auto removeBegin = std::remove_if(currentEnemies.begin(), currentEnemies.end(), std::mem_fn(&SceneNode::isDead));
+	currentEnemies.erase(removeBegin, currentEnemies.end());
 }
 
 
@@ -308,6 +317,9 @@ void World::addEnemySpawns(){
 
 	addEnemySpawn(Hero::heroClass::Archmage, 500.f, 300.f);
 	addEnemySpawn(Hero::heroClass::Archmage, 700.f, 350.f);
+
+	addEnemySpawn(Hero::heroClass::Archmage, 2000.f, 300.f);
+	addEnemySpawn(Hero::heroClass::Archmage, 2200.f, 350.f);
 
 	std::sort(enemySpawns.begin(), enemySpawns.end(),
 		[](SpawnPoint a, SpawnPoint b){

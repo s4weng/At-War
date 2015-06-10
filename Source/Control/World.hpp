@@ -52,6 +52,7 @@ private:
 	std::vector<SpawnPoint> enemySpawns;
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
 
+	void removeDead();
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);
 	void handleCollisions();
 	void loadTextures();

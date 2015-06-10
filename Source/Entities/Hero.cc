@@ -81,7 +81,7 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 
 void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer){
 
-	std::unique_ptr<Projectile> arrow(new Projectile(type, side, textureContainer));
+	std::shared_ptr<Projectile> arrow(new Projectile(type, side, textureContainer));
 
 	sf::Vector2f offset(x*heroSprite.getGlobalBounds().width, y*heroSprite.getGlobalBounds().height);
 	sf::Vector2f velocity(arrow->getMaxSpeed(), 0);

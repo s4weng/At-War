@@ -15,7 +15,6 @@ scrollSpeed(0.f){
 loadTextures();
 initScene();
 view.setCenter(playerSpawnPosition);
-addEnemySpawns();
 }
 
 
@@ -55,23 +54,24 @@ void World::initScene(){
 	texture.setRepeated(true);
 
 	//SpriteNode that links to background texture
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
+	std::shared_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	/*std::unique_ptr<Hero> oppositionHero(new Hero(Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
+	/*std::shared_ptr<Hero> oppositionHero(new Hero(Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
 	enemyHero = oppositionHero.get();
 	enemyHero->setDirection(Entity::Direction::Left);
 	enemyHero->setPosition(800.f, 300.f);
 	sceneLayers[Ground]->attachNode(std::move(oppositionHero)); //attach hero to ground layer*/
 
-	std::unique_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
 	sceneLayers[Ground]->attachNode(std::move(mainHero));
 
 	addEnemySpawns();
+	spawnEnemies();
 }
 
 
@@ -108,9 +108,11 @@ void World::update(sf::Time deltaTime){
 void World::updateEntities(){
 
 	playerHero->updateDirection();
+	updateEnemyDirections();
 	//enemyHero->updateDirection();
 	playerHero->setVelocity(0.f, 0.f);
 	
+	moveEnemies();
 	//if (!moveTowards())
 	//	enemyHero->launchAttack();	
 }
@@ -227,13 +229,24 @@ void World::handleCollisions(){
 }
 
 
-/*bool World::moveTowards(){
+void World::moveEnemies(){
+
+	for (auto& enemyHero : currentEnemies){
+		if (!moveTowards(enemyHero))
+			enemyHero->launchAttack();
+	}
+}
+
+
+bool World::moveTowards(std::shared_ptr<Hero> enemyHero){
+
 
 	float x = 0, y = 0;
 	float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
 	float enemySpeed = dataTable[enemyHero->getHeroClass()].speed;
 	float distanceDiffX = playerHero->getPosition().x - enemyHero->getPosition().x;
 	float distanceDiffY = playerHero->getPosition().y - enemyHero->getPosition().y;
+
 
 	//make sure enemy faces correct direction if player moves to other side
 	if (distanceDiffX > 0)
@@ -255,11 +268,19 @@ void World::handleCollisions(){
 	else if (distanceDiffY < -10.f)
 		y = -enemySpeed;
 
+
 	enemyHero->setVelocity(x,y);
 
 	//if the enemy doesn't have to move anymore (i.e. is in attacking distance)
 	return (x != 0 || y != 0);
-}*/
+}
+
+
+void World::updateEnemyDirections(){
+
+	for (auto& enemyHero : currentEnemies)
+		enemyHero->updateDirection();
+}
 
 
 void World::spawnEnemies(){
@@ -268,10 +289,16 @@ void World::spawnEnemies(){
 	while (!enemySpawns.empty() && (enemySpawns.back().x < (battlefield.getCenter().x + battlefield.getSize().x / 2.f))){
 
 		SpawnPoint newEnemy = enemySpawns.back();
-		std::unique_ptr<Hero> enemyHero(new Hero(newEnemy.classOfHero, Hero::heroFaction::Opposition, textureContainer));
+
+		std::shared_ptr<Hero> enemyHero(new Hero(newEnemy.classOfHero, Hero::heroFaction::Opposition, textureContainer));
 		enemyHero->setPosition(newEnemy.x, newEnemy.y);
+		enemyHero->setDirection(Entity::Direction::Left);
+
+		std::shared_ptr<Hero> newPtr = enemyHero;
 
 		sceneLayers[Ground]->attachNode(std::move(enemyHero));
+
+		currentEnemies.push_back(newPtr);
 		enemySpawns.pop_back();
 	}
 }

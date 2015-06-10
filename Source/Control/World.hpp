@@ -50,6 +50,7 @@ private:
 	float scrollSpeed;
 	CommandQueue commandQueue;
 	std::vector<SpawnPoint> enemySpawns;
+	std::vector<std::shared_ptr<Hero>> currentEnemies;
 
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);
 	void handleCollisions();
@@ -57,7 +58,9 @@ private:
 	void initScene();
 	void adjustView(sf::Time deltaTime);
 	void checkPlayerBounds();
-	bool moveTowards();
+	void moveEnemies();
+	bool moveTowards(std::shared_ptr<Hero> enemyHero);
+	void updateEnemyDirections();
 	void updateEntities();
 	void spawnEnemies();
 	void addEnemySpawns();

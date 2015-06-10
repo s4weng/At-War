@@ -8,7 +8,7 @@ In progress:
 
 Medium Priority -
 - rename textureInfo to resourceInfo...in all files involving "TextureInfo.hpp"
-
+- relocate attack commands from hero class to entity class
 
 
 Low Priority/Functionality -

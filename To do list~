@@ -1,6 +1,7 @@
 High Priority -
 In progress:
-- Set different damages for different attacks + system to control that
+- Fix segfaults from not removing projectiles (and enemy?) properly
+- Set different damages for different attacks
 - Modify animations to generalize standLeft/walkLeft + similar situations
 
 
@@ -13,3 +14,7 @@ Medium Priority -
 Low Priority/Functionality -
 - Implement ally AI
 - *Maybe* switch data class for XML
+- End game upon playerHero death (segfault if player dies and game continues for awhile)
+
+
+NTS - Stopped forwarding commands when one receiver receives it; may cause bugs later on.

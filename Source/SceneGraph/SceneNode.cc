@@ -44,7 +44,6 @@ void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const {
 
 void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates	states) const {
 
-	//reference to std::unique_ptr to avoid copying
 	for (auto& nodePtr : children)
 		nodePtr->draw(target, states);
 }

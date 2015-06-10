@@ -10,9 +10,10 @@ const std::vector<ProjectileData> data = initializeProjectiles();
 Projectile::Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer):
 type(type),
 side(side),
-projectileSprite(textureContainer.get(data[type].texture)),
-hitpoints(10){
+projectileSprite(textureContainer.get(data[type].texture))
+{
 
+	setHitpoints(10);
 	sf::FloatRect bounds = projectileSprite.getLocalBounds();
 	projectileSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
 }
@@ -54,7 +55,7 @@ sf::FloatRect Projectile::getBoundingRect() const {
 	return getWorldTransform().transformRect(projectileSprite.getGlobalBounds());
 }
 
-void Projectile::damage(int hp){
+/*void Projectile::damage(int hp){
 
 	hitpoints -= hp;
 }
@@ -62,4 +63,4 @@ void Projectile::damage(int hp){
 bool Projectile::isDead() const {
 
 	return (hitpoints <= 0);
-}
+}*/

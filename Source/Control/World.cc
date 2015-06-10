@@ -86,10 +86,11 @@ void World::draw(){
 
 void World::update(sf::Time deltaTime){
 
-
 	adjustView(deltaTime);
 
 	updateEntities();
+
+	removeOutsideBounds();
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
@@ -223,6 +224,7 @@ void World::handleCollisions(){
 
 	    	auto& projectile = static_cast<Projectile&>(*pair.second);
 	    	auto& enemyHero = static_cast<Hero&>(*pair.first);
+
 			projectile.damage(10);
 			enemyHero.damage(50);
 		}
@@ -235,6 +237,24 @@ void World::removeDead(){
 
 	auto removeBegin = std::remove_if(currentEnemies.begin(), currentEnemies.end(), std::mem_fn(&SceneNode::isDead));
 	currentEnemies.erase(removeBegin, currentEnemies.end());
+}
+
+
+void World::removeOutsideBounds(){
+
+	Command command;
+	command.receiver = Receiver::Projectile | Receiver::EnemyHero;
+	command.action = ([this] (SceneNode& sceneNode, sf::Time){
+
+		Entity& entity = static_cast<Entity&>(sceneNode);
+
+		sf::FloatRect rect(battlefield.getCenter().x - (battlefield.getSize().x / 2.f), 0, battlefield.getSize().x, battlefield.getSize().y);
+
+		if (!(rect.intersects(entity.getBoundingRect())))
+			entity.damage(100);
+	});
+
+	commandQueue.push(command);
 }
 
 
@@ -278,7 +298,7 @@ bool World::moveTowards(std::shared_ptr<Hero> enemyHero){
 		y = -enemySpeed;
 
 
-	enemyHero->setVelocity(x,y);
+	enemyHero->setVelocity(x, y);
 
 	//if the enemy doesn't have to move anymore (i.e. is in attacking distance)
 	return (x != 0 || y != 0);
@@ -318,8 +338,8 @@ void World::addEnemySpawns(){
 	addEnemySpawn(Hero::heroClass::Archmage, 500.f, 300.f);
 	addEnemySpawn(Hero::heroClass::Archmage, 700.f, 350.f);
 
-	addEnemySpawn(Hero::heroClass::Archmage, 2000.f, 300.f);
-	addEnemySpawn(Hero::heroClass::Archmage, 2200.f, 350.f);
+	//addEnemySpawn(Hero::heroClass::Archmage, 2000.f, 300.f);
+	//addEnemySpawn(Hero::heroClass::Archmage, 2200.f, 350.f);
 
 	std::sort(enemySpawns.begin(), enemySpawns.end(),
 		[](SpawnPoint a, SpawnPoint b){

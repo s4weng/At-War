@@ -53,6 +53,7 @@ private:
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
 
 	void removeDead();
+	void removeOutsideBounds();
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);
 	void handleCollisions();
 	void loadTextures();

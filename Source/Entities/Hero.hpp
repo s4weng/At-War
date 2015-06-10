@@ -45,11 +45,10 @@ public:
 	void checkAttack(sf::Time deltaTime, CommandQueue& commandQueue);
 	void createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer);
 	void launchAttack();
-	int getHitpoints() const;
+	//int getHitpoints() const;
 	Hero::heroClass getHeroClass() const;
-	void heal(int hp);
-	void damage(int hp);
-	bool isDead() const;
+	//void damage(int hp);
+	//bool isDead() const;
 
 	Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -70,7 +69,7 @@ private:
 	Command enemyAttackCommand;
 	sf::Time attackTimer;
 	int attackRateLevel;
-	int hitpoints;
+	//int hitpoints;
 };
 
 #endif

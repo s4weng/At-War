@@ -22,10 +22,16 @@ public:
 	void setDirection(Direction direction);
 	Direction getDirection() const;
 
+	void setHitpoints(int hp);
+	int getHitpoints() const;
+	void damage(int hp);
+	bool isDead() const;
+
 private:
 
 	Direction entityDirection;	
 	sf::Vector2f entityVelocity;
+	int entityHitpoints;
 };
 
 #endif

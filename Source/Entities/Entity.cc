@@ -40,3 +40,25 @@ void Entity::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 
 	move(entityVelocity * deltaTime.asSeconds());
 }
+
+void Entity::setHitpoints(int hp) {
+
+	entityHitpoints = hp;
+}
+
+
+int Entity::getHitpoints() const {
+
+	return entityHitpoints;
+}
+
+
+void Entity::damage(int hp){
+
+	entityHitpoints -= hp;
+}
+
+bool Entity::isDead() const {
+
+	return (entityHitpoints <= 0);
+}

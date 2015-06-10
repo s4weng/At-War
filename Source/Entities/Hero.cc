@@ -11,9 +11,9 @@ heroSprite(textureContainer.get(dataTable[classOfHero].texture)),
 playerAction(Action::standRight),
 attackCommand(),
 attackTimer(sf::Time::Zero),
-attackRateLevel(1),
-hitpoints(100){
+attackRateLevel(1){
 
+	setHitpoints(100);
 	setIsAttack(false);
 
 	sf::FloatRect bounds = heroSprite.getLocalBounds();
@@ -117,15 +117,11 @@ void Hero::launchAttack(){
 		isAttack = true;
 }
 
-int Hero::getHitpoints() const {
+/*int Hero::getHitpoints() const {
 
 	return hitpoints;
 }
 
-void Hero::heal(int hp){
-
-	hitpoints += hp;
-}
 
 void Hero::damage(int hp){
 
@@ -135,7 +131,7 @@ void Hero::damage(int hp){
 bool Hero::isDead() const {
 
 	return (hitpoints <= 0);
-}
+}*/
 
 Hero::heroClass Hero::getHeroClass() const {
 

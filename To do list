@@ -1,12 +1,15 @@
 High Priority -
 In progress:
-- Fix segfaults from not removing projectiles (and enemy?) properly
-- Set different damages for different attacks
+- Implement battlefield view change after current battlefield enemies are destroyed
+- Animations
 - Modify animations to generalize standLeft/walkLeft + similar situations
+- Melee attacks
+- More data variety
 
 
 
 Medium Priority -
+- Set different damages for different attacks
 - rename textureInfo to resourceInfo...in all files involving "TextureInfo.hpp"
 - relocate attack commands from hero class to entity class
 

@@ -4,6 +4,7 @@
 #include "TextureInfo.hpp"
 
 #include <vector>
+#include <array>
 #include <SFML/System.hpp>
 
 struct HeroData {
@@ -13,6 +14,7 @@ struct HeroData {
 	float attackDistance;
 	float speed;
 	textureSheet texture;
+	std::vector<
 };
 
 struct ProjectileData {

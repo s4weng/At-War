@@ -1,23 +1,23 @@
 #include "Hero.hpp"
+#include "AnimationData.hpp"
 
 #include <iostream>
 
 const std::vector<HeroData> dataTable = initializeHeroes();
 
-Hero::Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer):
-sideOfHero(sideOfHero), 
-classOfHero(classOfHero),
-heroSprite(textureContainer.get(dataTable[classOfHero].texture)),
-playerAction(Action::standRight),
+Hero::Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer):
+heroFaction(heroFaction), 
+heroClass(heroClass),
+heroSprite(),
+heroAction(Action::Stand),
 attackCommand(),
 attackTimer(sf::Time::Zero),
 attackRateLevel(1){
 
 	setHitpoints(100);
 	setIsAttack(false);
-
-	sf::FloatRect bounds = heroSprite.getLocalBounds();
-	heroSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
+	//sf::FloatRect bounds = heroSprite.getLocalBounds();
+	//heroSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
 
 	attackCommand.receiver = Receiver::Scene;
 	attackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
@@ -37,18 +37,25 @@ void Hero::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const 
 	target.draw(heroSprite, states);
 }
 
-Hero::Action Hero::getPlayerAction(){
+Hero::Action Hero::getHeroAction() const {
 
-	return playerAction;
+	return heroAction;
 }
 
-void Hero::setPlayerAction(Action action){
+void Hero::setHeroAction(Action action){
 
-	playerAction = action;
+	heroAction = action;
 }
+
+void Hero::playCurrentAnimation(bool flip){
+
+	heroSprite.play(*currentAnimation);
+}
+
 
 void Hero::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
 
+	heroSprite.update(deltaTime);
 	checkAttack(deltaTime, commandQueue);
 	Entity::updateCurrent(deltaTime, commandQueue);
 }
@@ -63,12 +70,12 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 
 	if (isAttack && attackTimer <= sf::Time::Zero){
 
-		if (sideOfHero == heroFaction::Player)
+		if (heroFaction == HeroFaction::Player)
 			commandQueue.push(attackCommand);
-		else if (sideOfHero == heroFaction::Opposition)
+		else if (heroFaction == HeroFaction::Enemy)
 			commandQueue.push(enemyAttackCommand);
 
-		attackTimer += dataTable[classOfHero].attackInterval / (attackRateLevel + 1.f);
+		attackTimer += dataTable[heroClass].attackInterval / (attackRateLevel + 1.f);
 		isAttack = false;
 	}
 
@@ -99,15 +106,12 @@ void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::
 
 unsigned int Hero::getReceiver() const {
 
-	switch (sideOfHero) {
+	switch (heroFaction) {
 
-		case Hero::heroFaction::Player:
+		case Hero::HeroFaction::Player:
 			return Receiver::PlayerHero;
 
-		case Hero::heroFaction::Ally:
-			return Receiver::AlliedHero;
-
-		case Hero::heroFaction::Opposition:
+		case Hero::HeroFaction::Enemy:
 			return Receiver::EnemyHero;
 	}
 }
@@ -117,23 +121,12 @@ void Hero::launchAttack(){
 		isAttack = true;
 }
 
-/*int Hero::getHitpoints() const {
+Hero::HeroClass Hero::getHeroClass() const {
 
-	return hitpoints;
+	return heroClass;
 }
 
+void Hero::setCurrentAnimation(Animation* animation){
 
-void Hero::damage(int hp){
-
-	hitpoints -= hp;
-}
-
-bool Hero::isDead() const {
-
-	return (hitpoints <= 0);
-}*/
-
-Hero::heroClass Hero::getHeroClass() const {
-
-	return classOfHero;
+	currentAnimation = animation;
 }

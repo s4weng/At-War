@@ -4,9 +4,9 @@
 
 Button::Button(FontContainer& fonts, TextureContainer& textureContainer):
 callback(),
-texture(textureContainer.get(textureSheet::normalButton)),
-selectedTexture(textureContainer.get(textureSheet::selectedButton)),
-pressedTexture(textureContainer.get(textureSheet::pressedButton)),
+texture(textureContainer.get(TextureSheet::normalButton)),
+selectedTexture(textureContainer.get(TextureSheet::selectedButton)),
+pressedTexture(textureContainer.get(TextureSheet::pressedButton)),
 sprite(),
 text("", fonts.get(Fonts::main), 30),
 toggle(false){

@@ -31,15 +31,12 @@ Fix:
 
 unsigned int Hero::getReceiver() const {
 
-	switch (sideOfHero) {
+	switch (heroFaction) {
 
-		case Hero::heroFaction::Player:
+		case Hero::HeroFaction::Player:
 			return Receiver::PlayerHero;
 
-		case Hero::heroFaction::Ally:
-			return Receiver::AlliedHero;
-
-		case Hero::heroFaction::Opposition:
+		case Hero::HeroFaction::Enemy:
 			return Receiver::EnemyHero;
 	}
 }

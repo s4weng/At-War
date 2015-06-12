@@ -10,7 +10,8 @@ battlefield(sf::FloatRect(0.f, 0.f, 1500.f, view.getSize().y)),
 worldBounds(0.f, 0.f, 3000.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
 playerHero(nullptr),
-scrollSpeed(0.f){
+scrollSpeed(0.f),
+animationData(textureContainer){
 
 loadTextures();
 initScene();
@@ -23,10 +24,7 @@ void World::loadTextures(){
 	//load the spritesheets
     try {
 
-    	textureContainer.load(textureSheet::standingArcher, "Images/Archer.png");
-    	textureContainer.load(textureSheet::standingArchmage, "Images/Archmage.png");
-    	textureContainer.load(textureSheet::Arrow, "Images/Arrow.png");
-    	textureContainer.load(textureSheet::background, "Images/Background.png");
+    	textureContainer.load(TextureSheet::Background, "Images/Background.png");
     }
 
     catch (std::runtime_error& exception){
@@ -49,7 +47,7 @@ void World::initScene(){
 	}
 
 	//set up background, repeat itself
-	sf::Texture& texture = textureContainer.get(textureSheet::background);
+	sf::Texture& texture = textureContainer.get(TextureSheet::Background);
 	sf::IntRect textureRect(worldBounds);
 	texture.setRepeated(true);
 
@@ -58,13 +56,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	/*std::shared_ptr<Hero> oppositionHero(new Hero(Hero::heroClass::Archmage, Hero::heroFaction::Opposition, textureContainer));
-	enemyHero = oppositionHero.get();
-	enemyHero->setDirection(Entity::Direction::Left);
-	enemyHero->setPosition(800.f, 300.f);
-	sceneLayers[Ground]->attachNode(std::move(oppositionHero)); //attach hero to ground layer*/
-
-	std::shared_ptr<Hero> mainHero(new Hero(Hero::heroClass::Archer, Hero::heroFaction::Player, textureContainer));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
@@ -90,31 +82,33 @@ void World::update(sf::Time deltaTime){
 
 	updateEntities();
 
-	removeOutsideBounds();
+	//removeOutsideBounds();
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
 		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
-	handleCollisions();
-	sceneGraph.removeDead();
-	removeDead();
-	spawnEnemies();
+	//handleCollisions();
+	//sceneGraph.removeDead();
+	//removeDead();
+	updateAnimations();
+	playerHero->playCurrentAnimation();
+	//spawnEnemies();
 
 	sceneGraph.update(deltaTime, commandQueue);
 
-	checkPlayerBounds();
+	//checkPlayerBounds();
 }
 
 
 void World::updateEntities(){
 
 	playerHero->updateDirection();
-	updateEnemyDirections();
-	//enemyHero->updateDirection();
+	//updateEnemyDirections();
 	playerHero->setVelocity(0.f, 0.f);
+	playerHero->setHeroAction(Hero::Action::Stand);
 	
-	moveEnemies();
+	//moveEnemies();
 	//if (!moveTowards())
 	//	enemyHero->launchAttack();	
 }
@@ -232,6 +226,11 @@ void World::handleCollisions(){
 	}
 }
 
+void World::updateAnimations(){
+
+	playerHero->setCurrentAnimation(animationData.getAnimation(playerHero->getHeroAction(), playerHero->getHeroClass()));
+}
+
 
 void World::removeDead(){
 
@@ -319,7 +318,7 @@ void World::spawnEnemies(){
 
 		SpawnPoint newEnemy = enemySpawns.back();
 
-		std::shared_ptr<Hero> enemyHero(new Hero(newEnemy.classOfHero, Hero::heroFaction::Opposition, textureContainer));
+		std::shared_ptr<Hero> enemyHero(new Hero(newEnemy.heroClass, Hero::HeroFaction::Enemy, textureContainer));
 		enemyHero->setPosition(newEnemy.x, newEnemy.y);
 		enemyHero->setDirection(Entity::Direction::Left);
 
@@ -335,11 +334,11 @@ void World::spawnEnemies(){
 
 void World::addEnemySpawns(){
 
-	addEnemySpawn(Hero::heroClass::Archmage, 500.f, 300.f);
-	addEnemySpawn(Hero::heroClass::Archmage, 700.f, 350.f);
+	addEnemySpawn(Hero::HeroClass::Druid, 500.f, 300.f);
+	addEnemySpawn(Hero::HeroClass::Druid, 700.f, 350.f);
 
-	//addEnemySpawn(Hero::heroClass::Archmage, 2000.f, 300.f);
-	//addEnemySpawn(Hero::heroClass::Archmage, 2200.f, 350.f);
+	//addEnemySpawn(Hero::HeroClass::Druid, 2000.f, 300.f);
+	//addEnemySpawn(Hero::HeroClass::Druid, 2200.f, 350.f);
 
 	std::sort(enemySpawns.begin(), enemySpawns.end(),
 		[](SpawnPoint a, SpawnPoint b){
@@ -348,14 +347,14 @@ void World::addEnemySpawns(){
 		});
 }
 
-void World::addEnemySpawn(Hero::heroClass classOfHero, float x, float y){
+void World::addEnemySpawn(Hero::HeroClass heroClass, float x, float y){
 
-	SpawnPoint enemy(classOfHero, x, y);
+	SpawnPoint enemy(heroClass, x, y);
 	enemySpawns.push_back(enemy);
 }
 
-World::SpawnPoint::SpawnPoint(Hero::heroClass classOfHero, float x, float y):
-classOfHero(classOfHero),
+World::SpawnPoint::SpawnPoint(Hero::HeroClass heroClass, float x, float y):
+heroClass(heroClass),
 x(x),
 y(y){
 }

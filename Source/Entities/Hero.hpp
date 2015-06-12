@@ -4,53 +4,52 @@
 #include "CommandQueue.hpp"
 #include "Data.hpp"
 #include "Projectile.hpp" //Entity.hpp
+#include "AnimatedSprite.hpp"
 
 extern const std::vector<HeroData> dataTable;
+
+class AnimationData;
 
 class Hero : public Entity {
 
 public:
 
-	enum heroClass {
+	enum HeroClass {
 
 		Archer,
-		Archmage,
 		Druid,
-		typeCount,
+		classCount,
 	};
 
 	enum Action {
 
-		standRight,
-		standLeft,
-		walkRight,
-		walkLeft,
-		walkUp,
-		walkDown,
-		attack,
+		Stand,
+		Walk,
+		Attack,
+		Flinch,
+		Fall,
 		actionCount
 	};
 
-	enum heroFaction {
+	enum HeroFaction {
 
 		Player,
-		Ally,
-		Opposition
+		Enemy
 	};
 
-	Action getPlayerAction();
-	void setPlayerAction(Action action);
+	Hero::HeroClass getHeroClass() const;
+	Action getHeroAction() const;
+	void setHeroAction(Action action);
+	void playCurrentAnimation(bool flip = false);
 
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	void checkAttack(sf::Time deltaTime, CommandQueue& commandQueue);
 	void createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer);
 	void launchAttack();
-	//int getHitpoints() const;
-	Hero::heroClass getHeroClass() const;
-	//void damage(int hp);
-	//bool isDead() const;
 
-	Hero(heroClass classOfHero, heroFaction sideOfHero, TextureContainer& textureContainer);
+	void setCurrentAnimation(Animation* animation);
+
+	Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	virtual unsigned int getReceiver() const;
@@ -59,17 +58,18 @@ public:
 
 private:
 
-	heroFaction sideOfHero;
-	heroClass classOfHero;
+	HeroFaction heroFaction;
+	HeroClass heroClass;
 
-	sf::Sprite heroSprite;
-	Action playerAction;
+	AnimatedSprite heroSprite;
+	//sf::Sprite heroSprite;
+	Animation* currentAnimation;
+	Action heroAction;
 
 	Command attackCommand;
 	Command enemyAttackCommand;
 	sf::Time attackTimer;
 	int attackRateLevel;
-	//int hitpoints;
 };
 
 #endif

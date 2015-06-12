@@ -1,9 +1,9 @@
 #ifndef _WORLD_HPP__
 #define _WORLD_HPP__
 
-#include "Hero.hpp" //Entity.hpp, SceneNode.hpp, ResourceContainer.hpp, TextureInfo.hpp, Data.hpp
 #include "SpriteNode.hpp"
 #include "CommandQueue.hpp" //Command.hpp
+#include "AnimationData.hpp" //Hero.hpp -> Entity, SceneNode, TextureInfo, Data
 
 #include <array>
 #include <SFML/Window.hpp>
@@ -29,9 +29,9 @@ private:
 
 	struct SpawnPoint {
 
-		SpawnPoint(Hero::heroClass classOfHero, float x, float y);
+		SpawnPoint(Hero::HeroClass heroClass, float x, float y);
 
-		Hero::heroClass classOfHero;
+		Hero::HeroClass heroClass;
 		float x;
 		float y;
 	};
@@ -43,7 +43,6 @@ private:
 	sf::Vector2f playerSpawnPosition;
 
 	Hero* playerHero;
-	//Hero* enemyHero;
 	TextureContainer textureContainer;
 	SceneNode sceneGraph;
 	std::array<SceneNode*, LayerCount> sceneLayers;
@@ -52,6 +51,9 @@ private:
 	std::vector<SpawnPoint> enemySpawns;
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
 
+	AnimationData animationData;
+
+	void updateAnimations();
 	void removeDead();
 	void removeOutsideBounds();
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);
@@ -66,7 +68,7 @@ private:
 	void updateEntities();
 	void spawnEnemies();
 	void addEnemySpawns();
-	void addEnemySpawn(Hero::heroClass classOfHero, float x, float y);
+	void addEnemySpawn(Hero::HeroClass heroClass, float x, float y);
 };
 
 #endif

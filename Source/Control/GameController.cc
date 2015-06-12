@@ -16,12 +16,12 @@ stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput
 
 	fontContainer.load(Fonts::main, "Fonts/lobsterTwo.otf");
 	
-	textureContainer.load(textureSheet::titleBackground, "Images/titleBackground.png");
-	textureContainer.load(textureSheet::menuBackground, "Images/menuBackground.png");
-	textureContainer.load(textureSheet::settingsBackground, "Images/settingsBackground.png");
-	textureContainer.load(textureSheet::normalButton, "Images/normalButton.png");
-	textureContainer.load(textureSheet::pressedButton, "Images/pressedButton.png");
-	textureContainer.load(textureSheet::selectedButton, "Images/selectedButton.png");
+	textureContainer.load(TextureSheet::titleBackground, "Images/titleBackground.png");
+	textureContainer.load(TextureSheet::menuBackground, "Images/menuBackground.png");
+	textureContainer.load(TextureSheet::settingsBackground, "Images/settingsBackground.png");
+	textureContainer.load(TextureSheet::normalButton, "Images/normalButton.png");
+	textureContainer.load(TextureSheet::pressedButton, "Images/pressedButton.png");
+	textureContainer.load(TextureSheet::selectedButton, "Images/selectedButton.png");
 
 	registerStates();
 	stateStack.pushState(StateID::Title);

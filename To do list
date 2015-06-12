@@ -1,23 +1,21 @@
 High Priority -
 In progress:
-- Implement battlefield view change after current battlefield enemies are destroyed
-- Animations
-- Modify animations to generalize standLeft/walkLeft + similar situations
+- Animations -> AnimatedSprite means modifying Hero class/textures in general to support returning the bounding rectangle
 - Melee attacks
 - More data variety
 
 
-
 Medium Priority -
 - Set different damages for different attacks
-- rename textureInfo to resourceInfo...in all files involving "TextureInfo.hpp"
-- relocate attack commands from hero class to entity class
+- End game upon playerHero death (segfault if player dies and game continues for awhile)
+
 
 
 Low Priority/Functionality -
 - Implement ally AI
 - *Maybe* switch data class for XML
-- End game upon playerHero death (segfault if player dies and game continues for awhile)
+- rename textureInfo to resourceInfo...in all files involving "TextureInfo.hpp"
+- Classify Fonts (TextureInfo)
 
 
 NTS - Stopped forwarding commands when one receiver receives it; may cause bugs later on.

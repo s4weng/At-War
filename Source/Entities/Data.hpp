@@ -13,15 +13,14 @@ struct HeroData {
 	sf::Time attackInterval;
 	float attackDistance;
 	float speed;
-	textureSheet texture;
-	std::vector<
+	TextureSheet texture;
 };
 
 struct ProjectileData {
 
 	int damage;
 	float speed;
-	textureSheet texture;
+	TextureSheet texture;
 };
 
 std::vector<HeroData> initializeHeroes();

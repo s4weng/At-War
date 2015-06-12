@@ -5,11 +5,11 @@
 
 PlayerInput::PlayerInput(){
 
-	keyActionMap[sf::Keyboard::Left] = Hero::Action::walkLeft;
-	keyActionMap[sf::Keyboard::Right] = Hero::Action::walkRight;
-	keyActionMap[sf::Keyboard::Up] = Hero::Action::walkUp;
-	keyActionMap[sf::Keyboard::Down] = Hero::Action::walkDown;
-	keyActionMap[sf::Keyboard::Space] = Hero::Action::attack;
+	keyActionMap[sf::Keyboard::Left] = PlayerAction::MoveLeft;
+	keyActionMap[sf::Keyboard::Right] = PlayerAction::MoveRight;
+	keyActionMap[sf::Keyboard::Up] = PlayerAction::MoveUp;
+	keyActionMap[sf::Keyboard::Down] = PlayerAction::MoveDown;
+	keyActionMap[sf::Keyboard::Space] = PlayerAction::Attack;
 
 	//map initialize key to action bindings
 	initializeActions();
@@ -42,7 +42,7 @@ void PlayerInput::handleRealtimeInput(CommandQueue& commandQueue){
 	}
 }
 
-void PlayerInput::assignKey(Hero::Action action, sf::Keyboard::Key key){
+void PlayerInput::assignKey(PlayerAction action, sf::Keyboard::Key key){
 
 	//remove key that already map to given action
 	for (auto pair : keyActionMap){
@@ -55,7 +55,7 @@ void PlayerInput::assignKey(Hero::Action action, sf::Keyboard::Key key){
 	keyActionMap[key] = action;
 }
 
-sf::Keyboard::Key PlayerInput::getAssignedKey(Hero::Action action) const {
+sf::Keyboard::Key PlayerInput::getAssignedKey(PlayerAction action) const {
 
 	for (auto pair : keyActionMap){
 
@@ -66,11 +66,11 @@ sf::Keyboard::Key PlayerInput::getAssignedKey(Hero::Action action) const {
 	return sf::Keyboard::Unknown;
 }
 
-bool PlayerInput::isRealtimeAction(Hero::Action action){
+bool PlayerInput::isRealtimeAction(PlayerAction action){
 
 	switch (action){
 
-		case Hero::Action::walkLeft: case Hero::Action::walkRight: case Hero::Action::walkUp: case Hero::Action::walkDown: case Hero::Action::attack:
+		case PlayerAction::MoveLeft: case PlayerAction::MoveRight: case PlayerAction::MoveUp: case PlayerAction::MoveDown: case PlayerAction::Attack:
 			return true;
 
 		default:
@@ -82,9 +82,9 @@ void PlayerInput::initializeActions(){
 
 	const float playerSpeed = 100.f;
 
-	actionCommandMap[Hero::Action::walkLeft].action = HeroMover(-playerSpeed, 0.f);
-	actionCommandMap[Hero::Action::walkRight].action = HeroMover(playerSpeed, 0.f);
-	actionCommandMap[Hero::Action::walkUp].action = HeroMover(0.f, -playerSpeed);
-	actionCommandMap[Hero::Action::walkDown].action = HeroMover(0.f, playerSpeed);
-	actionCommandMap[Hero::Action::attack].action = HeroAttacker();
+	actionCommandMap[PlayerAction::MoveLeft].action = HeroMover(-playerSpeed, 0.f);
+	actionCommandMap[PlayerAction::MoveRight].action = HeroMover(playerSpeed, 0.f);
+	actionCommandMap[PlayerAction::MoveUp].action = HeroMover(0.f, -playerSpeed);
+	actionCommandMap[PlayerAction::MoveDown].action = HeroMover(0.f, playerSpeed);
+	actionCommandMap[PlayerAction::Attack].action = HeroAttacker();
 }

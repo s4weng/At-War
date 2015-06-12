@@ -6,7 +6,7 @@ MenuState::MenuState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView),
 container() {
 
-	background.setTexture(shareView.textureContainer->get(textureSheet::menuBackground));
+	background.setTexture(shareView.textureContainer->get(TextureSheet::menuBackground));
 
 	auto playButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
 	playButton->setPosition(450.f, 150.f);

@@ -8,7 +8,7 @@ SettingsState::SettingsState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView),
 container(){
 
-	background.setTexture(shareView.textureContainer->get(textureSheet::settingsBackground));
+	background.setTexture(shareView.textureContainer->get(TextureSheet::settingsBackground));
 
 	walkLeftButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
 	walkLeftButton->setPosition(80.f, 250.f);
@@ -45,6 +45,7 @@ bool SettingsState::update(sf::Time deltaTime){
 }
 
 bool SettingsState::handleEvent(const sf::Event& event){
+
 	PlayerInput& playerInput = *getSharedView().playerInput;
 
 	bool changeKeys = false;
@@ -55,7 +56,7 @@ bool SettingsState::handleEvent(const sf::Event& event){
 		if (event.type == sf::Event::KeyReleased){
 
 			changeKeys = true;
-			getSharedView().playerInput->assignKey(Hero::Action::walkLeft, event.key.code);			
+			getSharedView().playerInput->assignKey(PlayerInput::PlayerAction::MoveLeft, event.key.code);			
 			walkLeftButton->deactivate();
 		}
 	}
@@ -65,7 +66,7 @@ bool SettingsState::handleEvent(const sf::Event& event){
 		if (event.type == sf::Event::KeyReleased){
 
 			changeKeys = true;
-			getSharedView().playerInput->assignKey(Hero::Action::walkRight, event.key.code);
+			getSharedView().playerInput->assignKey(PlayerInput::PlayerAction::MoveRight, event.key.code);
 			walkRightButton->deactivate();		
 		}
 	}
@@ -83,9 +84,9 @@ void SettingsState::updateControl(){
 
 	PlayerInput& playerInput = *getSharedView().playerInput;
 
-	actionStringMap[Hero::Action::walkLeft] = keyToString(playerInput.getAssignedKey(Hero::Action::walkLeft));
-	actionStringMap[Hero::Action::walkRight] = keyToString(playerInput.getAssignedKey(Hero::Action::walkRight));
+	actionStringMap[PlayerInput::PlayerAction::MoveLeft] = keyToString(playerInput.getAssignedKey(PlayerInput::PlayerAction::MoveLeft));
+	actionStringMap[PlayerInput::PlayerAction::MoveRight] = keyToString(playerInput.getAssignedKey(PlayerInput::PlayerAction::MoveRight));
 	
-	walkLeftButton->setText(actionStringMap[Hero::Action::walkLeft]);
-	walkRightButton->setText(actionStringMap[Hero::Action::walkRight]);
+	walkLeftButton->setText(actionStringMap[PlayerInput::PlayerAction::MoveLeft]);
+	walkRightButton->setText(actionStringMap[PlayerInput::PlayerAction::MoveRight]);
 }

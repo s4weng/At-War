@@ -3,11 +3,11 @@
 
 #include "ResourceContainer.hpp"
 
-enum class textureSheet {
+enum class TextureSheet {
 
-	background,
-	standingArcher,
-	standingArchmage,
+	Background,
+	Archer,
+	Druid,
 	Arrow,
 	Spell,
 	titleBackground,
@@ -29,7 +29,7 @@ namespace sf {
 	class Font;
 }
 
-typedef ResourceContainer <sf::Texture, textureSheet> TextureContainer;
+typedef ResourceContainer <sf::Texture, TextureSheet> TextureContainer;
 typedef ResourceContainer <sf::Font, Fonts> FontContainer;
 
 #endif

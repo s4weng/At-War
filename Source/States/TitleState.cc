@@ -10,7 +10,7 @@ continueText(),
 showText(true),
 textFlash(sf::Time::Zero){
 
-	background.setTexture(shareView.textureContainer->get(textureSheet::titleBackground));
+	background.setTexture(shareView.textureContainer->get(TextureSheet::titleBackground));
 
 	titleText.setFont(shareView.fontContainer->get(Fonts::main));
 	titleText.setString("At War");

@@ -1,6 +1,8 @@
 High Priority -
 In progress:
-- Animations -> AnimatedSprite means modifying Hero class/textures in general to support returning the bounding rectangle
+- Animations 
+	-> Animations end if key is no longer pressed (action changed); don't want this for attacks
+	-> AnimatedSprite means modifying Hero class/textures in general to support returning the bounding rectangle
 - Melee attacks
 - More data variety
 

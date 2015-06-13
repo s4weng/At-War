@@ -5,7 +5,7 @@
 #include "PauseState.hpp"
 #include "SettingsState.hpp"
 
-const sf::Time GameController::timePerFrame = sf::seconds(1.f/60.f);
+const sf::Time GameController::timePerFrame = sf::seconds(1.f/50.f);
 
 GameController::GameController():
 window(sf::VideoMode(900, 540), "At-War", sf::Style::Close),

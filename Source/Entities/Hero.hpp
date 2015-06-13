@@ -39,7 +39,8 @@ public:
 
 	Hero::HeroClass getHeroClass() const;
 	Action getHeroAction() const;
-	void setHeroAction(Action action);
+	bool setHeroAction(Action action);
+	void setDefaultHeroAction();
 	void playCurrentAnimation(bool flip = false);
 
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
@@ -62,8 +63,9 @@ private:
 	HeroClass heroClass;
 
 	AnimatedSprite heroSprite;
-	//sf::Sprite heroSprite;
 	Animation* currentAnimation;
+
+	Action prevAction;
 	Action heroAction;
 
 	Command attackCommand;

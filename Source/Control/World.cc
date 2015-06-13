@@ -92,7 +92,8 @@ void World::update(sf::Time deltaTime){
 	//sceneGraph.removeDead();
 	//removeDead();
 	updateAnimations();
-	playerHero->playCurrentAnimation();
+
+	(playerHero->getDirection() == Entity::Direction::Right) ? playerHero->playCurrentAnimation() : playerHero->playCurrentAnimation(true);
 	//spawnEnemies();
 
 	sceneGraph.update(deltaTime, commandQueue);
@@ -106,7 +107,7 @@ void World::updateEntities(){
 	playerHero->updateDirection();
 	//updateEnemyDirections();
 	playerHero->setVelocity(0.f, 0.f);
-	playerHero->setHeroAction(Hero::Action::Stand);
+	playerHero->setDefaultHeroAction();
 	
 	//moveEnemies();
 	//if (!moveTowards())

@@ -9,6 +9,7 @@ Hero::Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textu
 heroFaction(heroFaction), 
 heroClass(heroClass),
 heroSprite(),
+prevAction(Action::Stand),
 heroAction(Action::Stand),
 attackCommand(),
 attackTimer(sf::Time::Zero),
@@ -22,13 +23,13 @@ attackRateLevel(1){
 	attackCommand.receiver = Receiver::Scene;
 	attackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
 
-		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Player, 0.5f, -0.1f,textureContainer);
+		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Player, 0.5f, 0.28f,textureContainer);
 	};
 
 	enemyAttackCommand.receiver = Receiver::Scene;
 	enemyAttackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
 
-		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Enemy, 0.5f, -0.1f,textureContainer);
+		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Enemy, 0.5f, 0.5f,textureContainer);
 	};
 }
 
@@ -42,14 +43,58 @@ Hero::Action Hero::getHeroAction() const {
 	return heroAction;
 }
 
-void Hero::setHeroAction(Action action){
+bool Hero::setHeroAction(Action action){
 
-	heroAction = action;
+	//action priority is ordered declared in enum; don't let hero switch to lower priority action if higher one is in play
+	if (action == Hero::Action::Stand){
+
+		heroAction = action;
+		prevAction = heroAction;
+		return true;
+	}
+
+	else if (action == Hero::Action::Walk && prevAction <= 1){
+
+		heroAction = action;
+		prevAction = heroAction;
+		return true;
+	}
+
+	else if (action == Hero::Action::Attack && prevAction <=2){
+
+		heroAction = action;
+		prevAction = heroAction;
+		return true;		
+	}
+
+	else if (action == Hero::Action::Flinch && prevAction <=3){
+
+		heroAction = action;
+		prevAction = heroAction;
+		return true;
+	}
+
+	else if (action == Hero::Action::Fall && prevAction <=4){
+
+		heroAction = action;
+		prevAction = heroAction;			
+		return true;
+	}
+
+	prevAction = Hero::Action::Stand;
+	return false;
 }
+
+
+void Hero::setDefaultHeroAction(){
+
+	heroAction = Hero::Action::Stand;
+}
+
 
 void Hero::playCurrentAnimation(bool flip){
 
-	heroSprite.play(*currentAnimation);
+	heroSprite.play(*currentAnimation, flip);
 }
 
 

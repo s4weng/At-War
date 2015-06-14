@@ -56,7 +56,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Druid, Hero::HeroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
@@ -125,7 +125,10 @@ void World::updateEntities(){
 	updateEnemyDirections();
 	playerHero->setVelocity(0.f, 0.f);
 	playerHero->setDefaultHeroAction();
-	
+
+	for (auto& enemyHero : currentEnemies)
+		enemyHero->setDefaultHeroAction();
+
 	moveEnemies();
 }
 
@@ -274,53 +277,50 @@ void World::moveEnemies(){
 
 		if (!moveTowards(enemyHero)){
 
-			if (enemyHero->actionFinished() && enemyHero->getPrevAction() <= 2){
-
-				enemyHero->setHeroAction(Hero::Action::Attack);
+			if (enemyHero->actionFinished() && enemyHero->getPrevAction() <= 2)
 				enemyHero->launchAttack();
-			}
-
 			else
 				enemyHero->setPrevAction(Hero::Action::Stand);
 		}
+
+		else
+			enemyHero->setHeroAction(Hero::Action::Walk);
 	}
 }
 
 
 bool World::moveTowards(std::shared_ptr<Hero> enemyHero){
 
-
 	float x = 0, y = 0;
-	float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
-	float enemySpeed = dataTable[enemyHero->getHeroClass()].speed;
-	float distanceDiffX = playerHero->getPosition().x - enemyHero->getPosition().x;
-	float distanceDiffY = playerHero->getPosition().y - enemyHero->getPosition().y;
-
-
-	//make sure enemy faces correct direction if player moves to other side
-	if (distanceDiffX > 0)
-		enemyHero->setDirection(Entity::Direction::Right);
-
-	if (distanceDiffX < 0)
-		enemyHero->setDirection(Entity::Direction::Left);
-
-	//enemy moves to within attacking distance of player
-	if (distanceDiffX > enemyAttackDistance)
-		x = enemySpeed;
-
-	else if (distanceDiffX < -enemyAttackDistance)
-		x = -enemySpeed;
-
-	if (distanceDiffY > 10.f)
-		y = enemySpeed;
-
-	else if (distanceDiffY < -10.f)
-		y = -enemySpeed;
-
 
 	if (enemyHero->actionFinished() && enemyHero->getPrevAction() <= 1){
 
-		enemyHero->setHeroAction(Hero::Action::Walk);
+		float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
+		float enemySpeed = dataTable[enemyHero->getHeroClass()].speed;
+		float distanceDiffX = playerHero->getPosition().x - enemyHero->getPosition().x;
+		float distanceDiffY = playerHero->getPosition().y - enemyHero->getPosition().y;
+
+
+		//make sure enemy faces correct direction if player moves to other side
+		if (distanceDiffX > 0)
+			enemyHero->setDirection(Entity::Direction::Right);
+
+		if (distanceDiffX < 0)
+			enemyHero->setDirection(Entity::Direction::Left);
+
+		//enemy moves to within attacking distance of player
+		if (distanceDiffX > enemyAttackDistance)
+			x = enemySpeed;
+
+		else if (distanceDiffX < -enemyAttackDistance)
+			x = -enemySpeed;
+
+		if (distanceDiffY > 10.f)
+			y = enemySpeed;
+
+		else if (distanceDiffY < -10.f)
+			y = -enemySpeed;
+
 		enemyHero->setVelocity(x, y);
 	}
 

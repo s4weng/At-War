@@ -1,7 +1,7 @@
 High Priority -
 In progress:
 - Animations 
-	-> Animations end if key is no longer pressed (action changed); don't want this for attacks
+	-> Sync animation with action; attack animations play multiple times per actual attac
 	-> AnimatedSprite means modifying Hero class/textures in general to support returning the bounding rectangle
 - Melee attacks
 - More data variety

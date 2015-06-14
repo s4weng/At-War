@@ -102,7 +102,7 @@ void World::update(sf::Time deltaTime){
 
 	sceneGraph.update(deltaTime, commandQueue);
 
-	//checkPlayerBounds();
+	checkPlayerBounds();
 }
 
 
@@ -165,13 +165,13 @@ void World::checkPlayerBounds(){
 	//ensure player doesn't leave visible area of our world
 	//viewBounds calculates the current top-left corner of battlefield view
 	sf::FloatRect viewBounds(battlefield.getCenter() - battlefield.getSize()/2.f, battlefield.getSize());
-	const float borderDistance = 18.f;
+	const float borderDistance = 10.f;
 
 	sf::Vector2f playerPosition = playerHero->getPosition();
 	playerPosition.x = std::max(playerPosition.x, viewBounds.left + borderDistance);
-	playerPosition.x = std::min(playerPosition.x, viewBounds.left + viewBounds.width - borderDistance);
-	playerPosition.y = std::max(playerPosition.y, viewBounds.top + borderDistance + 20.f);
-	playerPosition.y = std::min(playerPosition.y, viewBounds.top + viewBounds.height - borderDistance - 20.f);
+	playerPosition.x = std::min(playerPosition.x, viewBounds.left + viewBounds.width - borderDistance - 40.f);
+	playerPosition.y = std::max(playerPosition.y, viewBounds.top + borderDistance);
+	playerPosition.y = std::min(playerPosition.y, viewBounds.top + viewBounds.height - borderDistance - 50.f);
 	playerHero->setPosition(playerPosition);
 }
 

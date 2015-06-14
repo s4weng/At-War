@@ -3,7 +3,6 @@
 
 #include <cassert>
 #include <math.h>
-#include <iostream>
 
 const std::vector<ProjectileData> data = initializeProjectiles();
 
@@ -54,13 +53,3 @@ sf::FloatRect Projectile::getBoundingRect() const {
 
 	return getWorldTransform().transformRect(projectileSprite.getGlobalBounds());
 }
-
-/*void Projectile::damage(int hp){
-
-	hitpoints -= hp;
-}
-
-bool Projectile::isDead() const {
-
-	return (hitpoints <= 0);
-}*/

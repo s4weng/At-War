@@ -92,13 +92,13 @@ void World::update(sf::Time deltaTime){
 	while (!commandQueue.isEmpty())
 		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
-	//handleCollisions();
+	handleCollisions();
 	sceneGraph.removeDead();
 	removeDead();
 	updateAnimations();
 	playAnimations();
 
-	//spawnEnemies();
+	spawnEnemies();
 
 	sceneGraph.update(deltaTime, commandQueue);
 

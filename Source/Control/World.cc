@@ -85,16 +85,16 @@ void World::update(sf::Time deltaTime){
 	adjustView(deltaTime);
 
 	updateEntities();
-
 	removeOutsideBounds();
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
 		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
-	handleCollisions();
 	sceneGraph.removeDead();
 	removeDead();
+	handleCollisions();
+
 	updateAnimations();
 	playAnimations();
 
@@ -234,6 +234,9 @@ void World::handleCollisions(){
 	    
 	    	auto& projectile = static_cast<Projectile&>(*pair.second);
 			playerHero->damage(projectile.getDamage());
+
+			(playerHero->getHitpoints() <= 0) ? playerHero->setHeroAction(Hero::Action::Fall) : playerHero->setHeroAction(Hero::Action::Flinch);
+
 			projectile.damage(10);
 		}
 
@@ -244,6 +247,8 @@ void World::handleCollisions(){
 
 			projectile.damage(10);
 			enemyHero.damage(50);
+			
+			(enemyHero.getHitpoints() <= 0) ? enemyHero.setHeroAction(Hero::Action::Fall) : enemyHero.setHeroAction(Hero::Action::Flinch);
 		}
 
 	}

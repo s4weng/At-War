@@ -51,7 +51,7 @@ public:
 	void launchAttack();
 
 	void setCurrentAnimation(Animation* animation);
-	bool actionFinished() const;
+	virtual bool actionFinished() const;
 
 	Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

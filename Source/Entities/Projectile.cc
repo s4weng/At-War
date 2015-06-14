@@ -53,3 +53,8 @@ sf::FloatRect Projectile::getBoundingRect() const {
 
 	return getWorldTransform().transformRect(projectileSprite.getGlobalBounds());
 }
+
+bool Projectile::actionFinished() const {
+
+	return true;
+}

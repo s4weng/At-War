@@ -27,6 +27,8 @@ public:
 	void damage(int hp);
 	bool isDead() const;
 
+	virtual bool actionFinished() const = 0;
+
 private:
 
 	Direction entityDirection;	

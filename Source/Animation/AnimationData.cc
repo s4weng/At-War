@@ -58,4 +58,27 @@ void AnimationData::initHeroAnimations(TextureContainer& textureContainer){
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].addFrame(sf::IntRect(105, 163, 29, 38));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].addFrame(sf::IntRect(138, 173, 40, 28));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].setLooped(false);
+
+
+	heroAnimations[Hero::Action::Stand][Hero::HeroClass::Druid].setSpriteSheet(textureContainer.get(TextureSheet::Druid));
+	heroAnimations[Hero::Action::Stand][Hero::HeroClass::Druid].addFrame(sf::IntRect(4, 4, 38, 75));
+
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Druid].setSpriteSheet(textureContainer.get(TextureSheet::Druid));
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Druid].addFrame(sf::IntRect(63, 4, 34, 74));
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Druid].addFrame(sf::IntRect(101, 4, 37, 74));
+
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Druid].setSpriteSheet(textureContainer.get(TextureSheet::Druid));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Druid].addFrame(sf::IntRect(4, 81, 41, 72));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Druid].addFrame(sf::IntRect(47, 81, 48, 72));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Druid].setLooped(false);
+
+	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Druid].setSpriteSheet(textureContainer.get(TextureSheet::Druid));
+	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Druid].addFrame(sf::IntRect(6, 156, 34, 68));
+	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Druid].setLooped(false);
+
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].setSpriteSheet(textureContainer.get(TextureSheet::Druid));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].addFrame(sf::IntRect(60, 162, 37, 63));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].addFrame(sf::IntRect(102, 162, 38, 63));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].addFrame(sf::IntRect(144, 162, 34, 63));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].setLooped(false);
 }

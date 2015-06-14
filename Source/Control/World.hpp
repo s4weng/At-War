@@ -54,6 +54,7 @@ private:
 	AnimationData animationData;
 
 	void updateAnimations();
+	void playAnimations();
 	void removeDead();
 	void removeOutsideBounds();
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);

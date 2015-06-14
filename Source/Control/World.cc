@@ -92,8 +92,8 @@ void World::update(sf::Time deltaTime){
 	//sceneGraph.removeDead();
 	//removeDead();
 	updateAnimations();
+	playAnimations();
 
-	(playerHero->getDirection() == Entity::Direction::Right) ? playerHero->playCurrentAnimation() : playerHero->playCurrentAnimation(true);
 	//spawnEnemies();
 
 	sceneGraph.update(deltaTime, commandQueue);
@@ -105,19 +105,28 @@ void World::update(sf::Time deltaTime){
 void World::updateAnimations(){
 
 	playerHero->setCurrentAnimation(animationData.getAnimation(playerHero->getHeroAction(), playerHero->getHeroClass()));
+
+	for (auto& enemyHero : currentEnemies)
+		enemyHero->setCurrentAnimation(animationData.getAnimation(enemyHero->getHeroAction(), enemyHero->getHeroClass()));
+}
+
+void World::playAnimations(){
+
+	(playerHero->getDirection() == Entity::Direction::Right) ? playerHero->playCurrentAnimation() : playerHero->playCurrentAnimation(true);
+
+	for (auto& enemyHero : currentEnemies)
+		(enemyHero->getDirection() == Entity::Direction::Right) ? enemyHero->playCurrentAnimation() : enemyHero->playCurrentAnimation(true);
 }
 
 
 void World::updateEntities(){
 
 	playerHero->updateDirection();
-	//updateEnemyDirections();
+	updateEnemyDirections();
 	playerHero->setVelocity(0.f, 0.f);
 	playerHero->setDefaultHeroAction();
 	
-	//moveEnemies();
-	//if (!moveTowards())
-	//	enemyHero->launchAttack();	
+	moveEnemies();
 }
 
 
@@ -262,8 +271,18 @@ void World::removeOutsideBounds(){
 void World::moveEnemies(){
 
 	for (auto& enemyHero : currentEnemies){
-		if (!moveTowards(enemyHero))
-			enemyHero->launchAttack();
+
+		if (!moveTowards(enemyHero)){
+
+			if (enemyHero->actionFinished() && enemyHero->getPrevAction() <= 2){
+
+				enemyHero->setHeroAction(Hero::Action::Attack);
+				enemyHero->launchAttack();
+			}
+
+			else
+				enemyHero->setPrevAction(Hero::Action::Stand);
+		}
 	}
 }
 
@@ -299,7 +318,14 @@ bool World::moveTowards(std::shared_ptr<Hero> enemyHero){
 		y = -enemySpeed;
 
 
-	enemyHero->setVelocity(x, y);
+	if (enemyHero->actionFinished() && enemyHero->getPrevAction() <= 1){
+
+		enemyHero->setHeroAction(Hero::Action::Walk);
+		enemyHero->setVelocity(x, y);
+	}
+
+	else
+		enemyHero->setPrevAction(Hero::Action::Stand);
 
 	//if the enemy doesn't have to move anymore (i.e. is in attacking distance)
 	return (x != 0 || y != 0);

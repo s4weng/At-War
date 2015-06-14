@@ -47,12 +47,15 @@ void AnimationData::initHeroAnimations(TextureContainer& textureContainer){
 	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Archer].addFrame(sf::IntRect(2, 75, 42, 65));
 	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Archer].addFrame(sf::IntRect(48, 70, 45, 70));
 	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Archer].addFrame(sf::IntRect(96, 74, 36, 65));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Archer].setLooped(false);
 
 	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Archer].setSpriteSheet(textureContainer.get(TextureSheet::Archer));
 	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Archer].addFrame(sf::IntRect(7, 145, 29, 56));
+	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Archer].setLooped(false);
 
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].setSpriteSheet(textureContainer.get(TextureSheet::Archer));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].addFrame(sf::IntRect(61, 143, 36, 58));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].addFrame(sf::IntRect(105, 163, 29, 38));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].addFrame(sf::IntRect(138, 173, 40, 28));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].setLooped(false);
 }

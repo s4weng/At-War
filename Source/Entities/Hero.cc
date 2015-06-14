@@ -43,48 +43,26 @@ Hero::Action Hero::getHeroAction() const {
 	return heroAction;
 }
 
-bool Hero::setHeroAction(Action action){
+Hero::Action Hero::getPrevAction() const {
 
-	//action priority is ordered declared in enum; don't let hero switch to lower priority action if higher one is in play
-	if (action == Hero::Action::Stand){
-
-		heroAction = action;
-		prevAction = heroAction;
-		return true;
-	}
-
-	else if (action == Hero::Action::Walk && prevAction <= 1){
-
-		heroAction = action;
-		prevAction = heroAction;
-		return true;
-	}
-
-	else if (action == Hero::Action::Attack && prevAction <=2){
-
-		heroAction = action;
-		prevAction = heroAction;
-		return true;		
-	}
-
-	else if (action == Hero::Action::Flinch && prevAction <=3){
-
-		heroAction = action;
-		prevAction = heroAction;
-		return true;
-	}
-
-	else if (action == Hero::Action::Fall && prevAction <=4){
-
-		heroAction = action;
-		prevAction = heroAction;			
-		return true;
-	}
-
-	prevAction = Hero::Action::Stand;
-	return false;
+	return prevAction;
 }
 
+void Hero::setHeroAction(Action action){
+
+	heroAction = action;
+	prevAction = heroAction;
+}
+
+void Hero::setPrevAction(Action action){
+
+	prevAction = action;
+}
+
+bool Hero::actionFinished() const {
+
+	return heroSprite.isFinished();
+}
 
 void Hero::setDefaultHeroAction(){
 
@@ -173,5 +151,6 @@ Hero::HeroClass Hero::getHeroClass() const {
 
 void Hero::setCurrentAnimation(Animation* animation){
 
-	currentAnimation = animation;
+	if (heroSprite.isFinished())
+		currentAnimation = animation;
 }

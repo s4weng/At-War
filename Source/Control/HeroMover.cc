@@ -7,6 +7,12 @@ void HeroMover::operator() (SceneNode& sceneNode, sf::Time) const {
 
 	Hero &hero = static_cast<Hero&>(sceneNode); //command is performed on SceneNode
 	
-	if (hero.setHeroAction(Hero::Action::Walk))
+	if (hero.actionFinished() && hero.getPrevAction() <= 1){
+
+		hero.setHeroAction(Hero::Action::Walk);
 		hero.setVelocity(hero.getVelocity() + velocity);
+	}
+
+	else
+		hero.setPrevAction(Hero::Action::Stand);
 }

@@ -21,11 +21,24 @@
 //
 ////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////
+//This copy has been modified by Steve Weng (aka. github.com/s4weng)
+////////////////////////////////////////////////////////////
+
 #include "Animation.hpp"
 
-Animation::Animation() : m_texture(NULL)
+Animation::Animation() : m_texture(NULL), looped(true)
 {
+}
 
+void Animation::setLooped(bool loop){
+
+	looped = loop;
+}
+
+bool Animation::getLooped() const {
+
+	return looped;
 }
 
 void Animation::addFrame(sf::IntRect rect)

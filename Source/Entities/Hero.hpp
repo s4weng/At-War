@@ -39,7 +39,9 @@ public:
 
 	Hero::HeroClass getHeroClass() const;
 	Action getHeroAction() const;
-	bool setHeroAction(Action action);
+	Action getPrevAction() const;
+	void setHeroAction(Action action);
+	void setPrevAction(Action action);
 	void setDefaultHeroAction();
 	void playCurrentAnimation(bool flip = false);
 
@@ -49,12 +51,12 @@ public:
 	void launchAttack();
 
 	void setCurrentAnimation(Animation* animation);
+	bool actionFinished() const;
 
 	Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	virtual unsigned int getReceiver() const;
-
 	virtual sf::FloatRect getBoundingRect() const;
 
 private:
@@ -63,6 +65,8 @@ private:
 	HeroClass heroClass;
 
 	AnimatedSprite heroSprite;
+
+	Animation* prevAnimation;
 	Animation* currentAnimation;
 
 	Action prevAction;

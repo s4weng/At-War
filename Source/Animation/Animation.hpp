@@ -21,6 +21,10 @@
 //
 ////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////
+//This copy has been modified by Steve Weng (aka. github.com/s4weng)
+////////////////////////////////////////////////////////////
+
 #ifndef ANIMATION_INCLUDE
 #define ANIMATION_INCLUDE
 
@@ -38,10 +42,13 @@ public:
     const sf::Texture* getSpriteSheet() const;
     std::size_t getSize() const;
     const sf::IntRect& getFrame(std::size_t n) const;
+    void setLooped(bool loop);
+    bool getLooped() const;
 
 private:
     std::vector<sf::IntRect> m_frames;
     const sf::Texture* m_texture;
+    bool looped;
 };
 
 #endif // ANIMATION_INCLUDE

@@ -102,6 +102,12 @@ void World::update(sf::Time deltaTime){
 }
 
 
+void World::updateAnimations(){
+
+	playerHero->setCurrentAnimation(animationData.getAnimation(playerHero->getHeroAction(), playerHero->getHeroClass()));
+}
+
+
 void World::updateEntities(){
 
 	playerHero->updateDirection();
@@ -225,11 +231,6 @@ void World::handleCollisions(){
 		}
 
 	}
-}
-
-void World::updateAnimations(){
-
-	playerHero->setCurrentAnimation(animationData.getAnimation(playerHero->getHeroAction(), playerHero->getHeroClass()));
 }
 
 

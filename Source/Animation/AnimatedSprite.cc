@@ -23,14 +23,14 @@
 
 ////////////////////////////////////////////////////////////
 //This copy has been modified by Steve Weng (aka. github.com/s4weng)
-//to support the ability to flip a sprite.
 ////////////////////////////////////////////////////////////
 
 
 #include "AnimatedSprite.hpp"
 
+
 AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) :
-    m_animation(NULL), m_frameTime(frameTime), m_currentFrame(0), m_isPaused(paused), m_isLooped(looped), m_texture(NULL), flip(false)
+    m_animation(NULL), m_frameTime(frameTime), m_currentFrame(0), m_isPaused(paused), m_isLooped(looped), m_texture(NULL), flip(false), finished(true)
 {
 
 }
@@ -55,6 +55,9 @@ void AnimatedSprite::play()
 
 void AnimatedSprite::play(const Animation& animation, bool flip)
 {
+
+    m_isLooped = animation.getLooped();
+    finished = m_isLooped; //if the animation is not looped then we want to play it once through entirely
 
     if (getAnimation() != &animation || this->flip != flip){
 
@@ -89,6 +92,11 @@ void AnimatedSprite::setColor(const sf::Color& color)
     m_vertices[1].color = color;
     m_vertices[2].color = color;
     m_vertices[3].color = color;
+}
+
+bool AnimatedSprite::isFinished() const {
+
+    return finished;
 }
 
 const Animation* AnimatedSprite::getAnimation() const
@@ -189,6 +197,7 @@ void AnimatedSprite::update(sf::Time deltaTime)
                 if (!m_isLooped)
                 {
                     m_isPaused = true;
+                    finished = true;
                 }
 
             }

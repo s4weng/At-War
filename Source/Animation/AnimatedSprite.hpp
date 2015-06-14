@@ -23,7 +23,6 @@
 
 ////////////////////////////////////////////////////////////
 //This copy has been modified by Steve Weng (aka. github.com/s4weng)
-//to support the ability to flip a sprite.
 ////////////////////////////////////////////////////////////
 
 #ifndef ANIMATEDSPRITE_INCLUDE
@@ -58,6 +57,7 @@ public:
     bool isPlaying() const;
     sf::Time getFrameTime() const;
     void setFrame(std::size_t newFrame, bool resetTime = true);
+    bool isFinished() const;
 
 private:
     const Animation* m_animation;
@@ -69,6 +69,7 @@ private:
     const sf::Texture* m_texture;
     sf::Vertex m_vertices[4];
     int flip;
+    bool finished;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

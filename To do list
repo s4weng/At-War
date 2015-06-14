@@ -1,8 +1,8 @@
 High Priority -
 In progress:
 - Animations 
-	-> Sync animation with action; attack animations play multiple times per actual attac
 	-> AnimatedSprite means modifying Hero class/textures in general to support returning the bounding rectangle
+	-> Archer attack animation flashes first frame at the end
 - Melee attacks
 - More data variety
 

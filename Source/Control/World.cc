@@ -3,6 +3,8 @@
 #include "Receiver.hpp"
 #include <iostream>
 
+#define MAXHP 100
+
 World::World(sf::RenderWindow& window):
 window(window),
 view(window.getDefaultView()),
@@ -56,7 +58,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Druid, Hero::HeroFaction::Player, textureContainer));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
@@ -64,6 +66,8 @@ void World::initScene(){
 
 	addEnemySpawns();
 	spawnEnemies();
+	updateAnimations();
+	playAnimations();
 }
 
 
@@ -82,15 +86,15 @@ void World::update(sf::Time deltaTime){
 
 	updateEntities();
 
-	//removeOutsideBounds();
+	removeOutsideBounds();
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
 		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
 	//handleCollisions();
-	//sceneGraph.removeDead();
-	//removeDead();
+	sceneGraph.removeDead();
+	removeDead();
 	updateAnimations();
 	playAnimations();
 
@@ -263,8 +267,9 @@ void World::removeOutsideBounds(){
 
 		sf::FloatRect rect(battlefield.getCenter().x - (battlefield.getSize().x / 2.f), 0, battlefield.getSize().x, battlefield.getSize().y);
 
+		//kill entity outside battlefield; change value according to max entity HP
 		if (!(rect.intersects(entity.getBoundingRect())))
-			entity.damage(100);
+			entity.damage(MAXHP);
 	});
 
 	commandQueue.push(command);

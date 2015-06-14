@@ -27,6 +27,8 @@
 
 #include "Animation.hpp"
 
+#include <iostream>
+
 Animation::Animation() : m_texture(NULL), looped(true)
 {
 }

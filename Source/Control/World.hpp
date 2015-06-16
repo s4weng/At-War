@@ -8,6 +8,9 @@
 #include <array>
 #include <SFML/Window.hpp>
 
+extern const std::vector<HeroData> heroDataTable;
+extern const std::vector<ProjectileData> projectileDataTable;
+
 class World : private sf::NonCopyable {
 
 public:

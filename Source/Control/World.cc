@@ -3,7 +3,10 @@
 #include "Receiver.hpp"
 #include <iostream>
 
-#define MAXHP 100
+#define MAXHP 100 //update as max hp of set of all entities
+
+const std::vector<HeroData> heroDataTable = initializeHeroes();
+const std::vector<ProjectileData> projectileDataTable = initializeProjectiles();
 
 World::World(sf::RenderWindow& window):
 window(window),
@@ -27,6 +30,8 @@ void World::loadTextures(){
     try {
 
     	textureContainer.load(TextureSheet::Background, "Images/Background.png");
+    	textureContainer.load(TextureSheet::Arrow, "Images/Projectiles.png");
+    	textureContainer.load(TextureSheet::MiniBlast, "Images/Projectiles.png");
     }
 
     catch (std::runtime_error& exception){
@@ -35,7 +40,6 @@ void World::loadTextures(){
     	return;
     }
 }
-
 
 void World::initScene(){
 
@@ -305,8 +309,8 @@ bool World::moveTowards(std::shared_ptr<Hero> enemyHero){
 
 	if (enemyHero->actionFinished() && enemyHero->getPrevAction() <= 1){
 
-		float enemyAttackDistance = dataTable[enemyHero->getHeroClass()].attackDistance;
-		float enemySpeed = dataTable[enemyHero->getHeroClass()].speed;
+		float enemyAttackDistance = heroDataTable[enemyHero->getHeroClass()].attackDistance;
+		float enemySpeed = heroDataTable[enemyHero->getHeroClass()].speed;
 		float distanceDiffX = playerHero->getPosition().x - enemyHero->getPosition().x;
 		float distanceDiffY = playerHero->getPosition().y - enemyHero->getPosition().y;
 

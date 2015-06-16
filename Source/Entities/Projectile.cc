@@ -1,15 +1,14 @@
 #include "Projectile.hpp"
 #include "Data.hpp"
+#include "World.hpp"
 
 #include <cassert>
 #include <math.h>
 
-const std::vector<ProjectileData> data = initializeProjectiles();
-
 Projectile::Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer):
 type(type),
 side(side),
-projectileSprite(textureContainer.get(data[type].texture))
+projectileSprite(textureContainer.get(projectileDataTable[type].texture), projectileDataTable[type].textureRect)
 {
 
 	setHitpoints(10);
@@ -22,21 +21,18 @@ unsigned int Projectile::getReceiver() const {
 	if (side == Side::Enemy)
 		return Receiver::EnemyProjectile;
 
-	else if (side == Side::Allied)
-		return Receiver::AlliedProjectile;
-
 	else
 		return Receiver::PlayerProjectile;
 }
 
 float Projectile::getMaxSpeed() const {
 
-	return data[type].speed;
+	return projectileDataTable[type].speed;
 }
 
 int Projectile::getDamage() const {
 
-	return data[type].damage;
+	return projectileDataTable[type].damage;
 }
 
 void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){

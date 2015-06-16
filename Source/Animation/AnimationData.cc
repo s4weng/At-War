@@ -13,7 +13,6 @@ void AnimationData::loadTextures(TextureContainer& textureContainer){
 
 		textureContainer.load(TextureSheet::Archer, "Images/Archer.png");
 	    textureContainer.load(TextureSheet::Druid, "Images/Druid.png");
-	    textureContainer.load(TextureSheet::Arrow, "Images/Arrow.png");
     }
 
     catch (std::runtime_error& exception){

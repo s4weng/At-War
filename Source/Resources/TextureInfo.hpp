@@ -9,7 +9,7 @@ enum class TextureSheet {
 	Archer,
 	Druid,
 	Arrow,
-	Spell,
+	MiniBlast,
 	titleBackground,
 	menuBackground,
 	settingsBackground,

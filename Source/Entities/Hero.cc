@@ -1,9 +1,8 @@
 #include "Hero.hpp"
+#include "World.hpp"
 #include "AnimationData.hpp"
 
 #include <iostream>
-
-const std::vector<HeroData> dataTable = initializeHeroes();
 
 Hero::Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer):
 heroFaction(heroFaction), 
@@ -17,19 +16,17 @@ attackRateLevel(1){
 
 	setHitpoints(100);
 	setIsAttack(false);
-	//sf::FloatRect bounds = heroSprite.getLocalBounds();
-	//heroSprite.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
 
 	attackCommand.receiver = Receiver::Scene;
 	attackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
 
-		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Player, 0.5f, 0.28f,textureContainer);
+		createProjectile(sceneNode, 0.5f, 0.28f,textureContainer);
 	};
 
 	enemyAttackCommand.receiver = Receiver::Scene;
 	enemyAttackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
 
-		createArrow(sceneNode, Projectile::Type::Arrow, Projectile::Side::Enemy, 0.5f, 0.5f,textureContainer);
+		createProjectile(sceneNode, 0.5f, 0.28f,textureContainer);
 	};
 }
 
@@ -98,7 +95,7 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 		else if (heroFaction == HeroFaction::Enemy)
 			commandQueue.push(enemyAttackCommand);
 
-		attackTimer += dataTable[heroClass].attackInterval / (attackRateLevel + 1.f);
+		attackTimer += heroDataTable[heroClass].attackInterval / (attackRateLevel + 1.f);
 		isAttack = false;
 	}
 
@@ -109,10 +106,11 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 	}
 }
 
-void Hero::createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer){
+void Hero::createProjectile(SceneNode& sceneNode, float x, float y, TextureContainer& textureContainer){
 
 	setHeroAction(Hero::Action::Attack);
-	std::shared_ptr<Projectile> arrow(new Projectile(type, side, textureContainer));
+
+	std::shared_ptr<Projectile> arrow(new Projectile(Projectile::Type(heroClass), Projectile::Side(heroFaction), textureContainer));
 
 	sf::Vector2f offset(x*heroSprite.getGlobalBounds().width, y*heroSprite.getGlobalBounds().height);
 	sf::Vector2f velocity(arrow->getMaxSpeed(), 0);

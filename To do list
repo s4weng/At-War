@@ -1,8 +1,8 @@
 High Priority -
 In progress:
 - Animations 
-	-> AnimatedSprite means modifying Hero class/textures in general to support returning the bounding rectangle
 	-> Archer attack animation flashes first frame at the end
+	-> Both archer and druid death animation flashes first frame at end
 - Melee attacks
 - New battlefield not yet implemented (spawn enemies upon new battlefield is thus not tested)
 - More data variety

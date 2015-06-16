@@ -11,14 +11,13 @@ public:
 	enum Type {
 	
 		Arrow,
-		//Spell,
+		MiniBlast,
 		typeCount
 	};
 
-	enum class Side {
+	enum Side {
 
 		Player,
-		Allied,
 		Enemy
 	};
 
@@ -37,7 +36,6 @@ private:
 	Projectile::Type type;
 	Projectile::Side side;
 	sf::Sprite projectileSprite;
-	//int hitpoints;
 };
 
 #endif

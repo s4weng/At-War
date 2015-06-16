@@ -6,6 +6,7 @@
 #include <vector>
 #include <array>
 #include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 struct HeroData {
 
@@ -21,6 +22,7 @@ struct ProjectileData {
 	int damage;
 	float speed;
 	TextureSheet texture;
+	sf::IntRect textureRect;
 };
 
 std::vector<HeroData> initializeHeroes();

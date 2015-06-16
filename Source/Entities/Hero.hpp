@@ -6,22 +6,20 @@
 #include "Projectile.hpp" //Entity.hpp
 #include "AnimatedSprite.hpp"
 
-extern const std::vector<HeroData> dataTable;
-
 class AnimationData;
 
 class Hero : public Entity {
 
 public:
 
-	enum HeroClass {
+	enum HeroClass { //Match HeroClass enum index with Projectile::Type enum index
 
 		Archer,
 		Druid,
 		classCount,
 	};
 
-	enum Action {
+	enum Action { //Match index with Projectile::Side
 
 		Stand,
 		Walk,
@@ -47,7 +45,7 @@ public:
 
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	void checkAttack(sf::Time deltaTime, CommandQueue& commandQueue);
-	void createArrow(SceneNode& sceneNode, Projectile::Type type, Projectile::Side side, float x, float y, TextureContainer& textureContainer);
+	void createProjectile(SceneNode& sceneNode, float x, float y, TextureContainer& textureContainer);
 	void launchAttack();
 
 	void setCurrentAnimation(Animation* animation);

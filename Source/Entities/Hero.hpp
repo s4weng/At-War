@@ -16,6 +16,7 @@ public:
 
 		Archer,
 		Druid,
+		Crusader,
 		classCount,
 	};
 

@@ -32,6 +32,7 @@ void World::loadTextures(){
     	textureContainer.load(TextureSheet::Background, "Images/Background.png");
     	textureContainer.load(TextureSheet::Arrow, "Images/Projectiles.png");
     	textureContainer.load(TextureSheet::MiniBlast, "Images/Projectiles.png");
+    	textureContainer.load(TextureSheet::Longsword, "Images/Projectiles.png");
     }
 
     catch (std::runtime_error& exception){
@@ -62,7 +63,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Crusader, Hero::HeroFaction::Player, textureContainer));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);

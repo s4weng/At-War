@@ -13,6 +13,7 @@ void AnimationData::loadTextures(TextureContainer& textureContainer){
 
 		textureContainer.load(TextureSheet::Archer, "Images/Archer.png");
 	    textureContainer.load(TextureSheet::Druid, "Images/Druid.png");
+	    textureContainer.load(TextureSheet::Crusader, "Images/Crusader.png");
     }
 
     catch (std::runtime_error& exception){
@@ -57,6 +58,32 @@ void AnimationData::initHeroAnimations(TextureContainer& textureContainer){
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].addFrame(sf::IntRect(105, 163, 29, 38));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].addFrame(sf::IntRect(138, 173, 40, 28));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Archer].setLooped(false);
+
+	heroAnimations[Hero::Action::Stand][Hero::HeroClass::Crusader].setSpriteSheet(textureContainer.get(TextureSheet::Crusader));
+	heroAnimations[Hero::Action::Stand][Hero::HeroClass::Crusader].addFrame(sf::IntRect(4, 2, 49, 87));
+
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Crusader].setSpriteSheet(textureContainer.get(TextureSheet::Crusader));
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Crusader].addFrame(sf::IntRect(82, 3, 52, 86));
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Crusader].addFrame(sf::IntRect(136, 0, 56, 89));
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Crusader].addFrame(sf::IntRect(204, 3, 61, 86));
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Crusader].addFrame(sf::IntRect(274, 5, 64, 84));
+	heroAnimations[Hero::Action::Walk][Hero::HeroClass::Crusader].addFrame(sf::IntRect(346, 5, 58, 84));
+
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Crusader].setSpriteSheet(textureContainer.get(TextureSheet::Crusader));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Crusader].addFrame(sf::IntRect(4, 95, 69, 104));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Crusader].addFrame(sf::IntRect(86, 95, 50, 104));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Crusader].addFrame(sf::IntRect(152, 95, 90, 104));
+	heroAnimations[Hero::Action::Attack][Hero::HeroClass::Crusader].setLooped(false);
+
+	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Crusader].setSpriteSheet(textureContainer.get(TextureSheet::Crusader));
+	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Crusader].addFrame(sf::IntRect(21, 216, 85, 73));
+	heroAnimations[Hero::Action::Flinch][Hero::HeroClass::Crusader].setLooped(false);
+
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Crusader].setSpriteSheet(textureContainer.get(TextureSheet::Crusader));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Crusader].addFrame(sf::IntRect(117, 203, 86, 58));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Crusader].addFrame(sf::IntRect(112, 214, 98, 75));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Crusader].addFrame(sf::IntRect(320, 214, 82, 75));
+	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Crusader].setLooped(false);
 
 
 	heroAnimations[Hero::Action::Stand][Hero::HeroClass::Druid].setSpriteSheet(textureContainer.get(TextureSheet::Druid));

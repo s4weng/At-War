@@ -35,5 +35,10 @@ std::vector<ProjectileData> initializeProjectiles(){
 	data[Projectile::Type::MiniBlast].texture = TextureSheet::MiniBlast;
 	data[Projectile::Type::MiniBlast].textureRect = sf::IntRect(35, 0, 26, 9);
 
+	data[Projectile::Type::Longsword].damage = 50;
+	data[Projectile::Type::Longsword].speed = 0.f;
+	data[Projectile::Type::Longsword].texture = TextureSheet::Longsword;
+	data[Projectile::Type::Longsword].textureRect = sf::IntRect(0, 10, 35, 9);
+
 	return data;
 }

@@ -12,6 +12,7 @@ public:
 	
 		Arrow,
 		MiniBlast,
+		Longsword,
 		typeCount
 	};
 

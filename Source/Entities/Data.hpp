@@ -23,6 +23,7 @@ struct ProjectileData {
 	float speed;
 	TextureSheet texture;
 	sf::IntRect textureRect;
+	sf::Vector2f travelDistance;
 };
 
 std::vector<HeroData> initializeHeroes();

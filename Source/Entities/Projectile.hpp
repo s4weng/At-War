@@ -27,7 +27,8 @@ public:
 	virtual unsigned int getReceiver() const;
 	float getMaxSpeed() const;
 	int getDamage() const;
-	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	void setStartPosition(sf::Vector2f position);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual sf::FloatRect getBoundingRect() const;
 	virtual bool actionFinished() const;
@@ -37,6 +38,7 @@ private:
 	Projectile::Type type;
 	Projectile::Side side;
 	sf::Sprite projectileSprite;
+	sf::Vector2f startPosition;
 };
 
 #endif

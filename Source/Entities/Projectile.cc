@@ -35,7 +35,16 @@ int Projectile::getDamage() const {
 	return projectileDataTable[type].damage;
 }
 
+void Projectile::setStartPosition(sf::Vector2f position){
+
+	startPosition = position;
+}
+
 void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
+
+	//if projectile has exceeded its travel distance
+	if (SceneNode::getWorldPosition().x - startPosition.x > projectileDataTable[type].travelDistance.x || SceneNode::getWorldPosition().y - startPosition.y > projectileDataTable[type].travelDistance.y)
+		setHitpoints(0);
 
 	Entity::updateCurrent(deltaTime, commandQueue);
 }

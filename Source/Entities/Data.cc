@@ -35,16 +35,19 @@ std::vector<ProjectileData> initializeProjectiles(){
 	data[Projectile::Type::Arrow].speed = 350.f;
 	data[Projectile::Type::Arrow].texture = TextureSheet::Arrow;
 	data[Projectile::Type::Arrow].textureRect = sf::IntRect(0, 0, 33, 6);
+	data[Projectile::Type::Arrow].travelDistance = sf::Vector2f(200.f, 0.f);
 
 	data[Projectile::Type::MiniBlast].damage = 10;
 	data[Projectile::Type::MiniBlast].speed = 350.f;
 	data[Projectile::Type::MiniBlast].texture = TextureSheet::MiniBlast;
 	data[Projectile::Type::MiniBlast].textureRect = sf::IntRect(35, 0, 26, 9);
+	data[Projectile::Type::MiniBlast].travelDistance = sf::Vector2f(400.f, 0.f);
 
 	data[Projectile::Type::Longsword].damage = 50;
 	data[Projectile::Type::Longsword].speed = 0.f;
 	data[Projectile::Type::Longsword].texture = TextureSheet::Longsword;
 	data[Projectile::Type::Longsword].textureRect = sf::IntRect(0, 10, 35, 9);
+	data[Projectile::Type::Longsword].travelDistance = sf::Vector2f(0.f, 25.f);
 
 	return data;
 }

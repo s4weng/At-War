@@ -115,7 +115,9 @@ void Hero::createProjectile(SceneNode& sceneNode, float x, float y, TextureConta
 	sf::Vector2f offset(x*heroSprite.getGlobalBounds().width, y*heroSprite.getGlobalBounds().height);
 	sf::Vector2f velocity(weapon->getMaxSpeed(), 0);
 
-	weapon->setPosition(getWorldPosition() + offset);
+	sf::Vector2f startPosition = getWorldPosition() + offset;
+	weapon->setPosition(startPosition); //SFML method for starting position
+	weapon->setStartPosition(startPosition); //for calculating projectile travel distance
 
 	(getDirection() == Entity::Direction::Left) ? 
 	weapon->setVelocity(-velocity),

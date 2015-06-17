@@ -18,6 +18,12 @@ std::vector<HeroData> initializeHeroes(){
 	data[Hero::HeroClass::Druid].attackDistance = 300.f;
 	data[Hero::HeroClass::Druid].speed = 70.f;
 
+	data[Hero::HeroClass::Crusader].hitpoints = 100;
+	data[Hero::HeroClass::Crusader].attackInterval = sf::seconds(3);
+	data[Hero::HeroClass::Crusader].texture = TextureSheet::Crusader;
+	data[Hero::HeroClass::Crusader].attackDistance = 30.f;
+	data[Hero::HeroClass::Crusader].speed = 70.f;
+
 	return data;
 }
 

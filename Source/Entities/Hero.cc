@@ -110,20 +110,20 @@ void Hero::createProjectile(SceneNode& sceneNode, float x, float y, TextureConta
 
 	setHeroAction(Hero::Action::Attack);
 
-	std::shared_ptr<Projectile> arrow(new Projectile(Projectile::Type(heroClass), Projectile::Side(heroFaction), textureContainer));
+	std::shared_ptr<Projectile> weapon(new Projectile(Projectile::Type(heroClass), Projectile::Side(heroFaction), textureContainer));
 
 	sf::Vector2f offset(x*heroSprite.getGlobalBounds().width, y*heroSprite.getGlobalBounds().height);
-	sf::Vector2f velocity(arrow->getMaxSpeed(), 0);
+	sf::Vector2f velocity(weapon->getMaxSpeed(), 0);
 
-	arrow->setPosition(getWorldPosition() + offset);
+	weapon->setPosition(getWorldPosition() + offset);
 
 	(getDirection() == Entity::Direction::Left) ? 
-	arrow->setVelocity(-velocity),
-	arrow->setDirection(Direction::Left) :
-	arrow->setVelocity(velocity),
-	arrow->setDirection(Direction::Right);
+	weapon->setVelocity(-velocity),
+	weapon->setDirection(Direction::Left) :
+	weapon->setVelocity(velocity),
+	weapon->setDirection(Direction::Right);
 
-	sceneNode.attachNode(std::move(arrow));
+	sceneNode.attachNode(std::move(weapon));
 }
 
 unsigned int Hero::getReceiver() const {

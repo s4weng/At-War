@@ -17,7 +17,7 @@ public:
 	void setVelocity(float velocityX, float velocityY);
 	void setVelocity(sf::Vector2f velocity);
 	sf::Vector2f getVelocity() const;
-	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	void updateDirection();
 	void setDirection(Direction direction);
 	Direction getDirection() const;

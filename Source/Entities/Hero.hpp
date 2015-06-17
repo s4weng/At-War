@@ -44,7 +44,7 @@ public:
 	void setDefaultHeroAction();
 	void playCurrentAnimation(bool flip = false);
 
-	void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
 	void checkAttack(sf::Time deltaTime, CommandQueue& commandQueue);
 	void createProjectile(SceneNode& sceneNode, float x, float y, TextureContainer& textureContainer);
 	void launchAttack();

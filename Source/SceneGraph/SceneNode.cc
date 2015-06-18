@@ -159,5 +159,8 @@ void SceneNode::sortChildren(){
 
 bool collision(const SceneNode& node1, const SceneNode& node2){
 
-	return node1.getBoundingRect().intersects(node2.getBoundingRect());
+	sf::FloatRect bound1 = node1.getBoundingRect();
+	sf::FloatRect bound2 = node2.getBoundingRect();
+
+	return (bound1.intersects(bound2) && abs((bound1.top + (bound1.height / 2.f)) - (bound2.top + (bound2.height / 2.f))) < 15.f);
 }

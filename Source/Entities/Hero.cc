@@ -20,13 +20,13 @@ attackRateLevel(1){
 	attackCommand.receiver = Receiver::Scene;
 	attackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
 
-		createProjectile(sceneNode, 0.5f, 0.28f,textureContainer);
+		createProjectile(sceneNode, 0.5f, -0.2f,textureContainer);
 	};
 
 	enemyAttackCommand.receiver = Receiver::Scene;
 	enemyAttackCommand.action = [this, &textureContainer] (SceneNode& sceneNode, sf::Time){
 
-		createProjectile(sceneNode, 0.5f, 0.28f,textureContainer);
+		createProjectile(sceneNode, 0.5f, -0.2f,textureContainer);
 	};
 }
 
@@ -60,6 +60,7 @@ bool Hero::actionFinished() const {
 
 	return heroSprite.isFinished();
 }
+
 
 void Hero::setDefaultHeroAction(){
 

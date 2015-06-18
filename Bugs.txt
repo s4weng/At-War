@@ -1,4 +1,4 @@
-File for keeping track of bugs
+File for keeping track of bugs - NO LONGER MAINTAINED
 
 
 Sun May 17 - Not Applicable (Temporarily removed animations) (Command system bug)

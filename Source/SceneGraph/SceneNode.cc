@@ -162,5 +162,5 @@ bool collision(const SceneNode& node1, const SceneNode& node2){
 	sf::FloatRect bound1 = node1.getBoundingRect();
 	sf::FloatRect bound2 = node2.getBoundingRect();
 
-	return (bound1.intersects(bound2) && abs((bound1.top + (bound1.height / 2.f)) - (bound2.top + (bound2.height / 2.f))) < 15.f);
+	return (bound1.intersects(bound2) && abs(node1.getPosition().y - node2.getPosition().y) < 20.f);
 }

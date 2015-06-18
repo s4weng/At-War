@@ -121,6 +121,7 @@ sf::FloatRect AnimatedSprite::getGlobalBounds() const
     return getTransform().transformRect(getLocalBounds());
 }
 
+
 bool AnimatedSprite::isLooped() const
 {
     return m_isLooped;
@@ -140,6 +141,10 @@ void AnimatedSprite::setFrame(std::size_t newFrame, bool resetTime)
 {
     if (m_animation)
     {
+
+        sf::FloatRect bounds = this->getLocalBounds();
+        this->setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
+
         //calculate new vertex positions and texture coordiantes
         sf::IntRect rect = m_animation->getFrame(newFrame);
 

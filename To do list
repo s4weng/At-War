@@ -4,7 +4,6 @@ In progress:
 	-> Projectiles falling (arrows) and breaking
 	-> Archer attack animation flashes first frame at the end
 	-> Both archer and druid death animation flashes first frame at end
-- Z-order for collisions; currently projectile position (middle) is seen lower than sprite position (top-left) when it's slightly lower than sprite's head
 - Melee attacks
 - New battlefield not yet implemented (spawn enemies upon new battlefield is thus not tested)
 - More data variety

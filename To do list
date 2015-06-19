@@ -1,17 +1,17 @@
 High Priority -
 In progress:
+- When you hold two movements keys, action overrides
 - Animations 
 	-> Archer attack animation flashes first frame at the end
 	-> Both archer and druid death animation flashes first frame at end
-- Melee attacks
 - New battlefield not yet implemented (spawn enemies upon new battlefield is thus not tested)
 - More data variety
 
 
 Medium Priority -
+- Obstacles on maps (pillars, boulders)
 - Set different damages for different attacks (in handleCollisions function in World)
 - End game upon playerHero death (segfault if player dies and game continues for awhile)
-- Change collision such that Z-layer is in effect (i.e. if player is three levels above its attack shouldn't hit)
 
 
 

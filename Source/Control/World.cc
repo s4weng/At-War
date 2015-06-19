@@ -4,6 +4,8 @@
 #include <iostream>
 
 #define MAXHP 100 //update as max hp of set of all entities
+#define BATTLEFIELDHEIGHT 200.f
+#define BATTLEFIELDWIDTH 1500.f
 
 const std::vector<HeroData> heroDataTable = initializeHeroes();
 const std::vector<ProjectileData> projectileDataTable = initializeProjectiles();
@@ -11,7 +13,7 @@ const std::vector<ProjectileData> projectileDataTable = initializeProjectiles();
 World::World(sf::RenderWindow& window):
 window(window),
 view(window.getDefaultView()),
-battlefield(sf::FloatRect(0.f, 0.f, 1500.f, view.getSize().y)),
+battlefield(sf::FloatRect(0.f, BATTLEFIELDHEIGHT, BATTLEFIELDWIDTH, view.getSize().y)),
 worldBounds(0.f, 0.f, 3000.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
 animationData(textureContainer),
@@ -149,9 +151,9 @@ void World::checkPlayerBounds(){
 
 	sf::Vector2f playerPosition = playerHero->getPosition();
 	playerPosition.x = std::max(playerPosition.x, viewBounds.left + borderDistance);
-	playerPosition.x = std::min(playerPosition.x, viewBounds.left + viewBounds.width - borderDistance - 40.f);
+	playerPosition.x = std::min(playerPosition.x, viewBounds.left + viewBounds.width - borderDistance);
 	playerPosition.y = std::max(playerPosition.y, viewBounds.top + borderDistance);
-	playerPosition.y = std::min(playerPosition.y, viewBounds.top + viewBounds.height - borderDistance - 50.f);
+	playerPosition.y = std::min(playerPosition.y, viewBounds.top + viewBounds.height - borderDistance);
 	playerHero->setPosition(playerPosition);
 }
 
@@ -251,7 +253,7 @@ void World::removeOutsideBounds(){
 
 		Entity& entity = static_cast<Entity&>(sceneNode);
 
-		sf::FloatRect rect(battlefield.getCenter().x - (battlefield.getSize().x / 2.f), 0, battlefield.getSize().x, battlefield.getSize().y);
+		sf::FloatRect rect(battlefield.getCenter().x - (battlefield.getSize().x / 2.f), BATTLEFIELDHEIGHT, battlefield.getSize().x, battlefield.getSize().y);
 
 		//kill entity outside battlefield; change value according to max entity HP
 		if (!(rect.intersects(entity.getBoundingRect())))

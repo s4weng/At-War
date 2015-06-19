@@ -8,9 +8,10 @@
 #include <vector>
 #include <set>
 
-
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+
+class AnimationData;
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable {
 
@@ -33,7 +34,7 @@ public:
 	void removeDead();
 	virtual bool isDead() const;
 
-	void update(sf::Time deltaTime, CommandQueue& commandQueue);
+	void update(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData);
 
 	virtual unsigned int getReceiver() const;
 	void onCommand(const Command& command, sf::Time deltaTime);
@@ -56,8 +57,8 @@ private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	void drawChildren(sf::RenderTarget& target, sf::RenderStates) const;
 
-	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
-	void updateChildren(sf::Time deltaTime, CommandQueue& commandQueue);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData);
+	void updateChildren(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData);
 };
 
 bool collision(const SceneNode& node1, const SceneNode& node2);

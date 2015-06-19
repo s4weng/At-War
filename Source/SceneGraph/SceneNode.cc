@@ -113,19 +113,19 @@ bool SceneNode::getIsAttack(){
 	return isAttack;
 }
 
-void SceneNode::update(sf::Time deltaTime, CommandQueue& commandQueue){
+void SceneNode::update(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 
-	updateCurrent(deltaTime, commandQueue);
-	updateChildren(deltaTime, commandQueue);
+	updateCurrent(deltaTime, commandQueue, animationData);
+	updateChildren(deltaTime, commandQueue, animationData);
 }
 
-void SceneNode::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
+void SceneNode::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 }
 
-void SceneNode::updateChildren(sf::Time deltaTime, CommandQueue& commandQueue){
+void SceneNode::updateChildren(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 
 	for (auto& nodePtr: children)
-		nodePtr->update(deltaTime, commandQueue);
+		nodePtr->update(deltaTime, commandQueue, animationData);
 }
 
 unsigned int SceneNode::getReceiver() const {

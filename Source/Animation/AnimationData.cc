@@ -3,6 +3,7 @@
 #include <iostream>
 
 AnimationData::AnimationData(TextureContainer& textureContainer){
+
 	loadTextures(textureContainer);
 	initHeroAnimations(textureContainer);
 }
@@ -12,8 +13,8 @@ void AnimationData::loadTextures(TextureContainer& textureContainer){
     try {
 
 		textureContainer.load(TextureSheet::Archer, "Images/Archer.png");
-	    textureContainer.load(TextureSheet::Druid, "Images/Druid.png");
-	    textureContainer.load(TextureSheet::Crusader, "Images/Crusader.png");
+		textureContainer.load(TextureSheet::Druid, "Images/Druid.png");
+		textureContainer.load(TextureSheet::Crusader, "Images/Crusader.png");
     }
 
     catch (std::runtime_error& exception){

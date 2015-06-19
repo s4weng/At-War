@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-Hero::Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer):
+Hero::Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer, AnimationData& animationData):
 heroFaction(heroFaction), 
 heroClass(heroClass),
 heroSprite(),
@@ -13,6 +13,9 @@ heroAction(Action::Stand),
 attackCommand(),
 attackTimer(sf::Time::Zero),
 attackRateLevel(1){
+
+	this->setCurrentAnimation(animationData.getAnimation(heroAction, heroClass));
+	this->playCurrentAnimation();
 
 	setHitpoints(100);
 	setIsAttack(false);
@@ -73,12 +76,14 @@ void Hero::playCurrentAnimation(bool flip){
 	heroSprite.play(*currentAnimation, flip);
 }
 
+void Hero::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 
-void Hero::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
+	this->setCurrentAnimation(animationData.getAnimation(heroAction, heroClass));
+	(this->getDirection() == Entity::Direction::Right) ? this->playCurrentAnimation() : this->playCurrentAnimation(true);
 
 	heroSprite.update(deltaTime);
 	checkAttack(deltaTime, commandQueue);
-	Entity::updateCurrent(deltaTime, commandQueue);
+	Entity::updateCurrent(deltaTime, commandQueue, animationData);
 }
 
 sf::FloatRect Hero::getBoundingRect() const {

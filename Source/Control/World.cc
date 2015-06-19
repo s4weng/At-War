@@ -14,9 +14,9 @@ view(window.getDefaultView()),
 battlefield(sf::FloatRect(0.f, 0.f, 1500.f, view.getSize().y)),
 worldBounds(0.f, 0.f, 3000.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
+animationData(textureContainer),
 playerHero(nullptr),
-scrollSpeed(0.f),
-animationData(textureContainer){
+scrollSpeed(0.f){
 
 loadTextures();
 initScene();
@@ -63,7 +63,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer, animationData));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
@@ -71,8 +71,9 @@ void World::initScene(){
 
 	addEnemySpawns();
 	spawnEnemies();
-	updateAnimations();
-	playAnimations();
+
+	//updateAnimations();
+	//playAnimations();
 }
 
 
@@ -100,18 +101,18 @@ void World::update(sf::Time deltaTime){
 	removeDead();
 	handleCollisions();
 
-	updateAnimations();
-	playAnimations();
+	//updateAnimations();
+	//playAnimations();
 
 	spawnEnemies();
 
-	sceneGraph.update(deltaTime, commandQueue);
+	sceneGraph.update(deltaTime, commandQueue, animationData);
 
 	checkPlayerBounds();
 }
 
 
-void World::updateAnimations(){
+/*void World::updateAnimations(){
 
 	playerHero->setCurrentAnimation(animationData.getAnimation(playerHero->getHeroAction(), playerHero->getHeroClass()));
 
@@ -125,7 +126,7 @@ void World::playAnimations(){
 
 	for (auto& enemyHero : currentEnemies)
 		(enemyHero->getDirection() == Entity::Direction::Right) ? enemyHero->playCurrentAnimation() : enemyHero->playCurrentAnimation(true);
-}
+}*/
 
 
 void World::updateEntities(){
@@ -361,7 +362,8 @@ void World::spawnEnemies(){
 
 		SpawnPoint newEnemy = enemySpawns.back();
 
-		std::shared_ptr<Hero> enemyHero(new Hero(newEnemy.heroClass, Hero::HeroFaction::Enemy, textureContainer));
+		std::shared_ptr<Hero> enemyHero(new Hero(newEnemy.heroClass, Hero::HeroFaction::Enemy, textureContainer, animationData));
+
 		enemyHero->setPosition(newEnemy.x, newEnemy.y);
 		enemyHero->setDirection(Entity::Direction::Left);
 

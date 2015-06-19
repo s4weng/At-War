@@ -28,7 +28,7 @@ public:
 	float getMaxSpeed() const;
 	int getDamage() const;
 	void setStartPosition(sf::Vector2f position);
-	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual sf::FloatRect getBoundingRect() const;
 	virtual bool actionFinished() const;

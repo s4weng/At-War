@@ -10,6 +10,7 @@
 
 extern const std::vector<HeroData> heroDataTable;
 extern const std::vector<ProjectileData> projectileDataTable;
+extern const AnimationData animationData;
 
 class World : private sf::NonCopyable {
 
@@ -45,8 +46,9 @@ private:
 	sf::FloatRect worldBounds;
 	sf::Vector2f playerSpawnPosition;
 
-	Hero* playerHero;
 	TextureContainer textureContainer;
+	AnimationData animationData;
+	Hero* playerHero;
 	SceneNode sceneGraph;
 	std::array<SceneNode*, LayerCount> sceneLayers;
 	float scrollSpeed;
@@ -54,10 +56,8 @@ private:
 	std::vector<SpawnPoint> enemySpawns;
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
 
-	AnimationData animationData;
-
-	void updateAnimations();
-	void playAnimations();
+	//void updateAnimations();
+	//void playAnimations();
 	void removeDead();
 	void removeOutsideBounds();
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);

@@ -37,7 +37,7 @@ Entity::Direction Entity::getDirection() const {
 	return entityDirection;
 }
 
-void Entity::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
+void Entity::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 
 	move(entityVelocity * deltaTime.asSeconds());
 }

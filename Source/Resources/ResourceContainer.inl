@@ -12,6 +12,7 @@ template <typename Resource, typename ID>
 Resource& ResourceContainer<Resource, ID>::get(ID id){
 
 	auto found = resourceMap.find(id);
+	
 	//map.find(id) returns map.end() if id not found
 	assert(found != resourceMap.end());
 	return *found->second;

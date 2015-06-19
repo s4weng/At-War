@@ -6,8 +6,6 @@
 #include "Projectile.hpp" //Entity.hpp
 #include "AnimatedSprite.hpp"
 
-class AnimationData;
-
 class Hero : public Entity {
 
 public:
@@ -44,7 +42,7 @@ public:
 	void setDefaultHeroAction();
 	void playCurrentAnimation(bool flip = false);
 
-	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData);
 	void checkAttack(sf::Time deltaTime, CommandQueue& commandQueue);
 	void createProjectile(SceneNode& sceneNode, float x, float y, TextureContainer& textureContainer);
 	void launchAttack();
@@ -52,7 +50,7 @@ public:
 	void setCurrentAnimation(Animation* animation);
 	virtual bool actionFinished() const;
 
-	Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer);
+	Hero(HeroClass heroClass, HeroFaction heroFaction, TextureContainer& textureContainer, AnimationData& animationData);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	virtual unsigned int getReceiver() const;

@@ -40,13 +40,13 @@ void Projectile::setStartPosition(sf::Vector2f position){
 	startPosition = position;
 }
 
-void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue){
+void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 
 	//if projectile has exceeded its travel distance
 	if (SceneNode::getWorldPosition().x - startPosition.x > projectileDataTable[type].travelDistance.x || SceneNode::getWorldPosition().y - startPosition.y > projectileDataTable[type].travelDistance.y)
 		setHitpoints(0);
 
-	Entity::updateCurrent(deltaTime, commandQueue);
+	Entity::updateCurrent(deltaTime, commandQueue, animationData);
 }
 
 void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {

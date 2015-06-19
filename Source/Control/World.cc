@@ -13,7 +13,7 @@ const std::vector<ProjectileData> projectileDataTable = initializeProjectiles();
 World::World(sf::RenderWindow& window):
 window(window),
 view(window.getDefaultView()),
-battlefield(sf::FloatRect(0.f, BATTLEFIELDHEIGHT, BATTLEFIELDWIDTH, view.getSize().y)),
+battlefield(sf::FloatRect(0.f, BATTLEFIELDHEIGHT, BATTLEFIELDWIDTH, view.getSize().y - BATTLEFIELDHEIGHT)),
 worldBounds(0.f, 0.f, 3000.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
 animationData(textureContainer),

@@ -18,13 +18,13 @@ animationData(textureContainer),
 playerHero(nullptr),
 scrollSpeed(0.f){
 
-loadTextures();
+//loadTextures();
 initScene();
 view.setCenter(playerSpawnPosition);
 }
 
 
-void World::loadTextures(){
+/*void World::loadTextures(){
 
 	//load the spritesheets
     try {
@@ -40,7 +40,7 @@ void World::loadTextures(){
     	std::cout << "Exception occurred: " << exception.what() << std::endl;
     	return;
     }
-}
+}*/
 
 void World::initScene(){
 

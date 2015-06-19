@@ -40,13 +40,13 @@ public:
 	void setHeroAction(Action action);
 	void setPrevAction(Action action);
 	void setDefaultHeroAction();
-	void playCurrentAnimation(bool flip = false);
 
 	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData);
 	void checkAttack(sf::Time deltaTime, CommandQueue& commandQueue);
-	void createProjectile(SceneNode& sceneNode, float x, float y, TextureContainer& textureContainer);
+	void createProjectile(SceneNode& sceneNode, float x, float y, TextureContainer& textureContainer, AnimationData& animationData);
 	void launchAttack();
-
+	
+	void playCurrentAnimation(bool flip = false);
 	void setCurrentAnimation(Animation* animation);
 	virtual bool actionFinished() const;
 

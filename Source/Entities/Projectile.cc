@@ -5,11 +5,17 @@
 #include <cassert>
 #include <math.h>
 
-Projectile::Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer):
+#include <iostream>
+
+Projectile::Projectile(Projectile::Type type, Projectile::Side side, TextureContainer& textureContainer, AnimationData& animationData):
 type(type),
 side(side),
-projectileSprite(textureContainer.get(projectileDataTable[type].texture), projectileDataTable[type].textureRect)
+projectileSprite(),
+action(Action::Flying)
 {
+
+	setCurrentAnimation(animationData.getAnimation(action, type));
+	playCurrentAnimation();
 
 	setHitpoints(10);
 	sf::FloatRect bounds = projectileSprite.getLocalBounds();
@@ -35,6 +41,16 @@ int Projectile::getDamage() const {
 	return projectileDataTable[type].damage;
 }
 
+void Projectile::playCurrentAnimation(bool flip){
+
+	projectileSprite.play(*currentAnimation, flip);
+}
+
+void Projectile::setCurrentAnimation(Animation* animation){
+
+	currentAnimation = animation;
+}
+
 void Projectile::setStartPosition(sf::Vector2f position){
 
 	startPosition = position;
@@ -45,6 +61,9 @@ void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, A
 	//if projectile has exceeded its travel distance
 	if (SceneNode::getWorldPosition().x - startPosition.x > projectileDataTable[type].travelDistance.x || SceneNode::getWorldPosition().y - startPosition.y > projectileDataTable[type].travelDistance.y)
 		setHitpoints(0);
+
+	setCurrentAnimation(animationData.getAnimation(action, type));
+	(getDirection() == Entity::Direction::Right) ? playCurrentAnimation() : playCurrentAnimation(true);
 
 	Entity::updateCurrent(deltaTime, commandQueue, animationData);
 }

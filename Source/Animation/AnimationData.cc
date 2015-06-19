@@ -6,6 +6,7 @@ AnimationData::AnimationData(TextureContainer& textureContainer){
 
 	loadTextures(textureContainer);
 	initHeroAnimations(textureContainer);
+	initProjectileAnimations(textureContainer);
 }
 
 void AnimationData::loadTextures(TextureContainer& textureContainer){
@@ -15,6 +16,11 @@ void AnimationData::loadTextures(TextureContainer& textureContainer){
 		textureContainer.load(TextureSheet::Archer, "Images/Archer.png");
 		textureContainer.load(TextureSheet::Druid, "Images/Druid.png");
 		textureContainer.load(TextureSheet::Crusader, "Images/Crusader.png");
+
+    	textureContainer.load(TextureSheet::Background, "Images/Background.png");
+    	textureContainer.load(TextureSheet::Arrow, "Images/Projectiles.png");
+    	textureContainer.load(TextureSheet::MiniBlast, "Images/Projectiles.png");
+    	textureContainer.load(TextureSheet::Longsword, "Images/Projectiles.png");
     }
 
     catch (std::runtime_error& exception){
@@ -31,6 +37,11 @@ Animation* AnimationData::getAnimation(Hero::Action action, Hero::HeroClass hero
 	return animation;
 }
 
+Animation* AnimationData::getAnimation(Projectile::Action action, Projectile::Type projectileType){
+
+	auto animation = &(projectileAnimations[action][projectileType]);
+	return animation;
+}
 
 void AnimationData::initHeroAnimations(TextureContainer& textureContainer){
 
@@ -108,4 +119,21 @@ void AnimationData::initHeroAnimations(TextureContainer& textureContainer){
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].addFrame(sf::IntRect(102, 162, 38, 63));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].addFrame(sf::IntRect(144, 162, 34, 63));
 	heroAnimations[Hero::Action::Fall][Hero::HeroClass::Druid].setLooped(false);
+}
+
+void AnimationData::initProjectileAnimations(TextureContainer& textureContainer){
+
+	projectileAnimations[Projectile::Action::Flying][Projectile::Type::Arrow].setSpriteSheet(textureContainer.get(TextureSheet::Arrow));
+	projectileAnimations[Projectile::Action::Flying][Projectile::Type::Arrow].addFrame(sf::IntRect(0, 0, 31, 5));
+
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::Arrow].setSpriteSheet(textureContainer.get(TextureSheet::Arrow));
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::Arrow].addFrame(sf::IntRect(34, 0, 33, 13));
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::Arrow].addFrame(sf::IntRect(70, 0, 31, 29));
+
+	projectileAnimations[Projectile::Action::Flying][Projectile::Type::MiniBlast].setSpriteSheet(textureContainer.get(TextureSheet::MiniBlast));
+	projectileAnimations[Projectile::Action::Flying][Projectile::Type::MiniBlast].addFrame(sf::IntRect(0, 33, 26, 8));
+
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::MiniBlast].setSpriteSheet(textureContainer.get(TextureSheet::MiniBlast));
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::MiniBlast].addFrame(sf::IntRect(0, 33, 26, 8));
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::MiniBlast].addFrame(sf::IntRect(0, 33, 26, 8));
 }

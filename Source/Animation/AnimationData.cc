@@ -17,7 +17,6 @@ void AnimationData::loadTextures(TextureContainer& textureContainer){
 		textureContainer.load(TextureSheet::Druid, "Images/Druid.png");
 		textureContainer.load(TextureSheet::Crusader, "Images/Crusader.png");
 
-    	textureContainer.load(TextureSheet::Background, "Images/Background.png");
     	textureContainer.load(TextureSheet::Arrow, "Images/Projectiles.png");
     	textureContainer.load(TextureSheet::MiniBlast, "Images/Projectiles.png");
     	textureContainer.load(TextureSheet::Longsword, "Images/Projectiles.png");
@@ -129,6 +128,7 @@ void AnimationData::initProjectileAnimations(TextureContainer& textureContainer)
 	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::Arrow].setSpriteSheet(textureContainer.get(TextureSheet::Arrow));
 	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::Arrow].addFrame(sf::IntRect(34, 0, 33, 13));
 	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::Arrow].addFrame(sf::IntRect(70, 0, 31, 29));
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::Arrow].setLooped(false);
 
 	projectileAnimations[Projectile::Action::Flying][Projectile::Type::MiniBlast].setSpriteSheet(textureContainer.get(TextureSheet::MiniBlast));
 	projectileAnimations[Projectile::Action::Flying][Projectile::Type::MiniBlast].addFrame(sf::IntRect(0, 33, 26, 8));
@@ -136,4 +136,5 @@ void AnimationData::initProjectileAnimations(TextureContainer& textureContainer)
 	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::MiniBlast].setSpriteSheet(textureContainer.get(TextureSheet::MiniBlast));
 	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::MiniBlast].addFrame(sf::IntRect(0, 33, 26, 8));
 	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::MiniBlast].addFrame(sf::IntRect(0, 33, 26, 8));
+	projectileAnimations[Projectile::Action::Breaking][Projectile::Type::MiniBlast].setLooped(false);
 }

@@ -56,11 +56,11 @@ private:
 	std::vector<SpawnPoint> enemySpawns;
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
 
-	void removeDead();
+	void removeDeadEnemies();
 	void removeOutsideBounds();
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);
 	void handleCollisions();
-	//void loadTextures();
+	void loadTextures();
 	void initScene();
 	void adjustView(sf::Time deltaTime);
 	void checkPlayerBounds();

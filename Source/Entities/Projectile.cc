@@ -59,8 +59,10 @@ void Projectile::setStartPosition(sf::Vector2f position){
 void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 
 	//if projectile has exceeded its travel distance
-	if (SceneNode::getWorldPosition().x - startPosition.x > projectileDataTable[type].travelDistance.x || SceneNode::getWorldPosition().y - startPosition.y > projectileDataTable[type].travelDistance.y)
+	if (SceneNode::getWorldPosition().x - startPosition.x > projectileDataTable[type].travelDistance.x || abs(SceneNode::getWorldPosition().y - startPosition.y) > projectileDataTable[type].travelDistance.y)
 		setHitpoints(0);
+
+	if (getHitpoints() <= 0) action = Projectile::Action::Breaking;
 
 	setCurrentAnimation(animationData.getAnimation(action, type));
 	(getDirection() == Entity::Direction::Right) ? playCurrentAnimation() : playCurrentAnimation(true);
@@ -80,5 +82,7 @@ sf::FloatRect Projectile::getBoundingRect() const {
 
 bool Projectile::actionFinished() const {
 
-	return true;
+	if (action == Projectile::Action::Flying) return false;
+
+	else return true;
 }

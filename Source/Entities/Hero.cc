@@ -69,7 +69,6 @@ void Hero::setDefaultHeroAction(){
 	heroAction = Hero::Action::Stand;
 }
 
-
 void Hero::playCurrentAnimation(bool flip){
 
 	heroSprite.play(*currentAnimation, flip);

@@ -18,21 +18,18 @@ animationData(textureContainer),
 playerHero(nullptr),
 scrollSpeed(0.f){
 
-//loadTextures();
+loadTextures();
 initScene();
 view.setCenter(playerSpawnPosition);
 }
 
 
-/*void World::loadTextures(){
+void World::loadTextures(){
 
 	//load the spritesheets
     try {
 
     	textureContainer.load(TextureSheet::Background, "Images/Background.png");
-    	textureContainer.load(TextureSheet::Arrow, "Images/Projectiles.png");
-    	textureContainer.load(TextureSheet::MiniBlast, "Images/Projectiles.png");
-    	textureContainer.load(TextureSheet::Longsword, "Images/Projectiles.png");
     }
 
     catch (std::runtime_error& exception){
@@ -40,7 +37,7 @@ view.setCenter(playerSpawnPosition);
     	std::cout << "Exception occurred: " << exception.what() << std::endl;
     	return;
     }
-}*/
+}
 
 void World::initScene(){
 
@@ -71,9 +68,6 @@ void World::initScene(){
 
 	addEnemySpawns();
 	spawnEnemies();
-
-	//updateAnimations();
-	//playAnimations();
 }
 
 
@@ -98,11 +92,8 @@ void World::update(sf::Time deltaTime){
 		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
 	sceneGraph.removeDead();
-	removeDead();
+	removeDeadEnemies();
 	handleCollisions();
-
-	//updateAnimations();
-	//playAnimations();
 
 	spawnEnemies();
 
@@ -110,23 +101,6 @@ void World::update(sf::Time deltaTime){
 
 	checkPlayerBounds();
 }
-
-
-/*void World::updateAnimations(){
-
-	playerHero->setCurrentAnimation(animationData.getAnimation(playerHero->getHeroAction(), playerHero->getHeroClass()));
-
-	for (auto& enemyHero : currentEnemies)
-		enemyHero->setCurrentAnimation(animationData.getAnimation(enemyHero->getHeroAction(), enemyHero->getHeroClass()));
-}
-
-void World::playAnimations(){
-
-	(playerHero->getDirection() == Entity::Direction::Right) ? playerHero->playCurrentAnimation() : playerHero->playCurrentAnimation(true);
-
-	for (auto& enemyHero : currentEnemies)
-		(enemyHero->getDirection() == Entity::Direction::Right) ? enemyHero->playCurrentAnimation() : enemyHero->playCurrentAnimation(true);
-}*/
 
 
 void World::updateEntities(){
@@ -261,8 +235,9 @@ void World::handleCollisions(){
 }
 
 
-void World::removeDead(){
+void World::removeDeadEnemies(){
 
+	//clear the currentEnemies storage vector (after SceneNode clears respective nodes)
 	auto removeBegin = std::remove_if(currentEnemies.begin(), currentEnemies.end(), std::mem_fn(&SceneNode::isDead));
 	currentEnemies.erase(removeBegin, currentEnemies.end());
 }

@@ -47,12 +47,10 @@ void Entity::setHitpoints(int hp) {
 	entityHitpoints = hp;
 }
 
-
 int Entity::getHitpoints() const {
 
 	return entityHitpoints;
 }
-
 
 void Entity::damage(int hp){
 

@@ -59,7 +59,7 @@ void AnimatedSprite::play(const Animation& animation, bool flip)
 {
 
     m_isLooped = animation.getLooped();
-    finished = m_isLooped; //if the animation is not looped then we want to play it once through entirely
+    finished = m_isLooped; //if the animation is not looped then we want to play it (only) once through entirely
 
     if (getAnimation() != &animation || this->flip != flip){
 

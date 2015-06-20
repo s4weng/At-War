@@ -1,6 +1,6 @@
 High Priority -
 In progress:
-- When you hold two movements keys, action overrides, you can shoot arrows while animation is walking -> projectile immediately disappears when top/right held and player is at edge; hero enemies insta-disappear in these cases
+- Can't move top-left and attack
 - Animations 
 	-> Archer attack animation flashes first frame at the end
 	-> Both archer and druid death animation flashes first frame at end

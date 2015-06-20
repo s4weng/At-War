@@ -70,7 +70,7 @@ bool PlayerInput::isRealtimeAction(PlayerAction action){
 
 	switch (action){
 
-		case PlayerAction::MoveLeft: case PlayerAction::MoveRight: case PlayerAction::MoveUp: case PlayerAction::MoveDown: case PlayerAction::Attack:
+		case PlayerAction::MoveUp: case PlayerAction::MoveDown: case PlayerAction::MoveLeft: case PlayerAction::MoveRight: case PlayerAction::Attack:
 			return true;
 
 		default:

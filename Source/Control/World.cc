@@ -107,8 +107,6 @@ void World::update(sf::Time deltaTime){
 
 void World::updateEntities(){
 
-	playerHero->updateDirection();
-	updateEnemyDirections();
 	playerHero->setVelocity(0.f, 0.f);
 	playerHero->setDefaultHeroAction();
 
@@ -323,14 +321,6 @@ bool World::moveTowards(std::shared_ptr<Hero> enemyHero){
 	//if the enemy doesn't have to move anymore (i.e. is in attacking distance)
 	return (x != 0 || y != 0);
 }
-
-
-void World::updateEnemyDirections(){
-
-	for (auto& enemyHero : currentEnemies)
-		enemyHero->updateDirection();
-}
-
 
 void World::spawnEnemies(){
 

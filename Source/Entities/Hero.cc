@@ -95,7 +95,6 @@ sf::FloatRect Hero::getBoundingRect() const {
 	return getWorldTransform().transformRect(heroSprite.getGlobalBounds());
 }
 
-
 void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 
 	if (isAttack && attackTimer <= sf::Time::Zero){
@@ -119,6 +118,8 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 void Hero::createProjectile(SceneNode& sceneNode, float x, float y, TextureContainer& textureContainer, AnimationData& animationData){
 
 	setHeroAction(Hero::Action::Attack);
+	setCurrentAnimation(animationData.getAnimation(heroAction, heroClass));
+	(getDirection() == Entity::Direction::Right) ? playCurrentAnimation() : playCurrentAnimation(true);
 
 	std::shared_ptr<Projectile> weapon(new Projectile(Projectile::Type(heroClass), Projectile::Side(heroFaction), textureContainer, animationData));
 

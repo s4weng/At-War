@@ -10,7 +10,6 @@
 
 extern const std::vector<HeroData> heroDataTable;
 extern const std::vector<ProjectileData> projectileDataTable;
-extern const AnimationData animationData;
 
 class World : private sf::NonCopyable {
 
@@ -66,7 +65,6 @@ private:
 	void checkPlayerBounds();
 	void moveEnemies();
 	bool moveTowards(std::shared_ptr<Hero> enemyHero);
-	void updateEnemyDirections();
 	void updateEntities();
 	void spawnEnemies();
 	void addEnemySpawns();

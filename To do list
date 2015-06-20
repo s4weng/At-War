@@ -1,6 +1,6 @@
 High Priority -
 In progress:
-- When you hold two movements keys, action overrides
+- When you hold two movements keys, action overrides, you can shoot arrows while animation is walking -> projectile immediately disappears when top/right held and player is at edge; hero enemies insta-disappear in these cases
 - Animations 
 	-> Archer attack animation flashes first frame at the end
 	-> Both archer and druid death animation flashes first frame at end
@@ -16,7 +16,7 @@ Medium Priority -
 
 
 Low Priority/Functionality -
-- Implement ally AI
+- Implement ally AI (attack distance for y-axis, knockdown of characters (and walkaround)
 - *Maybe* switch data class for XML
 - rename textureInfo to resourceInfo...in all files involving "TextureInfo.hpp"
 - Classify Fonts (TextureInfo)

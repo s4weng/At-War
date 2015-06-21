@@ -35,7 +35,7 @@ std::vector<ProjectileData> initializeProjectiles(){
 	data[Projectile::Type::Arrow].speed = 350.f;
 	data[Projectile::Type::Arrow].texture = TextureSheet::Arrow;
 	data[Projectile::Type::Arrow].textureRect = sf::IntRect(0, 0, 33, 6);
-	data[Projectile::Type::Arrow].travelDistance = sf::Vector2f(200.f, 0.f);
+	data[Projectile::Type::Arrow].travelDistance = sf::Vector2f(300.f, 0.f);
 
 	data[Projectile::Type::MiniBlast].damage = 10;
 	data[Projectile::Type::MiniBlast].speed = 350.f;

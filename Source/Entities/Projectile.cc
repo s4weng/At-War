@@ -58,11 +58,11 @@ void Projectile::setStartPosition(sf::Vector2f position){
 
 void Projectile::updateCurrent(sf::Time deltaTime, CommandQueue& commandQueue, AnimationData& animationData){
 
+	if (action == Projectile::Action::Breaking) setHitpoints(0);
+	
 	//if projectile has exceeded its travel distance
-	if (abs(getWorldPosition().x - startPosition.x) > projectileDataTable[type].travelDistance.x || abs(getWorldPosition().y - startPosition.y) > projectileDataTable[type].travelDistance.y)
-		setHitpoints(0);
-
-	if (getHitpoints() <= 0) action = Projectile::Action::Breaking;
+	if (abs(getWorldPosition().x - startPosition.x) > projectileDataTable[type].travelDistance.x || abs(getWorldPosition().y - startPosition.y) > projectileDataTable[type].travelDistance.y || getHitpoints() <= 0)
+		action = Projectile::Action::Breaking;
 
 	setCurrentAnimation(animationData.getAnimation(action, type));
 	(getDirection() == Entity::Direction::Right) ? playCurrentAnimation() : playCurrentAnimation(true);

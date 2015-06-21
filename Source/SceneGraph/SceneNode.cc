@@ -162,5 +162,6 @@ bool collision(const SceneNode& node1, const SceneNode& node2){
 	sf::FloatRect bound1 = node1.getBoundingRect();
 	sf::FloatRect bound2 = node2.getBoundingRect();
 
-	return (bound1.intersects(bound2) && abs(node1.getPosition().y - node2.getPosition().y) < 20.f);
+	//projectile has to intersect hero sprite center, not just intersect the boundaries
+	return (bound1.intersects(bound2) && abs(node1.getPosition().x - node2.getPosition().x) < 5.f && abs(node1.getPosition().y - node2.getPosition().y) < 20.f); //change 20.f to node2.getSize().y * 0.5 (i.e. within 50 percent of hero sprite center)
 }

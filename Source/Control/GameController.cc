@@ -5,6 +5,9 @@
 #include "PauseState.hpp"
 #include "SettingsState.hpp"
 
+#include "KeyToString.hpp"
+#include <iostream>
+
 const sf::Time GameController::timePerFrame = sf::seconds(1.f/50.f);
 
 GameController::GameController():

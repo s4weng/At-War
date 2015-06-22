@@ -12,6 +12,7 @@ public:
 	enum Type {
 	
 		Arrow,
+		MiniBlast1, //replace with different attack for mage
 		MiniBlast,
 		Longsword,
 		typeCount

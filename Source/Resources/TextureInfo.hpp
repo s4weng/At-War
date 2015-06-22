@@ -7,10 +7,12 @@ enum class TextureSheet {
 
 	Background,
 	Archer,
+	Mage,
 	Druid,
-	Crusader,
+	Wolf,
 	Arrow,
 	MiniBlast,
+	MiniBlast1, //remove
 	Longsword,
 	titleBackground,
 	menuBackground,

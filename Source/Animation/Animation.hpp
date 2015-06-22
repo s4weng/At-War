@@ -31,6 +31,7 @@
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Time.hpp>
 
 class Animation
 {
@@ -44,11 +45,14 @@ public:
     const sf::IntRect& getFrame(std::size_t n) const;
     void setLooped(bool loop);
     bool getLooped() const;
+    void setFrameTime(sf::Time time);
+    sf::Time getFrameTime() const;
 
 private:
     std::vector<sf::IntRect> m_frames;
     const sf::Texture* m_texture;
     bool looped;
+    sf::Time frameTime;
 };
 
 #endif // ANIMATION_INCLUDE

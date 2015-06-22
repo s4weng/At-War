@@ -29,7 +29,7 @@
 
 #include <iostream>
 
-Animation::Animation() : m_texture(NULL), looped(true)
+Animation::Animation() : m_texture(NULL), looped(true), frameTime(sf::seconds(0.13f))
 {
 }
 
@@ -47,6 +47,17 @@ void Animation::addFrame(sf::IntRect rect)
 {
     m_frames.push_back(rect);
 }
+
+void Animation::setFrameTime(sf::Time time){
+
+	frameTime = time;
+}
+
+sf::Time Animation::getFrameTime() const {
+
+	return frameTime;
+}
+
 
 void Animation::setSpriteSheet(const sf::Texture& texture)
 {

@@ -62,7 +62,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer, animationData));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Mage, Hero::HeroFaction::Player, textureContainer, animationData));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
@@ -347,7 +347,7 @@ void World::spawnEnemies(){
 void World::addEnemySpawns(){
 
 	addEnemySpawn(Hero::HeroClass::Druid, 500.f, 300.f);
-	addEnemySpawn(Hero::HeroClass::Druid, 700.f, 350.f);
+	addEnemySpawn(Hero::HeroClass::Wolf, 700.f, 350.f);
 
 	//addEnemySpawn(Hero::HeroClass::Druid, 2000.f, 300.f);
 	//addEnemySpawn(Hero::HeroClass::Druid, 2200.f, 350.f);

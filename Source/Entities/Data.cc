@@ -12,17 +12,23 @@ std::vector<HeroData> initializeHeroes(){
 	data[Hero::HeroClass::Archer].attackDistance = 300.f;
 	data[Hero::HeroClass::Archer].speed = 100.f;
 
+	data[Hero::HeroClass::Mage].hitpoints = 100;
+	data[Hero::HeroClass::Mage].attackInterval = sf::seconds(1.5);
+	data[Hero::HeroClass::Mage].texture = TextureSheet::Mage;
+	data[Hero::HeroClass::Mage].attackDistance = 300.f;
+	data[Hero::HeroClass::Mage].speed = 100.f;
+
 	data[Hero::HeroClass::Druid].hitpoints = 100;
 	data[Hero::HeroClass::Druid].attackInterval = sf::seconds(3);
 	data[Hero::HeroClass::Druid].texture = TextureSheet::Druid;
 	data[Hero::HeroClass::Druid].attackDistance = 300.f;
 	data[Hero::HeroClass::Druid].speed = 70.f;
 
-	data[Hero::HeroClass::Crusader].hitpoints = 100;
-	data[Hero::HeroClass::Crusader].attackInterval = sf::seconds(3);
-	data[Hero::HeroClass::Crusader].texture = TextureSheet::Crusader;
-	data[Hero::HeroClass::Crusader].attackDistance = 30.f;
-	data[Hero::HeroClass::Crusader].speed = 70.f;
+	data[Hero::HeroClass::Wolf].hitpoints = 100;
+	data[Hero::HeroClass::Wolf].attackInterval = sf::seconds(3);
+	data[Hero::HeroClass::Wolf].texture = TextureSheet::Wolf;
+	data[Hero::HeroClass::Wolf].attackDistance = 100.f;
+	data[Hero::HeroClass::Wolf].speed = 70.f;
 
 	return data;
 }
@@ -34,20 +40,22 @@ std::vector<ProjectileData> initializeProjectiles(){
 	data[Projectile::Type::Arrow].damage = 10;
 	data[Projectile::Type::Arrow].speed = 350.f;
 	data[Projectile::Type::Arrow].texture = TextureSheet::Arrow;
-	data[Projectile::Type::Arrow].textureRect = sf::IntRect(0, 0, 33, 6);
 	data[Projectile::Type::Arrow].travelDistance = sf::Vector2f(300.f, 0.f);
 
 	data[Projectile::Type::MiniBlast].damage = 10;
 	data[Projectile::Type::MiniBlast].speed = 350.f;
 	data[Projectile::Type::MiniBlast].texture = TextureSheet::MiniBlast;
-	data[Projectile::Type::MiniBlast].textureRect = sf::IntRect(35, 0, 26, 9);
 	data[Projectile::Type::MiniBlast].travelDistance = sf::Vector2f(400.f, 0.f);
+
+	data[Projectile::Type::MiniBlast1].damage = 10;
+	data[Projectile::Type::MiniBlast1].speed = 350.f;
+	data[Projectile::Type::MiniBlast1].texture = TextureSheet::MiniBlast;
+	data[Projectile::Type::MiniBlast1].travelDistance = sf::Vector2f(400.f, 0.f);
 
 	data[Projectile::Type::Longsword].damage = 50;
 	data[Projectile::Type::Longsword].speed = 0.f;
 	data[Projectile::Type::Longsword].texture = TextureSheet::Longsword;
-	data[Projectile::Type::Longsword].textureRect = sf::IntRect(0, 10, 35, 9);
-	data[Projectile::Type::Longsword].travelDistance = sf::Vector2f(0.f, 25.f);
+	data[Projectile::Type::Longsword].travelDistance = sf::Vector2f(0.f, 50.f);
 
 	return data;
 }

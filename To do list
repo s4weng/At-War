@@ -1,10 +1,10 @@
 High Priority -
 In progress:
-- Can't move top-left and attack
-- Animations 
-	-> Archer attack animation flashes first frame at the end
+- Remove all MiniBlast1
+- Animations
 	-> Both archer and druid death animation flashes first frame at end
 - New battlefield not yet implemented (spawn enemies upon new battlefield is thus not tested)
+- Implement different offset for each hero's projectile spawn
 - More data variety
 
 

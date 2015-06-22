@@ -13,8 +13,9 @@ public:
 	enum HeroClass { //Match HeroClass enum index with Projectile::Type enum index
 
 		Archer,
+		Mage,
 		Druid,
-		Crusader,
+		Wolf, //currently not matched to weapon
 		classCount,
 	};
 

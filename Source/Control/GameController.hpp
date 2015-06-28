@@ -3,6 +3,7 @@
 
 #include "PlayerInput.hpp"
 #include "StateStack.hpp" //Stack.hpp
+#include "MusicPlayer.hpp"
 
 class GameController {
 
@@ -23,6 +24,7 @@ private:
 	TextureContainer textureContainer;
 	FontContainer fontContainer;
 	PlayerInput playerInput;
+	MusicPlayer musicPlayer;
 	StateStack stateStack;
 };
 

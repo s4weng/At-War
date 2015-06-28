@@ -1,10 +1,11 @@
 #include "StateStack.hpp"
 
-State::ShareView::ShareView(sf::RenderWindow& window, TextureContainer& textureContainer, FontContainer& fontContainer, PlayerInput& playerInput):
+State::ShareView::ShareView(sf::RenderWindow& window, TextureContainer& textureContainer, FontContainer& fontContainer, PlayerInput& playerInput, MusicPlayer& musicPlayer):
 window(&window),
 textureContainer(&textureContainer),
 fontContainer(&fontContainer),
-playerInput(&playerInput){	
+playerInput(&playerInput),
+musicPlayer(&musicPlayer){	
 }
 
 State::State(StateStack& stateStack, ShareView shareView):

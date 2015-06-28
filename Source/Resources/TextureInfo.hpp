@@ -35,11 +35,18 @@ enum class Shaders {
 	add
 };
 
+enum class Music {
+
+	mainTheme,
+	gameplay,
+};
+
 namespace sf {
 
 	class Texture;
 	class Font;
 	class Shader;
+	class SoundBuffer;
 }
 
 typedef ResourceContainer <sf::Texture, TextureSheet> TextureContainer;

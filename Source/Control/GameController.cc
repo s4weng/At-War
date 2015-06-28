@@ -15,7 +15,8 @@ window(sf::VideoMode(900, 540), "At-War", sf::Style::Close),
 textureContainer(),
 fontContainer(),
 playerInput(),
-stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput)){
+musicPlayer(),
+stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput, musicPlayer)){
 
 	fontContainer.load(Fonts::main, "Fonts/lobsterTwo.otf");
 	
@@ -28,6 +29,8 @@ stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput
 
 	registerStates();
 	stateStack.pushState(StateID::Title);
+
+	musicPlayer.setVolume(100.f);
 }
 
 void GameController::run(){

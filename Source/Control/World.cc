@@ -63,7 +63,7 @@ void World::initScene(){
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachNode(std::move(backgroundSprite));
 
-	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Mage, Hero::HeroFaction::Player, textureContainer, animationData));
+	std::shared_ptr<Hero> mainHero(new Hero(Hero::HeroClass::Archer, Hero::HeroFaction::Player, textureContainer, animationData));
 	playerHero = mainHero.get();
 	playerHero->setDirection(Entity::Direction::Right);
 	playerHero->setPosition(playerSpawnPosition);
@@ -76,12 +76,13 @@ void World::initScene(){
 
 void World::draw(){
 
+	//apply post effect if graphics card supports
 	if (PostEffect::isSupported()){
 
 		sceneTexture.clear();
 		sceneTexture.setView(view);
 		sceneTexture.draw(*sceneLayers[Background]);
-		sceneLayers[Ground]->sortChildren();
+		sceneLayers[Ground]->sortChildren(); //sort the z-order
 		sceneTexture.draw(*sceneLayers[Ground]);
 		sceneTexture.display();
 		bloomEffect.apply(sceneTexture, window);

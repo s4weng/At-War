@@ -1,10 +1,12 @@
 #include "GameState.hpp"
-#include "KeyToString.hpp"
+#include "MusicPlayer.hpp"
 
 GameState::GameState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView),
 world(*shareView.window),
 playerInput(*shareView.playerInput){
+
+	shareView.musicPlayer->play(Music::gameplay);
 }
 
 void GameState::draw(){

@@ -1,5 +1,6 @@
 #include "TitleState.hpp"
 #include "TextureInfo.hpp"
+#include "MusicPlayer.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -27,6 +28,8 @@ textFlash(sf::Time::Zero){
 	bounds = continueText.getLocalBounds();
 	continueText.setOrigin(bounds.width/2.f, bounds.height/2.f);
 	continueText.setPosition(shareView.window->getView().getSize().x / 2.f, 475.f);
+
+	shareView.musicPlayer->play(Music::mainTheme);
 }
 
 void TitleState::draw(){

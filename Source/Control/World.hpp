@@ -4,6 +4,7 @@
 #include "SpriteNode.hpp"
 #include "CommandQueue.hpp" //Command.hpp
 #include "AnimationData.hpp" //Hero.hpp -> Entity, SceneNode, TextureInfo, Data
+#include "BloomEffect.hpp"
 
 #include <array>
 #include <SFML/Window.hpp>
@@ -44,6 +45,7 @@ private:
 	sf::View battlefield;
 	sf::FloatRect worldBounds;
 	sf::Vector2f playerSpawnPosition;
+	sf::RenderTexture sceneTexture;
 
 	TextureContainer textureContainer;
 	AnimationData animationData;
@@ -54,6 +56,7 @@ private:
 	CommandQueue commandQueue;
 	std::vector<SpawnPoint> enemySpawns;
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
+	BloomEffect bloomEffect;
 
 	void removeDeadEnemies();
 	void removeOutsideBounds();

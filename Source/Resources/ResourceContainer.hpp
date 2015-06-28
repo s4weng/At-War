@@ -14,6 +14,7 @@ class ResourceContainer {
 public:
 
 	void load(ID id, const std::string& fileName);
+	void load(ID id, const std::string& fileName, const std::string& secondParam);
 	Resource& get(ID id);
 
 private:

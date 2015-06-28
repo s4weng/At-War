@@ -9,6 +9,16 @@ void ResourceContainer<Resource, ID>::load(ID id, const std::string& fileName){
 }
 
 template <typename Resource, typename ID>
+void ResourceContainer<Resource, ID>::load(ID id, const std::string& fileName, const std::string& secondParam){
+
+	std::unique_ptr<Resource> resource(new Resource());
+	if (!resource->loadFromFile(fileName, secondParam))
+		throw std::runtime_error("Failed to load " + fileName);
+
+	insertResource(id, std::move(resource));
+}
+
+template <typename Resource, typename ID>
 Resource& ResourceContainer<Resource, ID>::get(ID id){
 
 	auto found = resourceMap.find(id);

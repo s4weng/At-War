@@ -27,13 +27,23 @@ enum class Fonts {
 	main
 };
 
+enum class Shaders {
+
+	brightness,
+	downSample,
+	gaussianBlur,
+	add
+};
+
 namespace sf {
 
 	class Texture;
 	class Font;
+	class Shader;
 }
 
 typedef ResourceContainer <sf::Texture, TextureSheet> TextureContainer;
 typedef ResourceContainer <sf::Font, Fonts> FontContainer;
+typedef ResourceContainer <sf::Shader, Shaders> ShaderHolder;
 
 #endif

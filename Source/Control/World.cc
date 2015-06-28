@@ -20,9 +20,10 @@ animationData(textureContainer),
 playerHero(nullptr),
 scrollSpeed(0.f){
 
-loadTextures();
-initScene();
-view.setCenter(playerSpawnPosition);
+	sceneTexture.create(window.getSize().x, window.getSize().y);
+	loadTextures();
+	initScene();
+	view.setCenter(playerSpawnPosition);
 }
 
 
@@ -75,10 +76,24 @@ void World::initScene(){
 
 void World::draw(){
 
-	window.setView(view);
-	window.draw(*sceneLayers[Background]);
-	sceneLayers[Ground]->sortChildren();
-	window.draw(*sceneLayers[Ground]);
+	if (PostEffect::isSupported()){
+
+		sceneTexture.clear();
+		sceneTexture.setView(view);
+		sceneTexture.draw(*sceneLayers[Background]);
+		sceneLayers[Ground]->sortChildren();
+		sceneTexture.draw(*sceneLayers[Ground]);
+		sceneTexture.display();
+		bloomEffect.apply(sceneTexture, window);
+	}
+
+	else {
+
+		window.setView(view);
+		window.draw(*sceneLayers[Background]);
+		sceneLayers[Ground]->sortChildren();
+		window.draw(*sceneLayers[Ground]);
+	}
 }
 
 

@@ -1,4 +1,5 @@
 #include "PauseState.hpp"
+#include "MusicPlayer.hpp"
 #include "TextureInfo.hpp"
 
 PauseState::PauseState(StateStack& stateStack, ShareView shareView):
@@ -13,6 +14,14 @@ optionIndex(0){
 
 	setText(font, viewSize);
 	updateOption();
+
+	//lower volume when game paused
+	shareView.musicPlayer->setVolume(50.f);
+}
+
+PauseState::~PauseState(){
+
+	getSharedView().musicPlayer->setVolume(100.f);
 }
 
 void PauseState::setText(sf::Font& font, sf::Vector2f viewSize){

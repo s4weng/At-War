@@ -36,8 +36,9 @@ void MusicPlayer::resume(){
 	music.play();
 }
 
-void MusicPlayer::setVolume(float volume){
+void MusicPlayer::setVolume(float newVolume){
 
-	this->volume = volume;
+	this->volume = newVolume;
+	music.setVolume(volume);
 }
 

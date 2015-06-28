@@ -18,7 +18,7 @@ public:
 	void stop();
 	void pause();
 	void resume();
-	void setVolume(float volume);
+	void setVolume(float newVolume);
 
 private:
 

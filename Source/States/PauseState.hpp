@@ -10,6 +10,7 @@ class PauseState : public State {
 public:
 
 	PauseState(StateStack& stateStack, ShareView shareView);
+	~PauseState();
 
 	virtual void draw();
 	virtual bool update(sf::Time deltaTime);

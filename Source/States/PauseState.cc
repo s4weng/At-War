@@ -21,7 +21,7 @@ optionIndex(0){
 
 PauseState::~PauseState(){
 
-	getSharedView().musicPlayer->setVolume(100.f);
+	getSharedView().musicPlayer->setVolume(75.f);
 }
 
 void PauseState::setText(sf::Font& font, sf::Vector2f viewSize){

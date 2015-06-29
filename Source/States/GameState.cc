@@ -7,6 +7,13 @@ world(*shareView.window),
 playerInput(*shareView.playerInput){
 
 	shareView.musicPlayer->play(Music::gameplay);
+	shareView.musicPlayer->setVolume(75.f);
+}
+
+GameState::~GameState(){
+
+	getSharedView().musicPlayer->play(Music::mainTheme);
+	getSharedView().musicPlayer->setVolume(100.f);
 }
 
 void GameState::draw(){

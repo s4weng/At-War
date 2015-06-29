@@ -10,6 +10,7 @@ class GameState : public State {
 public:
 
 	GameState(StateStack& stateStack, ShareView shareView);
+	~GameState();
 
 	virtual void draw();
 	virtual bool update(sf::Time deltaTime);

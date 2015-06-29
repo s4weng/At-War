@@ -10,10 +10,10 @@ container(){
 
 	background.setTexture(shareView.textureContainer->get(TextureSheet::settingsBackground));
 
-	walkLeftButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	walkLeftButton = std::make_shared<Button>(shareView);
 	walkLeftButton->setPosition(80.f, 250.f);
 
-	walkRightButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	walkRightButton = std::make_shared<Button>(shareView);
 	walkRightButton->setPosition(80.f, 300.f);
 
 	updateControl();
@@ -23,7 +23,7 @@ container(){
 	container.pack(walkLeftButton);
 	container.pack(walkRightButton);
 
-	auto menuButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	auto menuButton = std::make_shared<Button>(shareView);
 	menuButton->setPosition(80.f, 400.f);
 	menuButton->setText("Return to Main Menu");
 	menuButton->setCallback(std::bind(&SettingsState::requestStackPop, this));

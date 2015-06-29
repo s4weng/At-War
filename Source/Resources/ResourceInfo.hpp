@@ -45,6 +45,8 @@ enum class SoundEffect {
 
 	shotArrow,
 	castBlast,
+	buttonSwitch,
+	buttonPress
 };
 
 namespace sf {

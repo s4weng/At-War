@@ -1,14 +1,16 @@
 #include "Button.hpp"
+#include "SoundPlayer.hpp"
 
 #include <SFML/Window.hpp>
 
-Button::Button(FontContainer& fonts, TextureContainer& textureContainer):
+Button::Button(State::ShareView shareView):
 callback(),
-texture(textureContainer.get(TextureSheet::normalButton)),
-selectedTexture(textureContainer.get(TextureSheet::selectedButton)),
-pressedTexture(textureContainer.get(TextureSheet::pressedButton)),
+texture(shareView.textureContainer->get(TextureSheet::normalButton)),
+selectedTexture(shareView.textureContainer->get(TextureSheet::selectedButton)),
+pressedTexture(shareView.textureContainer->get(TextureSheet::pressedButton)),
+sounds(*(shareView.soundPlayer)),
 sprite(),
-text("", fonts.get(Fonts::main), 30),
+text("", shareView.fontContainer->get(Fonts::main), 30),
 toggle(false){
 
 	sprite.setTexture(texture);
@@ -45,6 +47,8 @@ void Button::activate(){
 
 	if (callback)
 		callback();
+
+	sounds.play(SoundEffect::buttonPress);
 
 	//don't keep activated since button is not pressed down
 	if (!toggle)

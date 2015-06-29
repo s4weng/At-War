@@ -25,6 +25,7 @@ namespace sf {
 class StateStack;
 class PlayerInput;
 class MusicPlayer;
+class SoundPlayer;
 
 class State {
 
@@ -34,12 +35,13 @@ public:
 
 	struct ShareView {
 
-		ShareView(sf::RenderWindow& window, TextureContainer& textureContainer, FontContainer& fontContainer, PlayerInput& playerInput, MusicPlayer& musicPlayer);
+		ShareView(sf::RenderWindow& window, TextureContainer& textureContainer, FontContainer& fontContainer, PlayerInput& playerInput, MusicPlayer& musicPlayer, SoundPlayer& soundPlayer);
 		sf::RenderWindow* window;
 		TextureContainer* textureContainer;
 		FontContainer* fontContainer;
 		PlayerInput* playerInput;
 		MusicPlayer* musicPlayer;
+		SoundPlayer* soundPlayer;
 	};
 
 	State(StateStack& stateStack, ShareView shareView);

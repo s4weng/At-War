@@ -8,7 +8,7 @@ container() {
 
 	background.setTexture(shareView.textureContainer->get(TextureSheet::menuBackground));
 
-	auto playButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	auto playButton = std::make_shared<Button>(shareView);
 	playButton->setPosition(450.f, 150.f);
 	playButton->setText("Play");
 	playButton->setCallback([this] () {
@@ -17,7 +17,7 @@ container() {
 		requestStackPush(StateID::Game);
 	});
 
-	auto settingsButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	auto settingsButton = std::make_shared<Button>(shareView);
 	settingsButton->setPosition(450.f, 200.f);
 	settingsButton->setText("Settings");
 	settingsButton->setCallback([this] () {
@@ -25,7 +25,7 @@ container() {
 		requestStackPush(StateID::Settings);
 	});
 
-	auto quitButton = std::make_shared<Button>(*shareView.fontContainer, *shareView.textureContainer);
+	auto quitButton = std::make_shared<Button>(shareView);
 	quitButton->setPosition(450.f, 250.f);
 	quitButton->setText("Quit");
 	quitButton->setCallback([this] () {

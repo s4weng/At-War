@@ -16,7 +16,8 @@ textureContainer(),
 fontContainer(),
 playerInput(),
 musicPlayer(),
-stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput, musicPlayer)){
+soundPlayer(),
+stateStack(State::ShareView(window, textureContainer, fontContainer, playerInput, musicPlayer, soundPlayer)){
 
 	fontContainer.load(Fonts::main, "Fonts/lobsterTwo.otf");
 	

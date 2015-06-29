@@ -3,6 +3,7 @@
 
 #include "Component.hpp"
 #include "ResourceInfo.hpp"
+#include "State.hpp"
 
 #include <memory>
 
@@ -16,7 +17,7 @@ public:
 	typedef std::shared_ptr<Button> buttonPtr;
 	typedef std::function<void()> Callback;
 
-	Button(FontContainer& fonts, TextureContainer& textureContainer);
+	Button(State::ShareView shareView);
 
 	void setCallback(Callback callback);
 	void setText(const std::string& text);
@@ -38,6 +39,7 @@ private:
 	const sf::Texture& texture;
 	const sf::Texture& selectedTexture;
 	const sf::Texture& pressedTexture;
+	SoundPlayer& sounds;
 	sf::Sprite sprite;
 	sf::Text text;
 	bool toggle;

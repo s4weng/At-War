@@ -113,11 +113,23 @@ void World::update(sf::Time deltaTime){
 	removeDeadEnemies();
 	handleCollisions();
 
+	updateBattlefieldView();
 	spawnEnemies();
 
 	sceneGraph.update(deltaTime, commandQueue, animationData);
 
 	checkPlayerBounds();
+}
+
+
+void World::updateBattlefieldView(){
+
+	//extend the battlefield if all enemies in current view are dead and there are more spawns
+	if (currentEnemies.empty() && !enemySpawns.empty()){
+
+		battlefield.setCenter(battlefield.getSize().x, battlefield.getCenter().y);
+		battlefield.setSize(battlefield.getSize().x + BATTLEFIELDWIDTH, battlefield.getSize().y);
+	}
 }
 
 
@@ -365,13 +377,13 @@ void World::addEnemySpawns(){
 	addEnemySpawn(Hero::HeroClass::Druid, 500.f, 300.f);
 	addEnemySpawn(Hero::HeroClass::Wolf, 700.f, 350.f);
 
-	//addEnemySpawn(Hero::HeroClass::Druid, 2000.f, 300.f);
-	//addEnemySpawn(Hero::HeroClass::Druid, 2200.f, 350.f);
+	addEnemySpawn(Hero::HeroClass::Druid, 2000.f, 300.f);
+	addEnemySpawn(Hero::HeroClass::Druid, 2200.f, 350.f);
 
 	std::sort(enemySpawns.begin(), enemySpawns.end(),
 		[](SpawnPoint a, SpawnPoint b){
 
-			return a.x < b.x;
+			return a.x > b.x;
 		});
 }
 

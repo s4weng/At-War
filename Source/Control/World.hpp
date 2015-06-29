@@ -58,6 +58,7 @@ private:
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
 	BloomEffect bloomEffect;
 
+	void updateBattlefieldView();
 	void removeDeadEnemies();
 	void removeOutsideBounds();
 	bool checkReceivers(SceneNode::Pair& colliders, Receiver::Receiver first, Receiver::Receiver second);

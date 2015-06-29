@@ -2,7 +2,7 @@
 #define _BUTTON_HPP__
 
 #include "Component.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 
 #include <memory>
 

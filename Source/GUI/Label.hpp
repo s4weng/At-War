@@ -2,7 +2,7 @@
 #define _LABEL_HPP__
 
 #include "Component.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 
 #include <string>
 #include <SFML/Graphics.hpp>

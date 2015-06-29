@@ -2,7 +2,7 @@
 #define _ANIMATIONDATA_HPP_
 
 #include "Hero.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 
 #include <array>
 

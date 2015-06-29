@@ -1,5 +1,5 @@
 #include "MenuState.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 #include "Button.hpp"
 
 MenuState::MenuState(StateStack& stateStack, ShareView shareView):

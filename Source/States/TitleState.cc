@@ -1,5 +1,5 @@
 #include "TitleState.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 #include "MusicPlayer.hpp"
 
 #include <SFML/Graphics.hpp>

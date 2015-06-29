@@ -1,7 +1,7 @@
 #ifndef _DATA_HPP__
 #define _DATA_HPP__
 
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 
 #include <vector>
 #include <array>

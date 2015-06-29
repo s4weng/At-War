@@ -2,7 +2,7 @@
 #define _PROJECTILE_HPP__
 
 #include "Entity.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 #include "AnimatedSprite.hpp"
 
 class Projectile : public Entity {

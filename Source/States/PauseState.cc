@@ -1,6 +1,6 @@
 #include "PauseState.hpp"
 #include "MusicPlayer.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 
 PauseState::PauseState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView),

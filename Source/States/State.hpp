@@ -1,7 +1,7 @@
 #ifndef _STATE_HPP__
 #define _STATE_HPP__
 
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>

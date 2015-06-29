@@ -1,7 +1,7 @@
 #ifndef _ENTITY_HPP__
 #define _ENTITY_HPP__
 
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 #include "SceneNode.hpp"
 
 class Entity : public SceneNode {

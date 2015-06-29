@@ -5,7 +5,6 @@ In progress:
 	-> Both archer and druid death animation flashes first frame at end
 - New battlefield not yet implemented (spawn enemies upon new battlefield is thus not tested)
 - Implement different offset for each hero's projectile spawn
-- More data variety
 
 
 Medium Priority -
@@ -14,12 +13,6 @@ Medium Priority -
 - End game upon playerHero death (segfault if player dies and game continues for awhile)
 
 
-
 Low Priority/Functionality -
 - Implement ally AI (attack distance for y-axis, knockdown of characters (and walkaround)
-- *Maybe* switch data class for XML
-- rename textureInfo to resourceInfo...in all files involving "TextureInfo.hpp"
 - Classify Fonts (TextureInfo)
-
-
-NTS - Stopped forwarding commands when one receiver receives it; may cause bugs later on.

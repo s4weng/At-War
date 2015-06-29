@@ -1,5 +1,5 @@
-#ifndef _TEXTUREINFO_HPP__
-#define _TEXTUREINFO_HPP__
+#ifndef _RESOURCEINFO_HPP__
+#define _RESOURCEINFO_HPP__
 
 #include "ResourceContainer.hpp"
 
@@ -41,6 +41,12 @@ enum class Music {
 	gameplay,
 };
 
+enum class SoundEffect {
+
+	shotArrow,
+	castBlast,
+};
+
 namespace sf {
 
 	class Texture;
@@ -52,5 +58,6 @@ namespace sf {
 typedef ResourceContainer <sf::Texture, TextureSheet> TextureContainer;
 typedef ResourceContainer <sf::Font, Fonts> FontContainer;
 typedef ResourceContainer <sf::Shader, Shaders> ShaderHolder;
+typedef ResourceContainer <sf::SoundBuffer, SoundEffect> SoundEffectHolder;
 
 #endif

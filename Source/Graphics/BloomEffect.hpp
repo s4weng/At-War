@@ -4,7 +4,7 @@
 #define _BLOOMEFFECT_HPP__
 
 #include "PostEffect.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 #include "ResourceContainer.hpp"
 
 #include <SFML/Graphics/RenderTexture.hpp>

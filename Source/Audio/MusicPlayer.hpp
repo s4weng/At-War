@@ -1,7 +1,7 @@
 #ifndef _MUSICPLAYER_HPP__
 #define _MUSICPLAYER_HPP__
 
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Audio/Music.hpp>

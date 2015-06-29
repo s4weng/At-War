@@ -1,5 +1,5 @@
 #include "SettingsState.hpp"
-#include "TextureInfo.hpp"
+#include "ResourceInfo.hpp"
 #include "KeyToString.hpp"
 
 #include <SFML/Graphics.hpp>

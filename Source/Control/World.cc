@@ -70,7 +70,7 @@ void World::initScene(){
 	sceneLayers[Ground]->attachNode(std::move(mainHero));
 
 	std::shared_ptr<SoundNode> soundNode(new SoundNode(soundPlayer));
-	sceneGraph.attachNode(std::move(soundNode));
+	sceneLayers[Ground]->attachNode(std::move(soundNode));
 
 	addEnemySpawns();
 	spawnEnemies();
@@ -110,8 +110,8 @@ void World::update(sf::Time deltaTime){
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
-		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
-		//sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
+		//sceneGraph.onCommand(commandQueue.pop(), deltaTime);
+		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
 	sceneGraph.removeDead();
 	removeDeadEnemies();

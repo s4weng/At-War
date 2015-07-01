@@ -3,7 +3,7 @@
 
 GameState::GameState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView),
-world(*shareView.window),
+world(*shareView.window, *shareView.soundPlayer),
 playerInput(*shareView.playerInput){
 
 	shareView.musicPlayer->play(Music::gameplay);

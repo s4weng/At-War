@@ -1,6 +1,7 @@
 #include "Hero.hpp"
 #include "World.hpp"
 #include "AnimationData.hpp"
+#include "HeroSoundPlayer.hpp"
 
 #include <iostream>
 
@@ -99,8 +100,13 @@ void Hero::checkAttack(sf::Time deltaTime, CommandQueue& commandQueue){
 
 	if (isAttack && attackTimer <= sf::Time::Zero){
 
-		if (heroFaction == HeroFaction::Player)
+		if (heroFaction == HeroFaction::Player){
+
 			commandQueue.push(attackCommand);
+			if (heroClass == Archer) playSoundEffect(commandQueue, SoundEffect::shotArrow);
+			else if (heroClass == Mage) playSoundEffect(commandQueue, SoundEffect::castBlast);
+		}
+		
 		else if (heroFaction == HeroFaction::Enemy)
 			commandQueue.push(enemyAttackCommand);
 
@@ -165,4 +171,14 @@ void Hero::launchAttack(){
 Hero::HeroClass Hero::getHeroClass() const {
 
 	return heroClass;
+}
+
+void Hero::playSoundEffect(CommandQueue& commandQueue, SoundEffect soundEffect){
+
+	sf::Vector2f position = getWorldPosition();
+
+	Command command;
+	command.receiver = Receiver::SoundEffect;
+	command.action = HeroSoundPlayer(soundEffect, position); //functor that calls the soundplayer
+	commandQueue.push(command);
 }

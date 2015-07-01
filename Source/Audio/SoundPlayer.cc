@@ -1,6 +1,7 @@
 #include "SoundPlayer.hpp"
 
 #include <SFML/Audio/Listener.hpp>
+#include <cmath>
 
 const float listenerZ = 300.f; //Z coordinate, listener's distance from monitor
 const float attenuation = 8.f; //attenuation factor
@@ -55,5 +56,5 @@ sf::Vector2f SoundPlayer::getListenerPosition() const {
 
 	//return a 2D audio position for non-spatialized sounds
 	sf::Vector3f position = sf::Listener::getPosition();
-	return sf::Vector3f(position.x, -position.y);
+	return sf::Vector2f(position.x, -position.y);
 }

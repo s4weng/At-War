@@ -10,7 +10,7 @@
 const std::vector<HeroData> heroDataTable = initializeHeroes();
 const std::vector<ProjectileData> projectileDataTable = initializeProjectiles();
 
-World::World(sf::RenderWindow& window):
+World::World(sf::RenderWindow& window, SoundPlayer& soundPlayer):
 window(window),
 view(window.getDefaultView()),
 battlefield(sf::FloatRect(0.f, BATTLEFIELDHEIGHT, BATTLEFIELDWIDTH, view.getSize().y - BATTLEFIELDHEIGHT)),
@@ -18,7 +18,7 @@ worldBounds(0.f, 0.f, 3000.f, view.getSize().y),
 playerSpawnPosition(view.getSize().x/2.f, worldBounds.height - view.getSize().y/2.f),
 animationData(textureContainer),
 playerHero(nullptr),
-scrollSpeed(0.f){
+soundPlayer(soundPlayer){
 
 	sceneTexture.create(window.getSize().x, window.getSize().y);
 	loadTextures();
@@ -69,6 +69,9 @@ void World::initScene(){
 	playerHero->setPosition(playerSpawnPosition);
 	sceneLayers[Ground]->attachNode(std::move(mainHero));
 
+	std::shared_ptr<SoundNode> soundNode(new SoundNode(soundPlayer));
+	sceneGraph.attachNode(std::move(soundNode));
+
 	addEnemySpawns();
 	spawnEnemies();
 }
@@ -107,7 +110,8 @@ void World::update(sf::Time deltaTime){
 
 	//forward any command in the queue to the scene graph
 	while (!commandQueue.isEmpty())
-		sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
+		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
+		//sceneLayers[Ground]->onCommand(commandQueue.pop(), deltaTime);
 
 	sceneGraph.removeDead();
 	removeDeadEnemies();

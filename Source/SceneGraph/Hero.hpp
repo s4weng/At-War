@@ -57,6 +57,8 @@ public:
 	virtual unsigned int getReceiver() const;
 	virtual sf::FloatRect getBoundingRect() const;
 
+	void playSoundEffect(CommandQueue& commandQueue, SoundEffect soundEffect);
+
 private:
 
 	HeroFaction heroFaction;

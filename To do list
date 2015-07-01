@@ -3,8 +3,8 @@ In progress:
 - Remove all MiniBlast1
 - Animations
 	-> Both archer and druid death animation flashes first frame at end
-- New battlefield not yet implemented (spawn enemies upon new battlefield is thus not tested)
 - Implement different offset for each hero's projectile spawn
+- Multiplayer LAN support
 
 
 Medium Priority -

@@ -3,9 +3,9 @@
 #include <SFML/Audio/Listener.hpp>
 #include <cmath>
 
-const float listenerZ = 300.f; //Z coordinate, listener's distance from monitor
-const float attenuation = 8.f; //attenuation factor
-const float minDistance2D = 200.f; //min distance between listener and sound (on a 2D plane)
+const float listenerZ = 500.f; //Z coordinate, listener's distance from monitor
+const float attenuation = 5.f; //attenuation factor
+const float minDistance2D = 100.f; //min distance between listener and sound (on a 2D plane)
 const float minDistance3D = std::sqrt(minDistance2D*minDistance2D + listenerZ*listenerZ); //Pythagorean to calculate according to 2D minDistance
 
 SoundPlayer::SoundPlayer(): soundEffects(), sounds(){

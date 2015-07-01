@@ -13,8 +13,8 @@ namespace Receiver {
 		AlliedHero = 1 << 2,
 		EnemyHero = 1 << 3,
 		PlayerProjectile = 1 << 4,
-		AlliedProjectile = 1 << 5,
-		EnemyProjectile = 1 << 6,
+		EnemyProjectile = 1 << 5,
+		SoundEffect = 1 << 6,
 
 		Hero = PlayerHero | AlliedHero | EnemyHero,
 		Projectile = PlayerProjectile | AlliedProjectile | EnemyProjectile

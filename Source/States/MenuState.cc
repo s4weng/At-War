@@ -18,7 +18,7 @@ container() {
 	});
 
 	auto settingsButton = std::make_shared<Button>(shareView);
-	settingsButton->setPosition(450.f, 200.f);
+	settingsButton->setPosition(450.f, 225.f);
 	settingsButton->setText("Settings");
 	settingsButton->setCallback([this] () {
 
@@ -26,7 +26,7 @@ container() {
 	});
 
 	auto quitButton = std::make_shared<Button>(shareView);
-	quitButton->setPosition(450.f, 250.f);
+	quitButton->setPosition(450.f, 300.f);
 	quitButton->setText("Quit");
 	quitButton->setCallback([this] () {
 

@@ -27,7 +27,7 @@ void Button::setCallback(Callback callback){
 void Button::setText(const std::string& text){
 
 	this->text.setString(text);
-	this->text.setColor(sf::Color::Blue);
+	this->text.setColor(sf::Color::White);
 
 	sf::FloatRect bounds = this->text.getLocalBounds();
 	this->text.setOrigin(bounds.width / 2.f, bounds.height / 2.f);

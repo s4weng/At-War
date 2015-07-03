@@ -27,6 +27,7 @@ private:
 
 	sf::Sprite background;
 	Container container;
+	sf::Text upText, downText, leftText, rightText, attackText;
 	Button::buttonPtr walkUpButton, walkDownButton, walkLeftButton, walkRightButton, attackButton;
 	std::map<PlayerInput::PlayerAction, std::string> actionStringMap;
 };

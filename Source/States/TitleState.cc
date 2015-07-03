@@ -6,26 +6,27 @@
 
 TitleState::TitleState(StateStack& stateStack, ShareView shareView):
 State(stateStack, shareView),
-titleText(),
+//titleText(),
 continueText(),
 showText(true),
 textFlash(sf::Time::Zero){
 
 	background.setTexture(shareView.textureContainer->get(TextureSheet::titleBackground));
 
-	titleText.setFont(shareView.fontContainer->get(Fonts::main));
+	//titleText.setFont(shareView.fontContainer->get(Fonts::main));
 	//titleText.setString("At War");
 	//titleText.setCharacterSize(50);
 	
 	//move the string according to its center
-	sf::FloatRect bounds = titleText.getLocalBounds();
+
+	/*sf::FloatRect bounds = titleText.getLocalBounds();
 	titleText.setOrigin(bounds.width/2.f, bounds.height/2.f);
-	titleText.setPosition(shareView.window->getView().getSize().x / 2.f, 28.f);
+	titleText.setPosition(shareView.window->getView().getSize().x / 2.f, 28.f);*/
 
 	continueText.setFont(shareView.fontContainer->get(Fonts::main));
 	continueText.setString("Press any key to continue");
 	continueText.setCharacterSize(18);
-	bounds = continueText.getLocalBounds();
+	sf::FloatRect bounds = continueText.getLocalBounds();
 	continueText.setOrigin(bounds.width/2.f, bounds.height/2.f);
 	continueText.setPosition(shareView.window->getView().getSize().x / 2.f, 475.f);
 
@@ -40,7 +41,7 @@ void TitleState::draw(){
 	if(showText)
 		window.draw(continueText);
 
-	window.draw(titleText);
+	//window.draw(titleText);
 }
 
 bool TitleState::update(sf::Time deltaTime){

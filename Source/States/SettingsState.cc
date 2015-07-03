@@ -11,19 +11,39 @@ container(){
 	background.setTexture(shareView.textureContainer->get(TextureSheet::settingsBackground));
 
 	walkUpButton = std::make_shared<Button>(shareView);
-	walkUpButton->setPosition(80.f, 30.f);
+	walkUpButton->setPosition(50.f, 30.f);
+	upText.setFont(shareView.fontContainer->get(Fonts::main));
+	upText.setString("Up");
+	upText.setCharacterSize(27);
+	upText.setPosition(360.f, 50.f);
 
 	walkDownButton = std::make_shared<Button>(shareView);
-	walkDownButton->setPosition(80.f, 95.f);
+	walkDownButton->setPosition(50.f, 95.f);
+	downText.setFont(shareView.fontContainer->get(Fonts::main));
+	downText.setString("Down");
+	downText.setCharacterSize(27);
+	downText.setPosition(360.f, 115.f);
 
 	walkLeftButton = std::make_shared<Button>(shareView);
-	walkLeftButton->setPosition(80.f, 160.f);
+	walkLeftButton->setPosition(50.f, 160.f);
+	leftText.setFont(shareView.fontContainer->get(Fonts::main));
+	leftText.setString("Left");
+	leftText.setCharacterSize(27);
+	leftText.setPosition(360.f, 180.f);
 
 	walkRightButton = std::make_shared<Button>(shareView);
-	walkRightButton->setPosition(80.f, 225.f);
+	walkRightButton->setPosition(50.f, 225.f);
+	rightText.setFont(shareView.fontContainer->get(Fonts::main));
+	rightText.setString("Right");
+	rightText.setCharacterSize(27);
+	rightText.setPosition(360.f, 245.f);
 
 	attackButton = std::make_shared<Button>(shareView);
-	attackButton->setPosition(80.f, 290.f);
+	attackButton->setPosition(50.f, 290.f);
+	attackText.setFont(shareView.fontContainer->get(Fonts::main));
+	attackText.setString("Attack");
+	attackText.setCharacterSize(27);
+	attackText.setPosition(360.f, 310.f);
 
 	updateControl();
 	walkUpButton->setToggle(true);
@@ -39,7 +59,7 @@ container(){
 	container.pack(attackButton);
 
 	auto menuButton = std::make_shared<Button>(shareView);
-	menuButton->setPosition(80.f, 400.f);
+	menuButton->setPosition(50.f, 400.f);
 	menuButton->setText("Main Menu");
 	menuButton->setCallback(std::bind(&SettingsState::requestStackPop, this));
 
@@ -52,6 +72,12 @@ void SettingsState::draw(){
 
 	window.draw(background);
 	window.draw(container);
+
+	window.draw(upText);
+	window.draw(downText);
+	window.draw(leftText);
+	window.draw(rightText);
+	window.draw(attackText);
 }
 
 bool SettingsState::update(sf::Time deltaTime){

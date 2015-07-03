@@ -16,7 +16,8 @@ public:
 private:
 
 	sf::Sprite background;
-	sf::Text titleText, continueText;
+	sf::Text continueText;
+	//sf::Text titleText;
 	bool showText;
 	sf::Time textFlash;
 };

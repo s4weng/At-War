@@ -5,8 +5,8 @@ music(),
 fileNames(),
 volume(100.f){
 
-	fileNames[Music::mainTheme] = "Music/mainTheme.ogg";
-	fileNames[Music::gameplay] = "Music/gameplay.ogg";
+	fileNames[Music::mainTheme] = "Music/mainTheme.wav";
+	fileNames[Music::gameplay] = "Music/gameplay.wav";
 }
 
 void MusicPlayer::play(Music theme){

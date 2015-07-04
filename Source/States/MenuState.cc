@@ -23,7 +23,7 @@ container() {
 	multiplayerButton->setCallback([this] () {
 
 		requestStackPop();
-		requestStackPush(StateID::MultiGame);
+		requestStackPush(StateID::MultiplayerMenu);
 	});
 
 	auto settingsButton = std::make_shared<Button>(shareView);

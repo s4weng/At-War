@@ -17,6 +17,8 @@ public:
 	explicit StateStack(State::ShareView shareView);
 	template <typename T>
 	void registerState(StateID stateID);
+	template <typename T>
+	void registerState(StateID stateID, bool isHost);
 
 	void handleEvent(const sf::Event& event);
 	void update(sf::Time deltaTime);
@@ -56,6 +58,17 @@ void StateStack::registerState(StateID stateID){
 	factories[stateID] = [this] () {
 
 		return State::statePtr(new T(*this, shareView));
+	};
+}
+
+//override for multiplayergamestate
+template <typename T>
+void StateStack::registerState(StateID stateID, bool isHost){
+
+	//set up mapping from state ID to corresponding factory function to create state
+	factories[stateID] = [this, isHost] () {
+
+		return State::statePtr(new T(*this, shareView, isHost));
 	};
 }
 

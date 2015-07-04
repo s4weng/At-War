@@ -13,7 +13,9 @@ enum class StateID {
 	Title,
 	Menu,
 	Game,
-	MultiGame,
+	MultiplayerMenu,
+	Host,
+	Join,
 	Pause,
 	Settings
 };

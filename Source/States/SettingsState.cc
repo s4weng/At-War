@@ -61,7 +61,10 @@ container(){
 	auto menuButton = std::make_shared<Button>(shareView);
 	menuButton->setPosition(50.f, 400.f);
 	menuButton->setText("Main Menu");
-	menuButton->setCallback(std::bind(&SettingsState::requestStackPop, this));
+	menuButton->setCallback([this] () {
+
+		requestStackPop();
+	});
 
 	container.pack(menuButton);
 }

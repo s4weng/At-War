@@ -20,7 +20,8 @@ private:
 
 	enum Options {
 
-		Play,
+		Singleplayer,
+		Multiplayer,
 		Settings,
 		Quit
 	};

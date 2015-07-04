@@ -8,17 +8,26 @@ container() {
 
 	background.setTexture(shareView.textureContainer->get(TextureSheet::menuBackground));
 
-	auto playButton = std::make_shared<Button>(shareView);
-	playButton->setPosition(450.f, 150.f);
-	playButton->setText("Play");
-	playButton->setCallback([this] () {
+	auto singleplayerButton = std::make_shared<Button>(shareView);
+	singleplayerButton->setPosition(450.f, 110.f);
+	singleplayerButton->setText("Singleplayer");
+	singleplayerButton->setCallback([this] () {
 
 		requestStackPop();
 		requestStackPush(StateID::Game);
 	});
 
+	auto multiplayerButton = std::make_shared<Button>(shareView);
+	multiplayerButton->setPosition(450.f, 175.f);
+	multiplayerButton->setText("Multiplayer");
+	multiplayerButton->setCallback([this] () {
+
+		requestStackPop();
+		requestStackPush(StateID::MultiGame);
+	});
+
 	auto settingsButton = std::make_shared<Button>(shareView);
-	settingsButton->setPosition(450.f, 225.f);
+	settingsButton->setPosition(450.f, 240.f);
 	settingsButton->setText("Settings");
 	settingsButton->setCallback([this] () {
 
@@ -26,14 +35,15 @@ container() {
 	});
 
 	auto quitButton = std::make_shared<Button>(shareView);
-	quitButton->setPosition(450.f, 300.f);
+	quitButton->setPosition(450.f, 305.f);
 	quitButton->setText("Quit");
 	quitButton->setCallback([this] () {
 
 		requestStackPop();
 	});	
 
-	container.pack(playButton);
+	container.pack(singleplayerButton);
+	container.pack(multiplayerButton);
 	container.pack(settingsButton);
 	container.pack(quitButton);
 }

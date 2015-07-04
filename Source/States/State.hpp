@@ -13,6 +13,7 @@ enum class StateID {
 	Title,
 	Menu,
 	Game,
+	MultiGame,
 	Pause,
 	Settings
 };

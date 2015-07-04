@@ -3,6 +3,7 @@
 #include "MenuState.hpp"
 #include "GameState.hpp"
 #include "MultiplayerMenuState.hpp"
+#include "MultiplayerGameState.hpp"
 #include "PauseState.hpp"
 #include "SettingsState.hpp"
 
@@ -92,6 +93,8 @@ void GameController::registerStates(){
 	stateStack.registerState<MenuState>(StateID::Menu);
 	stateStack.registerState<GameState>(StateID::Game);
 	stateStack.registerState<MultiplayerMenuState>(StateID::MultiplayerMenu);
+	stateStack.registerState<MultiplayerGameState>(StateID::HostGame, true);
+	stateStack.registerState<MultiplayerGameState>(StateID::JoinGame, false);
 	stateStack.registerState<PauseState>(StateID::Pause);
 	stateStack.registerState<SettingsState>(StateID::Settings);
 }

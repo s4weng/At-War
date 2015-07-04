@@ -22,7 +22,6 @@ container() {
 	multiplayerButton->setText("Multiplayer");
 	multiplayerButton->setCallback([this] () {
 
-		requestStackPop();
 		requestStackPush(StateID::MultiplayerMenu);
 	});
 

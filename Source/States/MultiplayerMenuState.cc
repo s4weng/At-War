@@ -11,12 +11,20 @@ container() {
 	auto hostButton = std::make_shared<Button>(shareView);
 	hostButton->setPosition(450.f, 110.f);
 	hostButton->setText("Host");
-	//hostButton->setCallback([this] () {});
+	hostButton->setCallback([this] () {
+
+		requestStackPop();
+		requestStackPush(StateID::HostGame);
+	});
 
 	auto joinButton = std::make_shared<Button>(shareView);
 	joinButton->setPosition(450.f, 175.f);
 	joinButton->setText("Join");
-	//joinButton->setCallback([this] () {});
+	joinButton->setCallback([this] () {
+
+		requestStackPop();
+		requestStackPush(StateID::JoinGame);
+	});
 
 	auto menuButton = std::make_shared<Button>(shareView);
 	menuButton->setPosition(450.f, 240.f);

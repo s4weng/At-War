@@ -4,6 +4,13 @@
 #include "State.hpp"
 #include "World.hpp"
 #include "PlayerInput.hpp"
+#include "MultiplayerServer.hpp"
+#include "NetworkInfo.hpp"
+
+#include <SFML/System/Clock.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Network/TcpSocket.hpp>
+#include <SFML/Network/Packet.hpp>
 
 class MultiplayerGameState : public State {
 
@@ -18,9 +25,17 @@ public:
 
 private:
 
-	typedef std::unique_ptr<PlayerInput> playerPtr;
+	std::unique_ptr<MultiplayerServer> server;
+	sf::TcpSocket socket;
+	sf::Clock failedConnectionClock;
+	sf::Clock tickClock;
+	sf::Time lastPacketTime;
+	sf::Time timeOut;
 
+	bool isConnected;
 	bool isHost;
+	bool gameStarted;
+	bool activeState, isFocused;
 	World world;
 	PlayerInput& playerInput;
 };

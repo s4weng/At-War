@@ -2,16 +2,18 @@
 #define _PLAYERINPUT_HPP
 
 #include "CommandQueue.hpp"
-//#include "Hero.hpp"
 
 #include <map>
-#include <SFML/Window.hpp>
 
-class PlayerInput {
+#include <SFML/System/NonCopyable.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Network/TcpSocket.hpp>
+
+class PlayerInput : private sf::NonCopyable {
 
 public:
 
-	PlayerInput();
+	PlayerInput(sf::TcpSocket* socket, );
 
 	enum class PlayerAction {
 
@@ -24,6 +26,7 @@ public:
 
 	void handleEvent(const sf::Event& event, CommandQueue& commandQueue);
 	void handleRealtimeInput(CommandQueue& commandQueue);
+	void handleRealtimeNetworkInput(CommandQueue& commandQueue);
 
 	void assignKey(PlayerAction action, sf::Keyboard::Key key);
 	sf::Keyboard::Key getAssignedKey(PlayerAction action) const;

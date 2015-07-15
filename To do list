@@ -1,5 +1,9 @@
 High Priority -
 In progress:
+Networking
+- Pause screen update (underlying states should still update)
+
+
 - Remove all MiniBlast1
 - Animations
 	-> Both archer and druid death animation flashes first frame at end
@@ -16,3 +20,5 @@ Medium Priority -
 Low Priority/Functionality -
 - Implement ally AI (attack distance for y-axis, knockdown of characters (and walkaround)
 - Classify Fonts (TextureInfo)
+
+*** Removed some lines that look incorrect in GameState (and MultiplayerGameState); check out handleEvent function if pausing or events aren't executing correctly

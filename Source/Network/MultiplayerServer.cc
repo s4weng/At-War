@@ -1,12 +1,15 @@
 #include "MultiplayerServer.hpp"
 #include "NetworkInfo.hpp"
 
+EntityInfo::EntityInfo(sf::Vector2f position, sf::Int32 hitpoints): position(position), hitpoints(hitpoints){
+}
+
 MultiplayerServer::RemotePeer::RemotePeer(): ready(false), timedOut(false){
 
 	socket.setBlocking(false);
 }
 
-MultiplayerServer::MultiplayerServer(sf::Vector2f currentView):
+MultiplayerServer::MultiplayerServer():
 connectedPeers(0),
 maxPeers(3),
 heroCount(0),
@@ -37,7 +40,7 @@ void MultiplayerServer::executeServerThread(){
 	sf::Time tickTime = sf::Time::Zero;
 	sf::Clock stepClock, tickClock;
 
-	while (!waitingTreadEnd){
+	while (!waitingThreadEnd){
 
 		handleIncomingPackets();
 		handleIncomingConnections();
@@ -98,24 +101,19 @@ void handleIncomingPacket(sf::Packet& packet, RemotePeer& remotePeer, bool timed
 
 	switch(packetType){
 
-		case ClientPacketType::PlayerEvent: {
+		case ClientPacketType::SpawnProjectile: {
 
-			sf::Int32 heroID;
-			sf::Int32 action;
-			packet >> heroID >> action;
-
-			notifyPlayerEvent(heroID, action);
+			int projectileType;
+			float posX, posY;
+			packet >> projectileType >> posX >> posY;
+			
 		} break;
 
-		case ClientPacketType::PlayerRealtimeChange: {
+		case ClientPacketType::Collision: {
 
-			sf::Int32 heroID;
-			sf::Int32 action;
-			bool actionEnabled;
+			sf::Int32 projectileID, heroID;
+			packet >> projectileID >> heroID;
 
-			packet >> heroID >> action >> actionEnabled;
-			heroInfoMap[heroID].realtimeActions[action] = actionEnabled;
-			notifyPlayerRealtimeChange(heroID, action, actionEnabled);
 		} break;
 
 		case ClientPacketType::PositionUpdate: {
@@ -136,7 +134,7 @@ void handleIncomingPacket(sf::Packet& packet, RemotePeer& remotePeer, bool timed
 		} break;
 
 		//sort of a fake way to disconnect client
-		case ClientPacketType::Quit: {
+		case ClientPacketType::Disconnect: {
 
 			remotePeer.timedOut = true;
 			timedOut = true;

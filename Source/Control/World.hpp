@@ -23,6 +23,9 @@ public:
 	void draw();
 	CommandQueue& getCommandQueue();
 
+	sf::Vector2f getHeroPosition(sf::Int32 heroID);
+	int getHeroHitpoints(sf::Int32 heroID);
+
 private:
 
 	//normal enums so LayerCount's index can be used directly as int

@@ -13,12 +13,21 @@
 #include <memory>
 #include <map>
 
+
+struct EntityInfo {
+
+	EntityInfo(sf::Vector2f position, sf::Int32 hitpoints);
+
+	sf::Vector2f position;
+	sf::Int32 hitpoints;
+};
+
 //we'll use fixed-size sf::Int32 to achieve consistency between sender/receiver
 class MultiplayerServer {
 
 public:
 
-	explicit MultiplayerServer(sf::Vector2f currentView);
+	MultiplayerServer();
 	~MultiplayerServer();
 
 private:
@@ -34,14 +43,6 @@ private:
 	};
 
 	typedef std::unique_ptr<RemotePeer> PeerPtr;
-
-	//current hero's state
-	struct HeroInfo {
-
-		sf::Vector2f position;
-		sf::Int32 hitpoints;
-		std::map<sf::Int32, bool> realtimeActions;
-	};
 
 	void setListeningState(bool listen);
 	void tick();
@@ -59,8 +60,12 @@ private:
 	int heroCount;
 	bool listeningState;
 	bool waitingThreadEnd;
-	sf::Int32 heroIDCount; //will also be the ID
-	std::map<sf::Int32, HeroInfo> heroInfoMap;
+
+	sf::Int32 playerIDCount, enemyIDCount;
+	std::map<sf::Int32, EntityInfo> playerHeroInfoMap;
+	std::map<sf::Int32, EntityInfo> enemyHeroInfoMap;
+	std::map<sf::Int32, EntityInfo> projectileInfoMap;
+
 	std::vector<PeerPtr> peers; //one is invalid (length n+1)
 
 	sf::TcpListener listenerSocket;

@@ -26,7 +26,6 @@ public:
 
 	void handleEvent(const sf::Event& event, CommandQueue& commandQueue);
 	void handleRealtimeInput(CommandQueue& commandQueue);
-	void handleRealtimeNetworkInput(CommandQueue& commandQueue);
 
 	void assignKey(PlayerAction action, sf::Keyboard::Key key);
 	sf::Keyboard::Key getAssignedKey(PlayerAction action) const;

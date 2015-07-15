@@ -12,6 +12,9 @@
 #include <SFML/Network/TcpSocket.hpp>
 #include <SFML/Network/Packet.hpp>
 
+#include <vector>
+#include <string>
+
 class MultiplayerGameState : public State {
 
 public:
@@ -25,6 +28,11 @@ public:
 
 private:
 
+	void handleIncomingPacket(sf::Int32 packetType, sf::Packet packet);
+	void updateBroadcastMessage(sf::Time deltaTime);
+
+	std::vector<std::pair<sf::Text, sf::Time> > broadcastMessages;
+
 	std::unique_ptr<MultiplayerServer> server;
 	sf::TcpSocket socket;
 	sf::Clock failedConnectionClock;
@@ -34,9 +42,16 @@ private:
 
 	bool isConnected;
 	bool isHost;
-	bool gameStarted;
 	bool activeState, isFocused;
+
+	sf::Int32 playerIDCount, enemyIDCount;
+	std::map<sf::Int32, EntityInfo> playerHeroInfoMap;
+	std::map<sf::Int32, EntityInfo> enemyHeroInfoMap;	
+	std::map<sf::Int32, EntityInfo> projectileInfoMap;
+
+	float currentView;
 	World world;
+	sf::RenderWindow& window;
 	PlayerInput& playerInput;
 };
 

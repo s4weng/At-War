@@ -130,21 +130,23 @@ void MultiplayerServer::handleIncomingPacket(sf::int32 packetType, sf::Packet pa
 
 		} break;
 
-		case ServerPacketType::PositionUpdate: {
+		case ServerPacketType::EntityUpdate: {
 
-			sf::Int32 id;
+			sf::Int32 id, hitpoints;
 			unsigned int heroFaction;
 			float posX, posY;
-			packet >> id >> heroFaction >> posX >> posY;
+			packet >> id >> hitpoints >> heroFaction >> posX >> posY;
 
 			if (heroFaction == 0){
 
+				playerHeroInfoMap[id].hitpoints = hitpoints;
 				playerHeroInfoMap[id].position.x = posX;
 				playerHeroInfoMap[id].position.y = posY;
 			}
 
 			else {
 
+				enemyHeroInfoMap[id].hitpoints = hitpoints;				
 				enemyHeroInfoMap[id].position.x = posX;
 				enemyHeroInfoMap[id].position.y = posY;
 			}

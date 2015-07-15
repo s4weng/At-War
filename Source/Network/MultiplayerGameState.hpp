@@ -44,7 +44,7 @@ private:
 	bool isHost;
 	bool activeState, isFocused;
 
-	sf::Int32 playerIDCount, enemyIDCount;
+	sf::Int32 playerIDCount, enemyIDCount, projectileIDCount;
 	std::map<sf::Int32, EntityInfo> playerHeroInfoMap;
 	std::map<sf::Int32, EntityInfo> enemyHeroInfoMap;	
 	std::map<sf::Int32, EntityInfo> projectileInfoMap;

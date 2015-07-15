@@ -56,12 +56,13 @@ private:
 	void sendAll(sf::Packet& packet);
 	void broadcast(const std::string& text);
 
+	float currentView;
 	int connectedPeers, maxPeers;
 	int heroCount;
 	bool listeningState;
 	bool waitingThreadEnd;
 
-	sf::Int32 playerIDCount, enemyIDCount;
+	sf::Int32 playerIDCount, enemyIDCount, projectileIDCount;
 	std::map<sf::Int32, EntityInfo> playerHeroInfoMap;
 	std::map<sf::Int32, EntityInfo> enemyHeroInfoMap;
 	std::map<sf::Int32, EntityInfo> projectileInfoMap;

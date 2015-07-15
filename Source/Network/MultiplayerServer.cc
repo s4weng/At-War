@@ -69,7 +69,7 @@ void MultiplayerServer::handleIncomingPackets(){
 
 	bool timedOut = false;
 
-	for (PeerPtr& peer, peers){
+	for (PeerPtr& peer : peers){
 
 		if (peer->ready){
 
@@ -118,26 +118,18 @@ void handleIncomingPacket(sf::Packet& packet, RemotePeer& remotePeer, bool timed
 
 		case ClientPacketType::PositionUpdate: {
 
-			sf::Int32 numHeroes;
-			packet >> numHeroes;
+			sf::Vector2f heroPosition;
 
-			for (sf::Int32 i = 0; i < numHeroes; ++i){
+			packet >> heroPosition.x >> heroPosition.y;
+			playerHeroInfoMap[remotePeer->heroID].position = heroPosition;
 
-				sf::Int32 heroID;
-				sf::Int32 heroHitpoints;
-				sf::Vector2f heroPosition;
-
-				packet >> heroID >> heroPosition.x >> heroPosition.y >> heroHitpoints;
-				heroInfoMap[heroID].position = heroPosition;
-				heroInfoMap[heroID].hitpoints = heroHitpoints;
-			}
 		} break;
 
-		//sort of a fake way to disconnect client
 		case ClientPacketType::Disconnect: {
 
 			remotePeer.timedOut = true;
 			timedOut = true;
+
 		} break;
 	}
 }
@@ -146,20 +138,21 @@ void MultiplayerServer::handleIncomingConnections(){
 
 	if(listenerSocket.accept(peers[connectedPeers]->socket) == sf::TcpListener::Done){
 
-		heroInfoMap[heroIDCount].position = currentView;
-		heroInfoMap[heroIDCount].hitpoints = 100;
+		heroInfoMap[playerIDCount].position.x = currentView;
+		heroInfoMap[playerIDCount].position.y = 250.f;
+		heroInfoMap[playerIDCount].hitpoints = 100;
 
 		sf::Packet packet;
-		packet << static_cast<sf::Int32>(ServerPacketType::Spawn);
+		packet << static_cast<sf::Int32>(ServerPacketType::SpawnSelf);
 		packet << heroIDCount;
-		packet << heroInfoMap[heroIDCount].position.x;
-		packet << heroInfoMap[heroIDCount].position.y;
+		packet << heroInfoMap[playerIDCount].position.x;
+		packet << heroInfoMap[playerIDCount].position.y;
 
-		peers[connectedPeers]->heroID.push_back(heroIDCount);
+		peers[connectedPeers]->heroID.push_back(playerIDCount);
 
 		broadcast("A player joined.");
 		passCurrentState(peers[connectedPeers]->socket);
-		passNewPeer(heroIDCount);
+		passNewPeer(playerIDCount);
 		++heroIDCount;
 
 		peers[connectedPeers]->socket.send(packet);
@@ -193,7 +186,7 @@ void MultiplayerServer::passCurrentState(sf::TcpSocket& socket){
 
 	sf::Packet packet;
 	packet << static_cast<sf::Int32>(ServerPacketType::InitialState);
-	//packet << worldWidth << currentView.x + currentView.width;
+	packet << currentView;
 	packet << static_cast<sf::Int32>(heroCount);
 
 	for (int i = 0; i < connectedPeers; ++i){

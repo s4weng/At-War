@@ -6,7 +6,7 @@ const unsigned short ServerPort = 5000;
 enum ServerPacketType {
 
 	Broadcast, //string message; broadcasts a message on every player's screen
-	PositionUpdate, //sf::Int32 id, unsigned int heroFaction, float posX, float posY; passes new position of any entity
+	EntityUpdate, //sf::Int32 id, sf::Int32 hitpoints, unsigned int heroFaction, float posX, float posY; passes new position of any entity
 	SpawnSelf, //sf::Int32 id, float posX, float posY; tells a player to spawn itself upon initialization
 	InitialState, //float battlefieldViewWidth; passes the current view to new player
 	SpawnEnemy, //sf::Int32 id, sf::Int32 hitpoints, float posX, float posY; passes newly spawned enemy

@@ -58,8 +58,14 @@ private:
 	SceneNode sceneGraph;
 	std::array<SceneNode*, LayerCount> sceneLayers;
 	CommandQueue commandQueue;
-	std::vector<SpawnPoint> enemySpawns;
+	//std::vector<SpawnPoint> enemySpawns;
+
 	std::vector<std::shared_ptr<Hero>> currentEnemies;
+
+	std::map<sf::Int32, EntityInfo> playerHeroInfoMap;
+	std::map<sf::Int32, EntityInfo> enemyHeroInfoMap;	
+	std::map<sf::Int32, EntityInfo> projectileInfoMap;
+
 	BloomEffect bloomEffect;
 	SoundPlayer& soundPlayer;
 
